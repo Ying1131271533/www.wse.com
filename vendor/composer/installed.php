@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'v6.0.12',
-        'version' => '6.0.12.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '7771f671683f84a9f12cdcc93d3210d44b07f0b2',
         'name' => 'topthink/think',
         'dev' => true,
     ),
@@ -128,12 +128,12 @@
             'dev_requirement' => false,
         ),
         'topthink/think' => array(
-            'pretty_version' => 'v6.0.12',
-            'version' => '6.0.12.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '7771f671683f84a9f12cdcc93d3210d44b07f0b2',
             'dev_requirement' => false,
         ),
         'topthink/think-helper' => array(
@@ -143,6 +143,15 @@
             'install_path' => __DIR__ . '/../topthink/think-helper',
             'aliases' => array(),
             'reference' => '769acbe50a4274327162f9c68ec2e89a38eb2aff',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-multi-app' => array(
+            'pretty_version' => 'v1.0.14',
+            'version' => '1.0.14.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-multi-app',
+            'aliases' => array(),
+            'reference' => 'ccaad7c2d33f42cb1cc2a78d6610aaec02cea4c3',
             'dev_requirement' => false,
         ),
         'topthink/think-orm' => array(

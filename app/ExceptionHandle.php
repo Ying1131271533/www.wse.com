@@ -1,6 +1,7 @@
 <?php
 namespace app;
 
+use app\lib\exception\BaseException;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
 use think\exception\Handle;
@@ -51,6 +52,18 @@ class ExceptionHandle extends Handle
     public function render($request, Throwable $e): Response
     {
         // 添加自定义异常处理机制
+        if ($e instanceof BaseException) {
+            return show($e->msg, $e->code, $e->status, $e->data);
+        }
+
+        if ($e instanceof \Exception) {
+            if (env('APP_DEBUG')) {
+                // 这里打开后就只能在接口显示错误
+                // return show($e->getMessage(), $e->getCode());
+            } else {
+                return show('系统内部错误', $e->getCode());
+            }
+        }
 
         // 其他错误交给系统处理
         return parent::render($request, $e);

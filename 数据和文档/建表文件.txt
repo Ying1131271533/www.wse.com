@@ -1,0 +1,98 @@
+
+admin - 管理员
+
+id int id
+username char(25) 管理员名称
+real_name char(25) 真实名字
+password char(32) 密码
+phone char(25) null 手机
+wechat char(50) null 微信
+status tinyint(1) 1 登录状态：0 禁止 1 正常
+login_number int 0 登录次数
+last_login_ip char(20) null 上次登录IP
+last_login_time char(20) null 上次登录时间
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+role - 角色
+
+id int id
+name char(25) 角色名称
+explain char(50) 角色介绍
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+node - 节点
+
+id int id
+node char(45) 节点
+name char(25) 名称
+layer_level tinyint(1) 层级
+parent_id int 父级id
+show tinyint(1) 显示 0 否 1 是
+sort int 排序
+icon char(45) null 图标
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+category - 分类
+
+id int id
+parent_id int id 父级id
+name char(25) 分类名称
+icon char(100) null 图标
+sort int 排序
+status tinyint(1) 状态
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+
+user - 用户
+
+id int id
+username char(25) 用户名
+password char(32) 密码
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
