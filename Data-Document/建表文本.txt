@@ -59,24 +59,23 @@ user - 用户
 
 id int id
 username char(25) 用户名
+nickname char(25) null 昵称
 password char(32) 密码
-
-
-
-
-article_comment - 文章评论
-
-id int id
-content char(255) 评论内容 
-user_id int 评论人用户id
-parent_id int 0 上级ID，如果为0表示文章的顶级评论
-nickname char(20) 评论人昵称
-like_num int 点赞数
-reply_num int 回复数
-status tinyint(1) 状态: 0 不可见 1 可见
+phone char(25) null 手机
+email char(50) null 邮箱
+wechat char(50) null 微信
+introduction char(255) null 简介
+status tinyint(1) 1 登录状态：0 禁止 1 正常
+login_number int 0 登录次数
+last_login_ip char(20) null 上次登录IP
+last_login_time char(20) null 上次登录时间
 update_time int 更新时间
 create_time int 创建时间
 delete_time int null 删除时间
+
+
+
+
 
 
 
