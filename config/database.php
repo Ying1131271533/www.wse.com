@@ -24,13 +24,13 @@ return [
             // 数据库类型
             'type'            => env('database.type', 'mysql'),
             // 服务器地址
-            'hostname'        => env('database.hostname', '127.0.0.1'),
+            'hostname'        => env('database.hostname', 'mysql'),
             // 数据库名
-            'database'        => env('database.database', ''),
+            'database'        => env('database.database', 'www_wse_com'),
             // 用户名
-            'username'        => env('database.username', 'root'),
+            'username'        => env('database.username', 'www_wse_com'),
             // 密码
-            'password'        => env('database.password', ''),
+            'password'        => env('database.password', 'dTxP]al^jMGzBX2Ac_3@p.cMh'),
             // 端口
             'hostport'        => env('database.hostport', '3306'),
             // 数据库连接参数
@@ -56,6 +56,24 @@ return [
             'trigger_sql'     => env('app_debug', true),
             // 开启字段缓存
             'fields_cache'    => false,
+        ],
+        'mongo'    =>    [
+            // 数据库类型
+            'type'        => 'mongo',
+            // 服务器地址
+            'hostname'    => 'mongo',
+            // 数据库名
+            'database'    => 'www_wse_com',
+            // 数据库用户名
+            'username'    => 'wse',
+            // 数据库密码
+            'password'    => '2S-ka]aAw^H?MdL/k@.n-dwXR',
+            // 数据库连接端口
+            'hostport'    => '27017',
+            // 数据库连接参数
+            'params'      => [],
+            // 数据库编码默认采用utf8
+            'charset'     => 'utf8',
         ],
 
         // 更多的数据库配置信息

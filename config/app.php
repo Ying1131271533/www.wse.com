@@ -34,4 +34,41 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => false,
+
+    /************** 自定义配置 **************/
+
+    // 页码
+    'page'             => 1,
+    'size'             => 20,
+
+    // redis连接配置
+    'redis'            => [
+        'host'     => 'redis',
+        'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
+        'port'     => 6379,
+    ],
+
+    // memcache连接配置
+    'memcache'         => [
+        'host'     => 'memcache',
+        'password' => '',
+        'port'     => 11211,
+    ],
+
+    // rabbitmq连接配置
+    'rabbitmq'         => [
+        'host'     => 'rabbitmq',
+        'port'     => 5672,
+        'login'    => 'admin',
+        'password' => 'Pt-89]j9+qLai^Rc/3@n|c^Um',
+        'vhost'    => '/',
+    ],
+
+    // elasticsearch连接配置
+    'elasticsearch'    => [
+        'http'     => ['http://elasticsearch:9200'],
+        'https'    => ['https://elasticsearch:9200'],
+        'username' => 'elastic',
+        'password' => 'HnBSVNqu2fTDJH*SPL4K',
+    ],
 ];
