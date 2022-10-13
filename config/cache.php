@@ -23,6 +23,29 @@ return [
             'tag_prefix' => 'tag:',
             // 序列化机制 例如 ['serialize', 'unserialize']
             'serialize'  => [],
+        ],// redis缓存
+        'redis'    => [
+            // 驱动方式
+            'type'     => 'redis',
+            // 服务器地址
+            'host'     => config('app.redis.host'),
+            // 密码
+            'password' => config('app.redis.password'),
+            // 端口
+            'port'     => config('app.redis.port'),
+            // 过期时间
+            'expire'   => cache_time('one_week'),
+        ],
+        // memcahce
+        'memcache' => [
+            // 驱动方式
+            'type'     => 'memcache',
+            // 服务器地址
+            'host'     => config('app.memcache.host'),
+            'password' => config('app.memcache.password'),
+            'port'     => config('app.memcache.port'),
+            // 过期时间
+            'expire'   => cache_time('one_week'),
         ],
         // 更多的缓存连接
     ],
