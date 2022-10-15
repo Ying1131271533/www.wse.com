@@ -1,6 +1,6 @@
 <?php
 
-namespace app\lib\login;
+namespace app\common\lib\login;
 
 // 登录工厂
 class ClassAttr

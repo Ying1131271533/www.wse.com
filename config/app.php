@@ -71,4 +71,9 @@ return [
         'username' => 'elastic',
         'password' => 'HnBSVNqu2fTDJH*SPL4K',
     ],
+    // swoole连接配置
+    'swoole'    => [
+        'host'     => '127.0.0.1',
+        'port'     => 9501,
+    ],
 ];
