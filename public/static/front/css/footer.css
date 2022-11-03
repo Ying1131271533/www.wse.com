@@ -1,0 +1,17 @@
+*{ margin:0; padding:0;}
+.foot{ background:#333333; padding-top:30px; width:100%; height:250px;}
+
+.footdiv_menulis{ width:1200px; margin:0 auto; height:210px; }
+.footdiv_menulis_d{ float:left;  text-align: center; width:210px;  height:210px;margin-right:10px;}
+.footdiv_menulis_d_h3{ float:left;  text-align:center;text-decoration:none ;width:210px;  margin-bottom:20px; font-size:16px; color:#FFF; font-weight:600;}
+.footdiv_menulis_d ul li{ clear:both; padding:0;   margin-left:0px; float:left; text-align:center; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;width:210px; height:35px;}
+.footdiv_menulis_d ul li a{  clear:both; padding:0; text-decoration:none; margin-left:0px; width:210px; height:210px; text-align:center; color:#fff; font-size:14px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+}
+.footdiv_menulis_d ul li a:hover{ color:#29d07c; text-decoration:underline;}
+
+.footerweixin{ float:left; width:147px;  height:260px; margin-left:30px;}
+.footerweixin h3{ text-align:center; font-size:16px; font-weight:600px; color:#000;}
+.footerweixin img{ float:left; width:147px;  }
+.weixintitle{ float:left;  }
+.weixintitlename{ float:left; text-align:center; width:100%; margin-top:15px; font-size:14px; color:#fff;  }
+

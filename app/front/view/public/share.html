@@ -1,0 +1,300 @@
+
+
+<!-- 分享到 -->
+
+<div id="bsBox" class="bsBox">
+    <div class="bsClose" onclick="$('#bsBox').hide()">X</div>
+    <div class="bsTop">
+        <div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span
+            class="bsPlatName"></span>
+    </div>
+    <div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame780" frameborder="0" scrolling="no"
+            allowtransparency="true">
+
+            <!-- saved from url=(0011)about:blank -->
+            <html>
+
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            </head>
+
+            <body>
+
+            </body>
+
+            </html>
+        </iframe>
+    </div>
+    <div id="bsMorePanel" style="display: none;"></div>
+</div>
+
+
+<!-- cm.html -->
+
+<iframe style="display: none;">
+
+    <script type="text/javascript">
+        (function () {
+            var docBody = document.body, doc = document;
+            var B = {
+                parseOptions: function (src) {
+                    var options = {}, g, f, c, a, e;
+                    g = /\?(.*)|#(.*)/.exec(src);
+                    if (g) {
+                        g = g[0].slice(1).replace("+", " ").split(/[&;]/g);
+                        for (f = 0; f < g.length; f++) {
+                            c = g[f].split("=");
+                            a = decodeURIComponent(c[0]);
+                            e = "";
+                            if (c.length != 1) e = decodeURIComponent(c[1]);
+                            options[a] = e;
+                        }
+                    }
+                    return options;
+                },
+                createElem: function (eTag, eId, eClass, eStyle, eText, eUrl) {
+                    var newEle = doc.createElement(eTag);
+                    if (eTag == "a") {
+                        newEle.href = eUrl || "javascript:;";
+                        newEle.target = "_blank";
+                    }
+                    if (eId) newEle.id = eId;
+                    if (eClass) newEle.className = eClass;
+                    if (eStyle) newEle.style.cssText = eStyle;
+                    if (eText) newEle.innerHTML = eText;
+                    return newEle;
+                },
+                loadImg: function (src) {
+                    var _cmimg = B.createElem("img", "", "", "display:none;");
+                    _cmimg.src = src;
+                    docBody.appendChild(_cmimg);
+                }
+            }
+            var cmData = B.parseOptions(window.location.href);
+            var cid = cmData.cid, m = cmData.m, _cmurl, ids, id, i, len;
+            console.log(cmData);
+            ids = m.toString().split(",");
+            len = ids.length;
+            for (i = 0; i < len; ++i) {
+                id = +ids[i];
+          /* if (id == 1) {
+            _cmurl = "http://bx.optimix.cn/cms.gif?a=bshare&c=" + cid;
+          }
+          else */if (id == 3) {
+                    _cmurl = "http://cm.qtmojo.com/pixel?allyes_dspid=182&allyes_cm&extra=" + cid; //invalid
+                }
+                /* else if (id == 4) {
+                  _cmurl = "http://d.turn.com/r/dd/id/L2NzaWQvMS9jaWQvMjY1Nzg5NDAvdC8y/dpuid/" + cid;
+                } */
+                else if (id == 8) {
+                    _cmurl = "https://cms.tanx.com/t.gif?id=30875969&extendata=" + cid;
+                }
+                /* else if (id == 9) {
+                  _cmurl = "http://cm.yigao.com/sspcm/cm?dsp_id=80808&dsp_uid=" + cid;
+                } 
+                else if (id == 10) {
+                  _cmurl = "http://mega.mlt01.com/mmpcm.htm?id=1038&cid=" + cid;
+                }*/
+                else if (id == 12) {
+                    var time = Math.floor(new Date().getTime() / 1000);
+                    _cmurl = "https://cm.e.qq.com/cm.fcg?a=379448&j=optimix&time=" + time;
+                }
+                else if (id == 13) {
+                    _cmurl = "https://cm.fastapi.net/?dspid=100016&hparam=c&gethuid=1&dspuid=" + cid;
+                }
+                else if (id == 14) {
+                    _cmurl = "https://t.go.sohu.com/cm.gif?ver=1&mid=10030&uid=" + cid;
+                }
+                /*
+                else if (id == 15) {
+                          _cmurl = "http://cm.pos.baidu.com/pixel?dspid=6410560&ext_data=" + cid;
+                }
+                */
+                // else if (id == 16) {
+                // 	_cmurl = "https://ckm.iqiyi.com/pixel?qiyi_nid=71000033&qiyi_no_sc";
+                // }
+                /* else if (id == 17) {
+                  _cmurl = "http://cm02.optimix.cn/cookies?client_id=bshare";
+                } */
+                else if (id == 18) {
+                    _cmurl = "https://iclick.cm.admaster.com.cn?tid=1575&type=1&uid=" + cid + "&redir=http%3a%2f%2fbx01.optimix.cn%2fcms.gif%3fa%3dadmaster";
+                }
+                else if (id == 19) {
+                    _cmurl = "https://m.reachmax.cn/rm.gif?ext=16";
+                }
+                else if (id == 20) {
+                    _cmurl = "http://cm.vamaker.com/pixel?vamaker_dspid=15400018&vamaker_cm&v=1"; //invalid
+                }
+                else if (id == 21) {
+                    //两个地址都有效
+                    _cmurl = "https://c.yes.youku.com/cm.gif?dspid=11202";
+                    //cmurl = "http://cm.miaozhen.atm.youku.com/cm.gif?dspid=11202";
+                }
+                else if (id == 22) {
+                    _cmurl = "https://t1.chinavivaki.com/cm?_t=r&type=imp&hat_id=MTUwJjczJjI1NiYxMTIzJjIwMjM5Jt1S&l=aHR0cDovL2J4Lm9wdGltaXguYXNpYS9jbXMuZ2lmP2E9dml2YWtp";
+                }
+                else if (id == 23) {
+                    _cmurl = "https://cm.optaim.com/j?sid=iclick&suid=" + cid;//invalid
+                }
+                else if (id == 24) {
+                    _cmurl = "https://its.fugetech.com/bg.gif?p=2567&g=" + cid;
+                }
+                else if (id == 25) {
+                    _cmurl = "https://cm.g.doubleclick.net/pixel?google_nid=iclick&google_cm&origin=bshare";
+                } else if (id == 27) {
+                    _cmurl = "https://cm.l.qq.com/?dspid=10189&dspuid=" + cid + "&gettuid=1";
+                }
+                else {
+                    continue;
+                }
+                B.loadImg(_cmurl);
+            }
+        })();
+    </script><img src="https://cms.tanx.com/t.gif?id=30875969&extendata=2022103110171700088812700135470123"
+        style="display: none;"><img src="https://cm.e.qq.com/cm.fcg?a=379448&j=optimix&time=1667182642"
+        style="display: none;"><img
+        src="https://cm.fastapi.net/?dspid=100016&hparam=c&gethuid=1&dspuid=2022103110171700088812700135470123"
+        style="display: none;"><img
+        src="https://t.go.sohu.com/cm.gif?ver=1&mid=10030&uid=2022103110171700088812700135470123"
+        style="display: none;"><img src="./rm.gif" style="display: none;"><img
+        src="https://iclick.cm.admaster.com.cn/?tid=1575&type=1&uid=2022103110171700088812700135470123&redir=http%3a%2f%2fbx01.optimix.cn%2fcms.gif%3fa%3dadmaster"
+        style="display: none;"><img src="https://c.yes.youku.com/cm.gif?dspid=11202" style="display: none;"><img
+        src="http://cm.vamaker.com/pixel?vamaker_dspid=15400018&vamaker_cm&v=1" style="display: none;"><img
+        src="https://cm.optaim.com/j?sid=iclick&suid=2022103110171700088812700135470123" style="display: none;"><img
+        src="./pixel" style="display: none;"><img
+        src="https://its.fugetech.com/bg.gif?p=2567&g=2022103110171700088812700135470123" style="display: none;"><img
+        src="__FRONT__/images/saved_resource" style="display: none;">
+
+</iframe>
+
+
+<!-- 分享到 更多 -->
+<div id="bsPanelHolder">
+    <div id="bsPanel" style="display:none;">
+        <div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink"
+                target="_blank" href="http://www.bshare.cn/intro">分享到</a><a class="bsSiteLink"
+                style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;"
+                onclick="document.getElementById('bsPanel').style.display='none';">X</a>
+            <div class="bsClear"></div>
+        </div>
+        <div class="bsClear"></div>
+        <div style="padding-left:8px;background:#fff;*height:244px;">
+            <div
+                style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;">
+                <div class="bsRlogo" onmouseover="javascript:this.className='bsRlogoSel'"
+                    onmouseout="javascript:this.className='bsRlogo'"><a href="javascript:;"
+                        onclick="javascript:bShare.share(event,'weixin');return false;"
+                        style="text-decoration:none;line-height:120%;">
+                        <div
+                            style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(__FRONT__/images/weixin.gif) no-repeat;">
+                        </div>
+                        <div
+                            style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important">
+                            微信</div>
+                    </a></div>
+                <div class="bsRlogo" onmouseover="javascript:this.className='bsRlogoSel'"
+                    onmouseout="javascript:this.className='bsRlogo'"><a href="javascript:;"
+                        onclick="javascript:bShare.share(event,'sinaminiblog');return false;"
+                        style="text-decoration:none;line-height:120%;">
+                        <div
+                            style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(__FRONT__/images/sinaminiblog.gif) no-repeat;">
+                        </div>
+                        <div
+                            style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important">
+                            新浪微博</div>
+                    </a></div>
+                <div class="bsRlogo" onmouseover="javascript:this.className='bsRlogoSel'"
+                    onmouseout="javascript:this.className='bsRlogo'"><a href="javascript:;"
+                        onclick="javascript:bShare.share(event,'qzone');return false;"
+                        style="text-decoration:none;line-height:120%;">
+                        <div
+                            style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(__FRONT__/images/qzone.gif) no-repeat;">
+                        </div>
+                        <div
+                            style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important">
+                            QQ空间</div>
+                    </a></div>
+            </div>
+            <div class="bsLogoLink">
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="QQ好友"
+                        onclick="javascript:bShare.share(event,'qqim');return false;"
+                        style="background:url(__FRONT__/images/qqim.png) no-repeat;">QQ好友</a></div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="腾讯微博"
+                        onclick="javascript:bShare.share(event,'qqmb');return false;"
+                        style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="一键通"
+                        onclick="javascript:bShare.share(event,'bsharesync');return false;"
+                        style="color:red;background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -288px;">一键通</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="搜狐微博"
+                        onclick="javascript:bShare.share(event,'sohuminiblog');return false;"
+                        style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -1800px;">搜狐微博</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="天涯"
+                        onclick="javascript:bShare.share(event,'tianya');return false;"
+                        style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -1890px;">天涯</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="凤凰微博"
+                        onclick="javascript:bShare.share(event,'ifengmb');return false;"
+                        style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -918px;">凤凰微博</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="朋友网"
+                        onclick="javascript:bShare.share(event,'qqxiaoyou');return false;"
+                        style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -1548px;">朋友网</a>
+                </div>
+            </div>
+            <div class="bsLogoLink">
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="新华微博" onclick="javascript:bShare.share(event,'xinhuamb');return false;" style="color:red;background:url(__FRONT__/images/xinhuamb.png) no-repeat;">新华微博</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="百度空间" onclick="javascript:bShare.share(event,'baiduhi');return false;" style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -144px;">百度空间</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="手机快传" onclick="javascript:bShare.share(event,'189share');return false;" style="background:url(__FRONT__/images/189share.png) no-repeat;">手机快传</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="人人网" onclick="javascript:bShare.share(event,'renren');return false;" style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -1674px;">人人网</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="手机" onclick="javascript:bShare.share(event,'shouji');return false;" style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -1710px;">手机</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="网易微博" onclick="javascript:bShare.share(event,'neteasemb');return false;" style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -1332px;">网易微博</a>
+                </div>
+                <div class="bsLogo" onmouseover="javascript:this.className='bsLogoSel'"
+                    onmouseout="javascript:this.className='bsLogo'">
+                    <a href="javascript:;" title="开心网" onclick="javascript:bShare.share(event,'kaixin001');return false;" style="background:url(__FRONT__/images/slogos_sprite8.png) no-repeat 0 -1008px;">开心网</a>
+                </div>
+            </div>
+            <div class="bsClear"></div>
+        </div>
+        <div
+            style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;">
+            <div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font>
+            </div>
+            <div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div>
+        </div>
+    </div>
+</div>

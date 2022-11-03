@@ -29,5 +29,6 @@ return [
         '__FRONT__' => '/static/front',
         '__ADMIN__' => '/static/admin',
         '__API__' => '/static/api',
+        '__COMMON__' => '/static/common',
     ]
 ];

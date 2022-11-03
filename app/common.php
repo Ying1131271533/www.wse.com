@@ -1,6 +1,8 @@
 <?php
 // 应用公共文件
 
+use think\cache\driver\Memcache;
+
 /**
  * 返回api接口数据
  *
@@ -23,6 +25,25 @@ function show(string $msg, int $code = 200, int $status = 20000, $data = [])
 }
 
 /**
+ * 返回api接口数据
+ *
+ * @param  int       $status        程序状态码
+ * @param  string    $message       描述信息
+ * @param  notype    $data          返回的数据
+ * @param  int       $HttpStatus    http状态码
+ * @return json                     api返回的json数据
+ */
+function show_res($status, $message, $data, $HttpStatus = 200)
+{
+    $result = [
+        'status'  => $status,
+        'message' => $message,
+        'result'  => $data,
+    ];
+    return json($result, $HttpStatus);
+}
+
+/**
  * 返回成功的api接口数据
  *
  * @param  array|string     $data       返回的数据
@@ -38,7 +59,7 @@ function success($data = [], int $status = 20000, int $code = 200, string $msg =
         $resultData = [
             'status' => $status,
             'msg'    => $data,
-            'data'   => [],
+            // 'data'   => [],
         ];
     } else {
         $resultData = [
@@ -262,7 +283,7 @@ function get_random_number($number = 6): string
 }
 
 // 时间戳转为多少分钟前 几个小时前 几天前
-function postTime($time = null)
+function post_time($time = null)
 {
     $text = '';
     $time = $time === null || $time > time() ? time() : intval($time);
@@ -372,7 +393,7 @@ function delete_dir($dir)
  *
  * 递归找子级数据
  *
- * @param  array    $data            二维数组
+ * @param  array    $data           二维数组
  * @param  int      $parent_id      父级id
  * @return array                    返回处理好的数组
  */
@@ -421,6 +442,37 @@ function get_child_tree_data(array $data = [], int $parent_id = 0, $spread = fal
     return $tmp;
 }
 
+/**
+ * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
+ * @author: 神织知更
+ * @time: 2022/04/14 10:45
+ *
+ * 获取能够连接的memcache服务器
+ *
+ * @param  array    $serverConfArr  服务器连接配置数组
+ * @return array    $serverConfArr  返回连接成功的服务器ip、端口数据
+ */
+function get_memcache_server($serverConfArr = [])
+{
+    $serverConfArr or $serverConfArr = config('app.memcache_server');
+    foreach ($serverConfArr as $key => $value) {
+        $mem      = explode(':', $value);
+        $host     = $mem[0];
+        $port     = $mem[1];
+        $memcache = new Memcache();
+        try {
+            $memcache->connect($host, $port);
+        } catch (\Exception $e) {
+            unset($serverConfArr[$key]);
+        }
+    }
+
+    if (empty($serverConfArr)) {
+        return fail('所有memcache服务器都无法连接');
+    }
+
+    return $serverConfArr;
+}
 
 /**
  * 缓存时间
@@ -430,31 +482,47 @@ function get_child_tree_data(array $data = [], int $parent_id = 0, $spread = fal
 function cache_time(string $type = 'dawn_rand_time')
 {
     switch ($type) {
+        // 6小时
+        case 'six_hour':
+            $time = 3600 * 6;
+            break;
+        // 12小时 半天
+        case 'half_day':
+            $time = 3600 * 12;
+            break;
+        // 一天
         case 'one_day':
             $time = 3600 * 24;
             break;
+        // 一周
         case 'one_week':
             $time = 3600 * 24 * 7;
             break;
+        // 一个月
         case 'one_month':
             $time = 3600 * 24 * 30;
             break;
+        // 一年
         case 'one_year':
             $time = 3600 * 24 * 365;
             break;
+        // 随机 3-9 小时
         case 'rand_time':
-            $time = rand(3600 * 24 * 3, 3600 * 24 * 9);
+            $time = rand(3600 * 3, 3600 * 9);
             break;
+        // 凌晨0点
         case 'over_day':
             $time = 86400 - (time() + 8 * 3600) % 86400;
             break;
+        // 凌晨3点
         case 'dawn_time':
             $time = 86400 - (time() + 8 * 3600) % 86400 + 3600 * 3;
             break;
+        // 凌晨3点 + 随机时间
         case 'dawn_rand_time':
             $time = 86400 - (time() + 8 * 3600) % 86400 + 3600 * 3 + rand(1, 3600);
             break;
-
+        // 默认：凌晨3点 + 随机时间
         default:
             $time = 86400 - (time() + 8 * 3600) % 86400 + 3600 * 3 + rand(1, 3600);
             break;
@@ -472,6 +540,17 @@ function cache_time(string $type = 'dawn_rand_time')
 function dawn_time($id)
 {
     $number = substr(crc32($id), 6);
-    $time = 86400 - (strtotime(date('Ymd H:i:30')) + 8 * 3600) % 86400 + 3600 * 3 + (int)$number;
+    $time   = 86400 - (strtotime(date('Y-m-d H:i:30')) + 8 * 3600) % 86400 + 3600 * 3 + (int) $number;
     return $time;
+}
+
+// 返回当前的毫秒时间戳
+function msectime()
+{
+    list($t1, $t2) = explode(' ', microtime());
+    $msectime      = (float) sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
+    $msectime2     = (string) sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
+    // var_dump("float类型:".$msectime);  // string(29) "float类型:1.60981667462E+12"
+    // var_dump("string类型:".$msectime2); // string(26) "string类型:1609816674622"
+    return $msectime;
 }

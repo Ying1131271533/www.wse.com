@@ -1,0 +1,584 @@
+{extend name="public/base" /}
+{block name="title"}广东威速易信息科技有限公司，跨境电商综合平台，俄罗斯海外仓、邮政小包、俄罗斯专线、速卖通无忧线上仓{/block}
+{block name="load"}
+<!-- css -->
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+<!-- 中间内容开始 -->
+
+  <!--Banner广告-->
+  <div id="Banner" class="div_banner_h">
+    <div class="slick slick-initialized slick-slider">
+      <div class="slick-list draggable" tabindex="0">
+        <div class="slick-track" style="opacity: 1; width: 11418px;">
+          <div class="slick-slide"
+            style="width: 1903px; position: relative; left: 0px; top: 0px; z-index: 800; opacity: 0;"><a
+              class="focus-banner-img" href="http://www.gdwse.com/" target="_blank"><img class="div_bannerimg"
+                src="__FRONT__/images/2017110814393636182277.jpg" alt=""></a></div>
+          <div class="slick-slide"
+            style="width: 1903px; position: relative; left: -1903px; top: 0px; z-index: 800; opacity: 0;"><a
+              class="focus-banner-img" href="http://www.gdwse.com/" target="_blank"><img class="div_bannerimg"
+                src="__FRONT__/images/2017110814393005958357.jpg" alt=""></a></div>
+          <div class="slick-slide"
+            style="width: 1903px; position: relative; left: -3806px; top: 0px; z-index: 800; opacity: 0;"><a
+              class="focus-banner-img" href="http://www.gdwse.com/" target="_blank"><img class="div_bannerimg"
+                src="__FRONT__/images/2017110814392340314781.jpg" alt=""></a></div>
+          <div class="slick-slide slick-active"
+            style="width: 1903px; position: relative; left: -5709px; top: 0px; z-index: 900; opacity: 1;"><a
+              class="focus-banner-img" href="http://www.gdwse.com/" target="_blank"><img class="div_bannerimg"
+                src="__FRONT__/images/2017110814390113687391.jpg" alt=""></a></div>
+          <div class="slick-slide"
+            style="width: 1903px; position: relative; left: -7612px; top: 0px; z-index: 800; opacity: 0;"><a
+              class="focus-banner-img" href="http://www.gdwse.com/" target="_blank"><img class="div_bannerimg"
+                src="__FRONT__/images/2017110814385065122131.jpg" alt=""></a></div>
+          <div class="slick-slide"
+            style="width: 1903px; position: relative; left: -9515px; top: 0px; z-index: 800; opacity: 0;"><a
+              class="focus-banner-img" href="http://www.gdwse.com/" target="_blank"><img class="div_bannerimg"
+                src="__FRONT__/images/2017110814391309955761.jpg" alt=""></a></div>
+        </div>
+      </div>
+      <button type="button" class="slick-prev" style="display: block;">Previous</button>
+      <button type="button" class="slick-next" style="display: block;">Next</button>
+      <ul class="slick-dots" style="display: block;">
+        <li class=""><button type="button">1</button></li>
+        <li class=""><button type="button">2</button></li>
+        <li class=""><button type="button">3</button></li>
+        <li class="slick-active"><button type="button">4</button></li>
+        <li class=""><button type="button">5</button></li>
+        <li class=""><button type="button">6</button></li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="__FRONT__/js/jquery.min.js" type="text/javascript"></script>
+  <script src="__FRONT__/js/slick.js"></script>
+  <script>
+    $(function () {
+      $('.slick').slick({
+        dots: true,  //显示项目导航
+        fade: true,  //淡入淡出
+        autoplay: true  //自动播放
+      });
+    });
+  </script>
+
+
+  <!-- 会员登录 -->
+  <div class="gzhl">
+    <div class="div_box1" id="style-15">
+      <div class="force-overflow">
+        <div class="div_cc4">
+          <div class="div_title"><span>会员登录</span></div>
+          <form action="http://www.gdwse.com:8083/signin.htm" method="post" target="_blank">
+            <div class="div_loggin">
+              <ul>
+                <li>
+                  <div class="divboer"><input type="text" class="inputloginz" placeholder="账号" name="username" id="">
+                  </div>
+                </li>
+                <li>
+                  <div class="divboer1"> <input type="password" class="inputloginm" placeholder="密码" name="password"
+                      id=""></div>
+                </li>
+                <li>
+                  <input class="div_input_input" type="submit" value="登 陆">
+                </li>
+                <li>
+                  <div class="divjizhu">
+                    <label><input class="divdivjizhu" name="Fruit" type="checkbox" value="2">记住密码 </label>
+                  </div>
+                  <div class="divzhuce">
+                    <a href="http://www.gdwse.com:8082/gotoRegister.htm" target="_blank">注册
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
+
+        <div class="div_cc">
+          <div class="div_title"><span>物流跟踪查询</span></div>
+          <div class="div_trcak">
+            <form name="submitform2" action="http://www.gdwse.com:8082/trackIndex.htm" method="post" target="_blank">
+              <textarea name="documentCode" placeholder="在此输入您要查询的快递单号" id="Textarea1" cols=""
+                class="track_tex1"></textarea><br>
+              <div class="div_input">
+                <input class="div_input_input leftdiv" type="submit" value="查询快递">
+                <a href="http://www.17track.net/"> <img class="div17track" src="__FRONT__/images/17TRACK_160406123.png">
+                </a>
+
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+
+        <div class="div_cc2">
+          <div class="div_title"><span>价格查询</span></div>
+          <form id="Form1" name="theForm" action="http://www.gdwse.com:8082/defaultPriceSearch.htm" method="post"
+            target="_blank">
+            <div class="div_price">
+              <ul>
+                <li> 目的地：<input type="text" name="country" class="country" id="citySelect" placeholder="请输入目的地">
+                  <script type="text/javascript" src="__FRONT__/js/cityselect.js"></script>
+                  <script type="text/javascript">
+                    var test = new Vcity.CitySelector({ input: 'citySelect' });
+                  </script>
+                </li>
+                <li> 重&nbsp;&nbsp;&nbsp;&nbsp;量：<input type="text" name="weight" class="weight" value="1"
+                    placeholder="1" id="Text1"></li>
+                <li><input class="div_input_input " type="submit" value="查询报价"></li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 新闻 -->
+  <div class="news">
+    <div class="content">
+
+      <div class="news_header">
+        <img src="__FRONT__/images/wse_18.jpg">
+      </div>
+      <div class="news-center">
+        <div class="news-center-right martght">
+          <div id="News1" class="">
+            <div class="newstielte">跨境咨询 </div>
+            <ul>
+              <li><a href="http://www.gdwse.com/products/2959.html" title="侵权预警！亚马逊沙龙排行榜NO.1，留评4000＋神器被起诉">
+                  <div class="nc-right">侵权预警！亚马逊沙龙排行榜NO.1，留评4000＋神器被起诉</div>
+                  <div class="nc-left">
+                    <p>2021-05-31</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2958.html" title="亚马逊监管再升级，大卖新玩法已在路上……">
+                  <div class="nc-right">亚马逊监管再升级，大卖新玩法已在路上……</div>
+                  <div class="nc-left">
+                    <p>2021-05-31</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2957.html" title="亚马逊等多平台紧急下架，又一五星级爆款凉了！">
+                  <div class="nc-right">亚马逊等多平台紧急下架，又一五星级爆款凉了！</div>
+                  <div class="nc-left">
+                    <p>2021-05-31</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2953.html" title="突发！亚马逊又宕机了，大批卖家订单暴跌……">
+                  <div class="nc-right">突发！亚马逊又宕机了，大批卖家订单暴跌……</div>
+                  <div class="nc-left">
+                    <p>2021-03-11</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2952.html" title="实锤！这一测评渠道被亚马逊官宣停用">
+                  <div class="nc-right">实锤！这一测评渠道被亚马逊官宣停用</div>
+                  <div class="nc-left">
+                    <p>2021-03-11</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2951.html" title="划重点！消费者在线购物有这些需求......">
+                  <div class="nc-right">划重点！消费者在线购物有这些需求......</div>
+                  <div class="nc-left">
+                    <p>2021-03-11</p>
+                  </div>
+                </a></li>
+            </ul> <a class="showhide" href="http://www.gdwse.com/products/category-1.html">查看全部&gt;&gt;</a>
+          </div>
+        </div>
+        <div class="div_middle">
+          <img src="__FRONT__/images/wse_middle.jpg">
+        </div>
+
+        <div class="news-center-right">
+          <div id="News2" class="">
+            <div class="newstielte">公司新闻 </div>
+            <ul>
+              <li><a href="http://www.gdwse.com/products/2962.html" title="又“撒钱”了！拜登提6万亿美元计划……">
+                  <div class="nc-right">又“撒钱”了！拜登提6万亿美元计划……</div>
+                  <div class="nc-left">
+                    <p>2021-05-31</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2961.html" title="外媒：Prime Day日期已经确定！">
+                  <div class="nc-right">外媒：Prime Day日期已经确定！</div>
+                  <div class="nc-left">
+                    <p>2021-05-31</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2960.html" title="大批卖家清仓甩货，亚马逊新推库存清算计划">
+                  <div class="nc-right">大批卖家清仓甩货，亚马逊新推库存清算计划</div>
+                  <div class="nc-left">
+                    <p>2021-05-31</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2956.html" title="订单挂0有救了！美国$1400救济金将到账">
+                  <div class="nc-right">订单挂0有救了！美国$1400救济金将到账</div>
+                  <div class="nc-left">
+                    <p>2021-03-11</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2955.html" title="警惕！多个品牌侵权被查，已有卖家中招">
+                  <div class="nc-right">警惕！多个品牌侵权被查，已有卖家中招</div>
+                  <div class="nc-left">
+                    <p>2021-03-11</p>
+                  </div>
+                </a></li>
+              <li><a href="http://www.gdwse.com/products/2954.html" title="日销1000，亚马逊的退货“盲盒”在TikTok上火了！">
+                  <div class="nc-right">日销1000，亚马逊的退货“盲盒”在TikTok上火了！</div>
+                  <div class="nc-left">
+                    <p>2021-03-11</p>
+                  </div>
+                </a></li>
+            </ul> <a class="showhide" href="http://www.gdwse.com/products/category-2.html">查看全部&gt;&gt;</a>
+          </div>
+        </div>
+      </div>
+      <div class="news-center1">
+        <div class="div_wsenew">
+          <img src="__FRONT__/images/wseip_03.gif">
+          <a href="http://www.gdwse.com/products/category-1.aspx"><img class="imgmore" src="__FRONT__/images/wseip_06.gif"></a>
+        </div>
+        <div class="nTab">
+          <!-- 标题开始 -->
+          <div class="TabTitle">
+            <ul id="myTab0">
+              <li class="active" onmouseover="nTabs(this,0);">跨境咨询</li>
+              <li class="normal" onmouseover="nTabs(this,1);">行业新闻</li>
+            </ul>
+          </div>
+          <!-- 内容开始 -->
+          <div class="TabContent">
+            <div id="myTab0_Content0">
+              <div class="news-center-right">
+
+
+                <div id="News3" class="">
+                  <ul>
+                    <li><a href="http://www.gdwse.com/products/2959.html" title="侵权预警！亚马逊沙龙排行榜NO.1，留评4000＋神器被起诉">
+                        <div class="nc-right">侵权预警！亚马逊沙龙排行榜NO.1，留评4000＋神器被起诉</div>
+                        <div class="nc-left">
+                          <p>2021-05-31</p>
+                        </div>
+                      </a></li>
+                    <li><a href="http://www.gdwse.com/products/2958.html" title="亚马逊监管再升级，大卖新玩法已在路上……">
+                        <div class="nc-right">亚马逊监管再升级，大卖新玩法已在路上……</div>
+                        <div class="nc-left">
+                          <p>2021-05-31</p>
+                        </div>
+                      </a></li>
+                    <li><a href="http://www.gdwse.com/products/2957.html" title="亚马逊等多平台紧急下架，又一五星级爆款凉了！">
+                        <div class="nc-right">亚马逊等多平台紧急下架，又一五星级爆款凉了！</div>
+                        <div class="nc-left">
+                          <p>2021-05-31</p>
+                        </div>
+                      </a></li>
+                    <li><a href="http://www.gdwse.com/products/2953.html" title="突发！亚马逊又宕机了，大批卖家订单暴跌……">
+                        <div class="nc-right">突发！亚马逊又宕机了，大批卖家订单暴跌……</div>
+                        <div class="nc-left">
+                          <p>2021-03-11</p>
+                        </div>
+                      </a></li>
+                    <li><a href="http://www.gdwse.com/products/2952.html" title="实锤！这一测评渠道被亚马逊官宣停用">
+                        <div class="nc-right">实锤！这一测评渠道被亚马逊官宣停用</div>
+                        <div class="nc-left">
+                          <p>2021-03-11</p>
+                        </div>
+                      </a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div id="myTab0_Content1" class="none">
+              <div class="news-center-right">
+                <div id="News4" class="">
+                  <ul>
+                    <li><a href="http://www.gdwse.com/products/2962.html" title="又“撒钱”了！拜登提6万亿美元计划……">
+                        <div class="nc-right">又“撒钱”了！拜登提6万亿美元计划……</div>
+                        <div class="nc-left">
+                          <p>2021-05-31</p>
+                        </div>
+                      </a></li>
+                    <li><a href="http://www.gdwse.com/products/2961.html" title="外媒：Prime Day日期已经确定！">
+                        <div class="nc-right">外媒：Prime Day日期已经确定！</div>
+                        <div class="nc-left">
+                          <p>2021-05-31</p>
+                        </div>
+                      </a></li>
+                    <li><a href="http://www.gdwse.com/products/2960.html" title="大批卖家清仓甩货，亚马逊新推库存清算计划">
+                        <div class="nc-right">大批卖家清仓甩货，亚马逊新推库存清算计划</div>
+                        <div class="nc-left">
+                          <p>2021-05-31</p>
+                        </div>
+                      </a></li>
+                    <li><a href="http://www.gdwse.com/products/2956.html" title="订单挂0有救了！美国$1400救济金将到账">
+                        <div class="nc-right">订单挂0有救了！美国$1400救济金将到账</div>
+                        <div class="nc-left">
+                          <p>2021-03-11</p>
+                        </div>
+                      </a></li>
+                    <li><a href="http://www.gdwse.com/products/2955.html" title="警惕！多个品牌侵权被查，已有卖家中招">
+                        <div class="nc-right">警惕！多个品牌侵权被查，已有卖家中招</div>
+                        <div class="nc-left">
+                          <p>2021-03-11</p>
+                        </div>
+                      </a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+          function nTabs(thisObj, Num) {
+            if (thisObj.className == "active") return;
+            var tabObj = thisObj.parentNode.id;
+            var tabList = document.getElementById(tabObj).getElementsByTagName("li");
+            for (i = 0; i < tabList.length; i++) {
+              if (i == Num) {
+                thisObj.className = "active";
+                document.getElementById(tabObj + "_Content" + i).style.display = "block";
+              } else {
+                tabList[i].className = "normal";
+                document.getElementById(tabObj + "_Content" + i).style.display = "none";
+              }
+            }
+          }
+        </script>
+        <div class="news-center-right martght">
+          <div id="Div1" class=""></div>
+        </div>
+        <div class="div_middle">
+          <img src="__FRONT__/images/wse_middle.jpg">
+        </div>
+        <div class="news-center-right">
+          <div id="Div2" class=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 合作伙伴 -->
+  <div class="div_pn">
+    <div class="content">
+      <div class="news_header">
+        <img src="__FRONT__/images/wse_39.jpg">
+      </div>
+      <div class="div_dianshang"><img src="__FRONT__/images/wseip_13.jpg">
+      </div>
+
+      <div class="pn_hd">
+        <h2>官方认证,快速注册 </h2>
+      </div>
+      <div class="div_parter">
+        <a href="http://www.gdwse.com/" target="_parent"> <img src="__FRONT__/images/wse_43.jpg">
+          <img src="__FRONT__/images/wse_56.jpg">
+        </a>
+      </div>
+      <div class="div_parter">
+        <a href="http://www.gdwse.com/" target="_parent"> <img src="__FRONT__/images/wse_45.jpg">
+          <img src="__FRONT__/images/wse_56.jpg">
+        </a>
+      </div>
+      <div class="div_parter">
+        <a href="http://www.gdwse.com/" target="_parent"> <img src="__FRONT__/images/wse_47.jpg">
+          <img src="__FRONT__/images/wse_56.jpg">
+        </a>
+      </div>
+      <div class="div_parter">
+        <a href="http://www.gdwse.com/" target="_parent"> <img src="__FRONT__/images/wse_49.jpg">
+          <img src="__FRONT__/images/wse_56.jpg">
+        </a>
+      </div>
+
+      <div class="pn_hd">
+        <h2>我们与行业精英合作，为你提供最好的服务 </h2>
+      </div>
+
+      <div id="Link" class="divLinkss">
+        <li><a href="http://www.ebay.com/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016060216115542337691.png" alt="ebay"></a></li>
+        <li><a href="https://www.wish.com/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2017111315375305296369.jpg" alt="wish"></a></li>
+        <li><a href="http://seller.aliexpress.com/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016060310374797371086.jpg" alt="速卖通"></a></li>
+        <li><a href="https://www.amazon.cn/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016060310382683001886.jpg" alt="amazon."></a></li>
+        <li><a href="http://seller.dhgate.com/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016060310392230454101.png" alt="敦煌网"></a></li>
+        <li><a href="https://www.1688.com/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2017111315391201449607.jpg" alt="阿里巴巴"></a></li>
+        <li><a href="http://www.tongtool.cn/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016072817023531622179.png" alt="通途"></a></li>
+        <li><a href="http://www.akerp.com/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016072816575950604940.png" alt="奥科"></a></li>
+        <li><a href="http://www.littleboss.com/partners.html" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016072817083521872226.png" alt="小老板"></a></li>
+        <li><a href="http://www.mabangerp.com/index.htm" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016072816594116116652.jpg" alt="马帮"></a></li>
+        <li><a href="http://www.sumy.org.cn/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016072817015617588936.png" alt="速脉ERP"></a></li>
+        <li><a href="http://www.cnfth.com/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016072817064750131034.jpg" alt="交易助手"></a></li>
+        <li><a href="http://www.trade-plug.net/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016072817074748497175.png" alt="trade"></a></li>
+        <li><a href="http://www.cn.dhl.com/zh.html" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016060310433976673781.png" alt="DHL"></a></li>
+        <li><a href="http://www.chinapost.com.cn/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016060310412323061526.jpg" alt="中国邮政"></a></li>
+        <li><a href="http://www.sz56t.com/" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2016060216125609303989.png" alt="华磊"></a></li>
+        <li><a href="http://www.gdwse.com/www.smtcaomao.com" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2017111315195306317352.jpg" alt="caomao"></a></li>
+        <li><a href="https://www.17track.net/zh-cn" target="_blabk"><img class="partner_img"
+              src="__FRONT__/images/2018121015052692194720.png" alt="17track"></a></li>
+      </div>
+
+      <div style="width:685px; margin:0 auto">
+
+        <div class="mr_frbox">
+          <img class="mr_frBtnL pre" src="__FRONT__/images/mfrL.jpg" width="28" height="46">
+
+          <div id="Links" class="mr_frUl">
+            <div class="tempWrap" style="overflow:hidden; position:relative; width:4px">
+              <ul style="width: 54px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -18px;">
+                <li style="float: left; width: 1px;"><a href="http://seller.dhgate.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310392230454101.png" alt="敦煌网"></a></li>
+                <li style="float: left; width: 1px;"><a href="https://www.1688.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2017111315391201449607.jpg" alt="阿里巴巴"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.tongtool.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817023531622179.png" alt="通途"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.akerp.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072816575950604940.png" alt="奥科"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.littleboss.com/partners.html"
+                    target="_blabk"><img class="partner_img" src="__FRONT__/images/2016072817083521872226.png" alt="小老板"></a>
+                </li>
+                <li style="float: left; width: 1px;"><a href="http://www.mabangerp.com/index.htm" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072816594116116652.jpg" alt="马帮"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.sumy.org.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817015617588936.png" alt="速脉ERP"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.cnfth.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817064750131034.jpg" alt="交易助手"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.trade-plug.net/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817074748497175.png" alt="trade"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.cn.dhl.com/zh.html" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310433976673781.png" alt="DHL"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.chinapost.com.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310412323061526.jpg" alt="中国邮政"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.sz56t.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060216125609303989.png" alt="华磊"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.gdwse.com/www.smtcaomao.com"
+                    target="_blabk"><img class="partner_img" src="__FRONT__/images/2017111315195306317352.jpg" alt="caomao"></a>
+                </li>
+                <li style="float: left; width: 1px;"><a href="https://www.17track.net/zh-cn" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2018121015052692194720.png" alt="17track"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.ebay.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060216115542337691.png" alt="ebay"></a></li>
+                <li style="float: left; width: 1px;"><a href="https://www.wish.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2017111315375305296369.jpg" alt="wish"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://seller.aliexpress.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310374797371086.jpg" alt="速卖通"></a></li>
+                <li style="float: left; width: 1px;"><a href="https://www.amazon.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310382683001886.jpg" alt="amazon."></a></li>
+                <li style="float: left; width: 1px;"><a href="http://seller.dhgate.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310392230454101.png" alt="敦煌网"></a></li>
+                <li style="float: left; width: 1px;"><a href="https://www.1688.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2017111315391201449607.jpg" alt="阿里巴巴"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.tongtool.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817023531622179.png" alt="通途"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.akerp.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072816575950604940.png" alt="奥科"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.littleboss.com/partners.html"
+                    target="_blabk"><img class="partner_img" src="__FRONT__/images/2016072817083521872226.png" alt="小老板"></a>
+                </li>
+                <li style="float: left; width: 1px;"><a href="http://www.mabangerp.com/index.htm" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072816594116116652.jpg" alt="马帮"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.sumy.org.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817015617588936.png" alt="速脉ERP"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.cnfth.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817064750131034.jpg" alt="交易助手"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.trade-plug.net/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817074748497175.png" alt="trade"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.cn.dhl.com/zh.html" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310433976673781.png" alt="DHL"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.chinapost.com.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310412323061526.jpg" alt="中国邮政"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.sz56t.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060216125609303989.png" alt="华磊"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.gdwse.com/www.smtcaomao.com"
+                    target="_blabk"><img class="partner_img" src="__FRONT__/images/2017111315195306317352.jpg" alt="caomao"></a>
+                </li>
+                <li style="float: left; width: 1px;"><a href="https://www.17track.net/zh-cn" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2018121015052692194720.png" alt="17track"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.ebay.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060216115542337691.png" alt="ebay"></a></li>
+                <li style="float: left; width: 1px;"><a href="https://www.wish.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2017111315375305296369.jpg" alt="wish"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://seller.aliexpress.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310374797371086.jpg" alt="速卖通"></a></li>
+                <li style="float: left; width: 1px;"><a href="https://www.amazon.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310382683001886.jpg" alt="amazon."></a></li>
+                <li style="float: left; width: 1px;"><a href="http://seller.dhgate.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310392230454101.png" alt="敦煌网"></a></li>
+                <li style="float: left; width: 1px;"><a href="https://www.1688.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2017111315391201449607.jpg" alt="阿里巴巴"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.tongtool.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817023531622179.png" alt="通途"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.akerp.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072816575950604940.png" alt="奥科"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.littleboss.com/partners.html"
+                    target="_blabk"><img class="partner_img" src="__FRONT__/images/2016072817083521872226.png" alt="小老板"></a>
+                </li>
+                <li style="float: left; width: 1px;"><a href="http://www.mabangerp.com/index.htm" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072816594116116652.jpg" alt="马帮"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.sumy.org.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817015617588936.png" alt="速脉ERP"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.cnfth.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817064750131034.jpg" alt="交易助手"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.trade-plug.net/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016072817074748497175.png" alt="trade"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.cn.dhl.com/zh.html" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310433976673781.png" alt="DHL"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.chinapost.com.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310412323061526.jpg" alt="中国邮政"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.sz56t.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060216125609303989.png" alt="华磊"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.gdwse.com/www.smtcaomao.com"
+                    target="_blabk"><img class="partner_img" src="__FRONT__/images/2017111315195306317352.jpg" alt="caomao"></a>
+                </li>
+                <li style="float: left; width: 1px;"><a href="https://www.17track.net/zh-cn" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2018121015052692194720.png" alt="17track"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://www.ebay.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060216115542337691.png" alt="ebay"></a></li>
+                <li style="float: left; width: 1px;"><a href="https://www.wish.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2017111315375305296369.jpg" alt="wish"></a></li>
+                <li style="float: left; width: 1px;"><a href="http://seller.aliexpress.com/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310374797371086.jpg" alt="速卖通"></a></li>
+                <li style="float: left; width: 1px;"><a href="https://www.amazon.cn/" target="_blabk"><img
+                      class="partner_img" src="__FRONT__/images/2016060310382683001886.jpg" alt="amazon."></a></li>
+              </ul>
+            </div>
+          </div>
+
+
+          <img class="mr_frBtnR nex" src="__FRONT__/images/mfrR.jpg" width="28" height="46">
+        </div>
+        <script language="javascript" type="text/javascript" src="__FRONT__/js/ss.js"></script>
+
+        <script language="javascript">
+          $(".mr_frUl ul li img").hover(function () { $(this).css("border-color", "#A0C0EB"); }, function () { $(this).css("border-color", "#d8d8d8") });
+          jQuery(".mr_frbox").slide({ titCell: "", mainCell: ".mr_frUl ul", autoPage: true, effect: "leftLoop", autoPlay: true, vis: 4 });
+        </script>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!--中间内容 结束-->
+{/block}
