@@ -1,0 +1,197 @@
+{extend name="layout/base" /}
+{block name="title"}会员注册{/block}
+{block name="load"}
+<!-- css -->
+<link rel="stylesheet" href="__FRONT__/css/register.css">
+<link rel="stylesheet" href="__FRONT__/css/style.css">
+<link href="__FRONT__/css/chosen.css" rel="stylesheet">
+<style type="text/css">
+  .clearfix:after {
+    content: "\20";
+    display: block;
+    height: 0;
+    clear: both;
+  }
+
+  .imgItem img {
+    width: 200px;
+    height: 160px;
+  }
+
+  .imgItem label {
+    width: 100%;
+  }
+
+  .imgItem button {}
+</style>
+<!-- js -->
+<script src="__FRONT__/js/nav.js"></script>
+<script src="__FRONT__/js/chosen.jquery.min.js"></script>
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+
+<!-- 中间内容开始 -->
+
+<div class="l_c_bar">
+  <div class="l_c_center">
+    <div class="l_t">
+      <strong>会员注册</strong>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+<div class="l_c_center">
+  <div class="l_content">
+    <!-- banner 开始 -->
+    <div id="full-screen-slider">
+      <ul id="slides">
+        <li><img alt="" src="__FRONT__/images/lg_bj.png" width="520px" height="400px"></li>
+      </ul>
+    </div>
+    <!-- banner 开始 -->
+
+    <!-- 注册内容 开始 -->
+    <form id="formpersonal" action="">
+      <div class="form_main_box" id="login-register">
+        <div class="form_main">
+          <div class="f_l_title">帐户信息</div>
+          <ul class="f_l_cont">
+            <li>
+              <span class="label"><span class="red">*</span>用户名：</span>
+              <div class="inputBox">
+                <input type="text" id="username" name="username" class="text" tabindex="1" placeholder="英文或数字,禁止中文">
+              </div>
+            </li>
+            <li>
+              <span class="label"><span class="red">*</span>设置密码：</span>
+              <div class="inputBox">
+                <input type="password" id="password" name="password" class="text" tabindex="2" placeholder="6~20位">
+              </div>
+            </li>
+            <li>
+              <span class="label"><span class="red">*</span>公司名：</span>
+              <div class="inputBox">
+                <input type="text" id="company" name="company" class="text" tabindex="3" placeholder="个人填姓名即可">
+              </div>
+            </li>
+            <li style="margin-bottom: 5px;">
+              <span class="label"><span class="red">*</span>联系方式：</span>
+              <div class="inputBox">
+                <input type="text" id="contactmanner" name="contactmanner" class="text" tabindex="4"
+                  placeholder="务必填写联系方式,以便我司和您联系">
+              </div>
+              <div style="width: 310px;height: 22px; padding-left: 80px;padding-top: 5px;padding-right: 5px;">
+                <input type="radio" name="radio" style="width: 15px;height: 15px;vertical-align:middle;" id="qq"
+                  value="qq:" checked="checked"><span style="margin-right:10px;margin-left:5px;">QQ</span>
+                <input type="radio" name="radio" style="width: 15px;height: 15px;vertical-align:middle;" id="taobao"
+                  value="taobao:"><span style="margin-right:10px;margin-left:5px;">淘宝</span>
+                <input type="radio" name="radio" style="width: 15px;height: 15px;vertical-align:middle;" id="facebook"
+                  value="facebook:"><span style="margin-right:10px;margin-left:5px;">FaceBook</span>
+                <input type="radio" name="radio" style="width: 15px;height: 15px;vertical-align:middle;" id="line"
+                  value="line:"><span style="margin-left:5px;">LINE</span>
+                <input type="radio" name="radio" style="width: 15px;height: 15px;vertical-align:middle;" id="wechat"
+                  value="wechat:"><span style="margin-left:5px;">微信</span>
+              </div>
+            </li>
+            <li>
+              <span class="label">邮箱：</span>
+              <div class="inputBox">
+                <input type="text" id="email" name="email" class="text" tabindex="4" placeholder="请填写正确的邮箱地址">
+              </div>
+            </li>
+            <li>
+              <span class="label"><span class="red">*</span>联系电话：</span>
+              <div class="inputBox">
+                <input type="text" id="tel" name="tel" class="text" tabindex="5" placeholder="手机号或固话均可">
+              </div>
+            </li>
+            <li class="line">
+              <span class="label">推荐码：</span>
+              <input type="text" id="recommendcode" name="recommendcode" class="text" value="" placeholder="选填，推荐人信息"
+                maxlength="12" tabindex="6">
+            </li>
+
+            <li class="line">
+              <span class="label"><span class="red">*</span>验证码：</span>
+              <input type="text" id="authcode" name="authcode" class="text text-1 min-input" maxlength="6" tabindex="6">
+              <img id="JD_Verification1" src="__FRONT__/images/imageServlet.jpg" onclick="javascript:refresh(this);"
+                title="看不清？点击更换">
+
+            </li>
+            <li class="line">
+              <a id="toUploadFile">上传证件</a>
+            </li>
+
+            <!-- 文件div -->
+            <div class="ui-dialog-cntainer hide" id="uploadDiv">
+              <div class="ui-dialog-cover"></div>
+              <div class="ui-dialog ui-dialog-lg" style="height: 350px;width: 900px;left: 42%;">
+                <div class="ui-dialog-header">
+                  <div class="ui-dialog-close">X</div>
+                  <h3>证件上传</h3>
+                </div>
+                <div class="ui-dialog-body" style="height: 98%;">
+                  <div class="panel panel-nobottom clearfix" style="padding-bottom: 10px;">
+                    <div class="panel-body clearfix">
+                      <!-- 营业执照 -->
+                      <div class="imgItem">
+                        <label>营业执照</label>
+                        <input id="file1" type="file" style="display: none;" name="file">
+                        <input type="hidden" name="license" value="N">
+                        <div class="img-container">
+                          <img src="__FRONT__/images/shangchuan2.png" alt="上传图片">
+                        </div>
+                      </div>
+                      <!-- 身份证正面照(国徽面) -->
+                      <div class="imgItem">
+                        <label>身份证正面照(国徽面)</label>
+                        <input id="file2" type="file" style="display: none;" name="file">
+                        <input type="hidden" name="idcard_front" value="N">
+                        <div class="img-container">
+                          <img src="__FRONT__/images/shangchuan2.png" alt="上传图片">
+                        </div>
+                      </div>
+                      <!-- 身份证反面照(人物面) -->
+                      <div class="imgItem">
+                        <label>身份证反面照(人物面)</label>
+                        <input id="file3" type="file" style="display: none;" name="file">
+                        <input type="hidden" name="idcard_back" value="N">
+                        <div class="img-container">
+                          <img src="__FRONT__/images/shangchuan2.png" alt="上传图片">
+                        </div>
+                      </div>
+                      <div class="col-md-12 form-group">
+                        <div class="col-md-12">
+                          <p style="color:red;">禁止上传后缀名为jsp,bat,sh,js等的文件</p>
+                          <button type="button" style="margin-left: 646px;" class="btn btn-primary btn-w-xs"
+                            id="close">确认</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <li class="error">
+              <div class="clear"></div>
+              <span class="red"></span>
+            </li>
+            <li>
+              <span class="label">&nbsp;</span>
+              <button type="submit" class="l_btn">注 册</button>
+            </li>
+          </ul>
+
+          <div class="l_f_reg">
+            已有帐号？<a href="http://www.gdwse.com:8083/login.htm">立即登录</a></div>
+        </div>
+      </div>
+    </form>
+    <!-- 注册内容 结束 -->
+  </div>
+</div>
+
+
+<!--中间内容 结束-->
+{/block}

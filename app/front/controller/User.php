@@ -3,24 +3,19 @@ namespace app\front\controller;
 
 use think\facade\View;
 
-class Index
+class User
 {
     public function index()
     {
         return View::fetch();
     }
 
-    public function about()
+    public function register()
     {
         return View::fetch();
     }
 
-    public function culture()
-    {
-        return View::fetch();
-    }
-
-    public function job()
+    public function login()
     {
         return View::fetch();
     }

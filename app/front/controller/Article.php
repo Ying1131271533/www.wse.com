@@ -3,24 +3,24 @@ namespace app\front\controller;
 
 use think\facade\View;
 
-class Index
+class Article
 {
     public function index()
     {
         return View::fetch();
     }
 
-    public function about()
+    public function detail()
     {
         return View::fetch();
     }
 
-    public function culture()
+    public function news()
     {
         return View::fetch();
     }
 
-    public function job()
+    public function newsDetail()
     {
         return View::fetch();
     }

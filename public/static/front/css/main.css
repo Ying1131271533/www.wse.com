@@ -1540,8 +1540,8 @@ word-break: normal; padding:20px 10px;;}
 .slick img { width:100%;  height:400px; }
 .news_header{ width:1170px; margin-bottom:5px;height:90px;}
 	
-.pn_hd h2{ float:left; font-size:18px;  }
 .pn_hd{ float:left; width:1000px; height:60px; } 
+.pn_hd h2{ float:left; font-size:18px;padding-top: 20px;padding-bottom: 10px;}
 .div_parter{ float:left; width:300px; }
 .div_parter img{ float:left; margin-bottom:10px; }
 #footer{float:left; width:100%;

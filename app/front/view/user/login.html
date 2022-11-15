@@ -1,0 +1,127 @@
+{extend name="layout/base" /}
+{block name="title"}会员登录{/block}
+{block name="load"}
+<!-- css -->
+<link rel="stylesheet" href="__FRONT__/css/style4.css">
+<style>
+    @-moz-keyframes nodeInserted {
+        from {
+            opacity: 0.99;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes nodeInserted {
+        from {
+            opacity: 0.99;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @-o-keyframes nodeInserted {
+        from {
+            opacity: 0.99;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes nodeInserted {
+        from {
+            opacity: 0.99;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    embed,
+    object {
+        animation-duration: .001s;
+        -ms-animation-duration: .001s;
+        -moz-animation-duration: .001s;
+        -webkit-animation-duration: .001s;
+        -o-animation-duration: .001s;
+        animation-name: nodeInserted;
+        -ms-animation-name: nodeInserted;
+        -moz-animation-name: nodeInserted;
+        -webkit-animation-name: nodeInserted;
+        -o-animation-name: nodeInserted;
+    }
+</style>
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+
+<!-- 中间内容开始 -->
+
+<!-- 头部 结束 -->
+<div class="l_c_bar">
+  <div class="l_c_center">
+    <div style="float:left;">
+      <a href="/">
+        <img src="__FRONT__/images/hl.png" style="width:auto;max-width:90px;height:55px;"
+        onerror="this.src='newpage/images/hl.png'">
+      </a>
+    </div>
+    <div class="l_t">
+      <strong>威速易供应链管理-会员登录</strong>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+<div class="l_c_center">
+  <div class="l_content">
+    <!-- banner 开始 -->
+    <div id="full-screen-slider">
+      <ul id="slides">
+        <li><img alt="" src="__FRONT__/images/lg_bj.png" width="520px" height="400px">
+        </li>
+      </ul>
+    </div>
+    <!-- banner 开始 -->
+
+    <!-- 登录内容 开始 -->
+    <form method="post" action="">
+      <div class="form_main_box">
+        <div class="form_main">
+          <div class="f_l_title">登录</div>
+          <ul class="f_l_cont">
+            <li>
+              <div class="int_ui">
+                <input class="int-user" id="username" type="text" name="username" value="" placeholder="请输入用户名">
+              </div>
+            </li>
+            <li>
+              <div class="int_ui">
+                <input class="int-pwd" id="password" type="password" name="password" placeholder="请输入密码">
+              </div>
+            </li>
+            <li>
+              <div class="clear"></div>
+              <span style="color:red;"></span>
+            </li>
+          </ul>
+          <input type="submit" class="l_btn" value="登 录">
+          <div class="l_f_reg"> 还没有帐号？<a href="/user/register">免费注册 &gt;</a></div>
+
+        </div>
+      </div>
+    </form>
+    <!-- 登录内容 结束 -->
+  </div>
+</div>
+
+
+<!--中间内容 结束-->
+{/block}
