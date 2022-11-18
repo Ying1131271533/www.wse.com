@@ -6,7 +6,7 @@
 
 return [
     // 默认缓存驱动
-    'default' => env('cache.driver', 'file'),
+    'default' => env('cache.driver', 'redis'),
 
     // 缓存连接方式配置
     'stores'  => [
@@ -20,10 +20,9 @@ return [
             // 端口
             'port'     => config('app.redis.port'),
             // 库
-            'select'   => 1,
+            'select'   => 2,
             // 缓存有效期 0表示永久缓存
-            'expire'   => null,
-            // 'expire'   => cache_time('one_month'),
+            'expire'   => 0,
         ],
     ],
 ];

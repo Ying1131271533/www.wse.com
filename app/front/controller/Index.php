@@ -24,4 +24,9 @@ class Index
     {
         return View::fetch();
     }
+
+    public function contact()
+    {
+        return View::fetch();
+    }
 }

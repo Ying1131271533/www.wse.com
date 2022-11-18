@@ -7,8 +7,11 @@ Route::group('article', function(){
     Route::rule('', 'Article/index', 'GET');
     // 文章详情
     Route::rule(':id', 'Article/detail', 'GET')->pattern(['id' => '\d+']);
+});
+
+Route::group('news', function(){
     // 公司新闻列表
-    Route::rule('news', 'Article/news', 'GET');
+    Route::rule('', 'Article/news', 'GET');
     // 新闻详情
-    Route::rule('news/:id', 'Article/newsDetail', 'GET')->pattern(['id' => '\d+']);
+    Route::rule(':id', 'Article/newsDetail', 'GET')->pattern(['id' => '\d+']);
 });

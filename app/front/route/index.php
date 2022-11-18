@@ -11,4 +11,6 @@ Route::group('', function(){
     Route::rule('culture', 'Index/culture', 'GET');
     // 人才招聘
     Route::rule('job', 'Index/job', 'GET');
+    // 联系我们
+    Route::rule('contact', 'Index/contact', 'GET');
 });

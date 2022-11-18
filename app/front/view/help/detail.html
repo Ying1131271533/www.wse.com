@@ -1,0 +1,71 @@
+{extend name="public/base" /}
+{block name="title"}下单指南{/block}
+{block name="load"}
+<!-- css -->
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+
+<!-- 中间内容开始 -->
+
+<div class="container">
+  <div class="row">
+
+    <!-- 左边的导航 -->
+    {include file="public/help_left" /}
+
+    <!--内容-->
+    <div class="div_dtean">
+      <div id="ctl00_cphMain_Article">
+
+        <!-- 位置 -->
+        {include file="public/position" /}
+
+        <!-- 内容 -->
+        <div class="product_3">
+          <h4 class="text-center">
+            <strong>包裹追踪</strong>
+          </h4>
+          <div class="dashed-line"></div>
+          <p class="first-line-indent"></p>
+          <!-- 文章内容 -->
+          <div class="pageContent">
+            <div>123123123</div>
+          </div>
+          <br /><br />
+          <p></p>
+          <div class="dashed-line"></div>
+          <div class="row">
+            <div id="b-left" class="col-md-6 col-sm-6 col-xs-12">
+              <label>上一篇：</label>
+              <span>
+                <a href="http://www.gdwse.com/articles/19.html">自助账单</a></span>
+            </div>
+            <div id="b-right" class="col-md-6 col-sm-6 col-xs-12">
+              <label>下一篇：</label>
+              <span>
+                <a href="http://www.gdwse.com/articles/19.html">自助账单</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 左边导航
+  $(".divrightLit ul")
+    .children()
+    .eq(0)
+    .find("a")
+    .addClass("hover_1");
+  // 位置
+  $(".pdivnewsheader h5, .pdivnewsheader .hover_1").text('新手指南');
+  $('.pdivnewsheader .hover_1').attr('href', '/help/1');
+
+</script>
+
+<!--中间内容 结束-->
+{/block}

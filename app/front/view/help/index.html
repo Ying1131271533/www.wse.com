@@ -1,0 +1,108 @@
+{extend name="public/base" /}
+{block name="title"}新手指南{/block}
+{block name="load"}
+<!-- css -->
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+
+<!-- 中间内容开始 -->
+
+<div class="container">
+  <div class="row">
+
+    <!-- 左边的导航 -->
+    {include file="public/help_left" /}
+
+    <!--内容-->
+    <div class="div_dtean">
+
+      <div id="ctl00_cphMain_Article">
+
+        <!-- 位置 -->
+        {include file="public/position" /}
+
+        <div class="newsdivli">
+          <ul>
+            <li>
+              <span>
+                <img src="__FRONT__/images/article_arrow.gif" alt="" />
+                <a
+                  href="/help/detail/1"
+                  title="下单指南"
+                  target="_blank"
+                  >下单指南</a>
+              </span
+              ><span class="date pull-right">2017/11/13 15:48:05</span>
+            </li>
+            <li>
+              <span><img src="__FRONT__/images/article_arrow.gif" alt="" /><a
+                  href="http://www.gdwse.com/articles/20.html"
+                  title="退件处理"
+                  >退件处理</a>
+              </span
+              ><span class="date pull-right">2016/6/3 17:08:55</span>
+            </li>
+            <li>
+              <span><img src="__FRONT__/images/article_arrow.gif" alt="" /><a
+                  href="http://www.gdwse.com/articles/19.html"
+                  title="自助账单"
+                  >自助账单</a>
+              </span
+              ><span class="date pull-right">2016/6/3 17:08:48</span>
+            </li>
+            <li>
+              <span><img src="__FRONT__/images/article_arrow.gif" alt="" /><a
+                  href="http://www.gdwse.com/articles/18.html"
+                  title="包裹追踪"
+                  >包裹追踪</a>
+              </span
+              ><span class="date pull-right">2016/6/3 16:51:35</span>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+      <div class="pager text-center">
+
+        <!-- AspNetPager 7.3.2  Copyright:2003-2010 Webdiyer (www.webdiyer.com) -->
+        <div id="ctl00_cphMain_ListPager" class="Pager">
+          <div class="CustomInfo" style="width:40%;float:left;">
+            Page 1 of 1
+          </div>
+          <div class="Pager" style="width:60%;float:left;">
+            <a disabled="disabled" style="margin-right:5px;"><span class="btnLink" title="首页">首页</span></a><a
+              disabled="disabled" style="margin-right:5px;"><span class="btnLink" title="上一页">上一页</span></a><span
+              class="CurrentPage" style="margin-right:5px;"><span class="Pager">1</span>
+          </span><a disabled="disabled"
+              style="margin-right:5px;"><span class="btnLink" title="下一页">下一页</span></a><a disabled="disabled"
+              style="margin-right:5px;"><span class="btnLink" title="尾页">尾页</span></a>
+          </div>
+        </div>
+        <!-- AspNetPager 7.3.2  Copyright:2003-2010 Webdiyer (www.webdiyer.com) -->
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+
+<script>
+  // 左边导航
+  $(".divrightLit ul")
+    .children()
+    .eq(0)
+    .find("a")
+    .addClass("hover_1");
+  // 位置
+  $(".pdivnewsheader h5, .pdivnewsheader .hover_1").text('新手指南');
+  $('..pdivnewsheader .hover_1').attr('href', '/help/1');
+
+</script>
+
+<!--中间内容 结束-->
+{/block}
