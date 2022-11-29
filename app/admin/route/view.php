@@ -10,6 +10,8 @@ Route::group('view', function(){
 });
 
 Route::group('view', function(){
-    // 主页框架界面
+    // 管理员登录
+    Route::rule('login', 'View/login', 'GET');
+    // 管理员列表
     Route::rule('admin_index', 'View/index', 'GET');
 });
