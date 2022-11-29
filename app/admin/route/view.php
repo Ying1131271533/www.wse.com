@@ -8,3 +8,8 @@ Route::group('view', function(){
     // 欢迎
     Route::rule('welcome', 'View/welcome', 'GET');
 });
+
+Route::group('view', function(){
+    // 主页框架界面
+    Route::rule('admin_index', 'View/index', 'GET');
+});

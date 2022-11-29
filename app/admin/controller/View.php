@@ -16,4 +16,10 @@ class View
     {
         return FacadeView::fetch('index/welcome');
     }
+	
+    // 管理员列表
+    public function admin_index()
+    {
+        return FacadeView::fetch('index/index');
+    }
 }
