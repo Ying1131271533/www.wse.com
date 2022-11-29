@@ -43,8 +43,9 @@ return [
 
     // redis连接配置
     'redis'            => [
-        'host'     => 'redis',
-        'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
+        // 'host'     => 'redis',
+        'host'     => 'localhost',
+        // 'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
         'port'     => 6379,
     ],
 

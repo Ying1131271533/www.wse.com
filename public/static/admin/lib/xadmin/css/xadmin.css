@@ -137,7 +137,8 @@ body{
     line-height: 45px;
 }
 .container .layui-nav-more{
-    top: 20px;
+    /* top: 20px; layui 2.4.5 */
+    top: 0px;
 }
 .container .layui-nav-child{
     top: 50px;

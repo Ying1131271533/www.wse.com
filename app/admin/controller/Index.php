@@ -1,15 +1,13 @@
 <?php
 namespace app\admin\controller;
 
-class Index extends Base
+use app\BaseController;
+
+class Index extends BaseController
 {
+    // 首页
     public function index()
     {
-        return 'admin/Index/index 威速易后端';
-    }
-
-    public function hello($name = 'ThinkPHP6')
-    {
-        return 'hello,' . $name;
+        return $this->success('威速易后端');
     }
 }

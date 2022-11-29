@@ -30,5 +30,6 @@ return [
         '__ADMIN__' => '/static/admin',
         '__API__' => '/static/api',
         '__COMMON__' => '/static/common',
+        '__XADMIN__' => '/static/admin/lib/xadmin',
     ]
 ];

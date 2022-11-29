@@ -6,22 +6,22 @@ use think\cache\driver\Memcache;
 /**
  * 返回api接口数据
  *
- * @param  string    $smg       描述信息
- * @param  int       $code      http状态码
- * @param  int       $status    程序状态码
+ * @param  string    $msg       描述信息
+ * @param  int       $HttpStatus      http状态码
+ * @param  int       $code    程序状态码
  * @param  notype    $data      返回的数据
  * @return json                 api返回的json数据
  */
-function show(string $msg, int $code = 200, int $status = 20000, $data = [])
+function show(string $msg, int $code = 20000, $data = [], int $HttpStatus = 200)
 {
     // 组装数据
     $resultData = [
-        'status' => $status,
-        'msg'    => $msg,
-        'data'   => $data,
+        'msg'  => $msg,
+        'code' => $code,
+        'data' => $data,
     ];
     // 返回数据
-    return json($resultData, $code);
+    return json($resultData, $HttpStatus);
 }
 
 /**
@@ -76,42 +76,42 @@ function success($data = [], int $status = 20000, int $code = 200, string $msg =
 /**
  * 返回资源创建成功的api接口数据
  *
- * @param  array|string     $data       返回的数据
- * @param  string           $smg        描述信息
- * @param  int              $status     程序状态码
- * @param  int              $code       http状态码
- * @return json                         api返回的json数据
+ * @param  array|string     $data           返回的数据
+ * @param  string           $smg            描述信息
+ * @param  int              $code           程序状态码
+ * @param  int              $HttpStatus     http状态码
+ * @return json                             api返回的json数据
  */
-function create($data = [], int $status = 20001, int $code = 201, string $msg = '成功')
+function create($data = [], int $code = 20001, int $HttpStatus = 201, string $msg = '成功')
 {
     // 组装数据
     $resultData = [
-        'status' => $status,
-        'msg'    => $msg,
-        'data'   => $data,
+        'code' => $code,
+        'msg'  => $msg,
+        'data' => $data,
     ];
     // 返回数据
-    return json($resultData, $code);
+    return json($resultData, $HttpStatus);
 }
 
 /**
  * 返回失败的api接口数据
  *
- * @param  string    $smg       描述信息
- * @param  int       $status    程序状态码
- * @param  int       $code      http状态码
- * @return json                 api返回的json数据
+ * @param  string    $msg           描述信息
+ * @param  int       $code          程序状态码
+ * @param  int       $HttpStatus    http状态码
+ * @return json                     api返回的json数据
  */
-function fail(string $msg = '失败', int $status = 40000, int $code = 400)
+function fail(string $msg = '失败', int $code = 40000, int $HttpStatus = 200)
 {
     // 组装数据
     $resultData = [
-        'status' => $status,
-        'msg'    => $msg,
+        'code' => $code,
+        'msg'  => $msg,
     ];
     // 返回数据
     // echo json_encode($resultData, $code);exit;
-    return json($resultData, $code);
+    return json($resultData, $HttpStatus);
 }
 
 /**

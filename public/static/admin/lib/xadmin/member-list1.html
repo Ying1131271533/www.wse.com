@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html class="x-admin-sm">
-    
     <head>
         <meta charset="UTF-8">
         <title>欢迎页面-X-admin2.2</title>
@@ -11,12 +10,7 @@
         <link rel="stylesheet" href="./css/xadmin.css">
         <script src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
-        <!--[if lt IE 9]>
-          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
     </head>
-    
     <body>
         <div class="x-nav">
             <span class="layui-breadcrumb">
@@ -48,7 +42,7 @@
                             </form>
                         </div>
                         <div class="layui-card-body ">
-                            <table class="layui-table" lay-data="{url:'./user.json',page:true,toolbar: '#toolbarDemo',id:'test'}" lay-filter="test">
+                            <table class="layui-table" lay-data="{url:'http://x.xuebingsi.com/x-admin/v2.2/user.json',page:true,toolbar: '#toolbarDemo',id:'test'}"  lay-filter="test">
                                 <thead>
                                     <tr>
                                         <th lay-data="{type:'checkbox'}">ID</th>
@@ -76,7 +70,7 @@
     </script>
     <script type="text/html" id="switchTpl">
         <!-- 这里的checked的状态只是演示 -->
-        <input type = "checkbox" name = "sex" value = "{{d.id}}" lay-skin = "switch"lay-text = "女|男" lay-filter = "sexDemo" {{ d.id == 10003 ? 'checked': ''}} >
+        <input type = "checkbox" name = "sex" value = "{{d.id}}" lay-skin = "switch" lay-text = "女|男" lay-filter = "sexDemo" {{ d.id == 10003 ? 'checked': ''}} >
     </script>
     <script>layui.use('laydate',
         function() {
@@ -93,7 +87,8 @@
             });
 
         });</script>
-    <script>layui.use('table',
+    <script>
+        layui.use('table',
         function() {
             var table = layui.table;
 
