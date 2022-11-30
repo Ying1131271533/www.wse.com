@@ -3,7 +3,7 @@ namespace app\admin\controller;
 
 use app\BaseController;
 
-class Index extends BaseController
+class Home extends BaseController
 {
     // 首页
     public function index()

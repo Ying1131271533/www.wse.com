@@ -14,13 +14,13 @@ class View
     // 主页框架界面
     public function index()
     {
-        return FacadeView::fetch('index/index');
+        return FacadeView::fetch('home/index');
     }
 
     // 主页 欢迎
     public function welcome()
     {
-        return FacadeView::fetch('index/welcome');
+        return FacadeView::fetch('home/welcome');
     }
 	
     // 管理员列表

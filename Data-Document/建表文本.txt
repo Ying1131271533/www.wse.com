@@ -3,7 +3,7 @@ admin - 管理员
 
 id int id
 username char(25) 管理员名称
-real_name char(25) 真实名字
+real_name char(25) null 真实名字
 password char(32) 密码
 phone char(25) null 手机
 wechat char(50) null 微信
@@ -31,24 +31,13 @@ node - 节点
 id int id
 node char(45) 节点
 name char(25) 名称
-layer_level tinyint(1) 层级
+view char(50) 视图节点
+level tinyint(1) 层级 0 开始
 parent_id int 父级id
-show tinyint(1) 显示 0 否 1 是
-sort int 排序
-icon char(45) null 图标
-update_time int 更新时间
-create_time int 创建时间
-delete_time int null 删除时间
-
-
-category - 分类
-
-id int id
-parent_id int id 父级id
-name char(25) 分类名称
-icon char(100) null 图标
-sort int 排序
-status tinyint(1) 状态
+icon char(50) null 图标
+show tinyint(1) 显示：0 否 1 是
+target char(10) _blank 链接打开方式：默认打开新窗口
+sort smallint 无符号 排序
 update_time int 更新时间
 create_time int 创建时间
 delete_time int null 删除时间
@@ -73,6 +62,21 @@ update_time int 更新时间
 create_time int 创建时间
 delete_time int null 删除时间
 
+
+
+category - 导航分类
+
+id int id
+parent_id int id 父级id
+name char(25) 分类名称
+url char(255) null 链接
+img char(100) null 图标图片
+sort smallint 排序
+show tinyint(1) 是否在导航栏：0 否 1 是
+status tinyint(1) 状态
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
 
 
 
