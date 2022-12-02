@@ -83,7 +83,7 @@ function config(status) {
 
     $.ajaxSetup({ async: false });
     let res = null;
-    $.getJSON("/static/api/js/status.json", function (data) {
+    $.getJSON("/static/common/js/status.json", function (data) {
         res = data[status];
     });
     return res;
@@ -104,15 +104,15 @@ function isLogin(secret) {
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: '/' +secret+'/Admin/isLogin',
+        url: '/' + secret + '/Admin/isLogin',
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getToken());
         },
         success: function (res) {
             if (res.status === config('goto')) {
                 layer.msg('登录凭证失效！', {}, function () {
-                    $.remvoeCookie('admin_login_token', {path: '/'});
-                    $(window).attr('location', '/'+secret+'loginView');
+                    $.remvoeCookie('admin_login_token', { path: '/' });
+                    $(window).attr('location', '/' + secret + 'loginView');
                 });
             }
         }
@@ -131,7 +131,7 @@ function isApiLogin() {
         success: function (res) {
             if (res.status === config('goto')) {
                 layer.msg('登录凭证失效！', {}, function () {
-                    $.removeCookie('api_login_token', {path: '/'});
+                    $.removeCookie('api_login_token', { path: '/' });
                     // $.removeCookie('api_login_token', {domain: document.domain, path: '/'});
                     $(window).attr('location', '/api/View/user/login');
                 });
@@ -147,14 +147,14 @@ function getUserById(uid) {
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
         url: '/api/User/getUserById',
-        data: { id: uid},
+        data: { id: uid },
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getApiToken());
         },
         success: function (res) {
             if (res.status === config('goto')) {
                 layer.msg('登录凭证失效！', {}, function () {
-                    $.removeCookie('api_login_token', {path: '/'});
+                    $.removeCookie('api_login_token', { path: '/' });
                     $(window).attr('location', '/api/View/user/login');
                 });
             }
@@ -184,7 +184,7 @@ function getUser() {
         success: function (res) {
             if (res.status === config('goto')) {
                 layer.msg('登录凭证失效！', {}, function () {
-                    $.removeCookie('api_login_token', {path: '/'});
+                    $.removeCookie('api_login_token', { path: '/' });
                     $(window).attr('location', '/api/View/user/login');
                 });
             }
@@ -202,18 +202,44 @@ function getUser() {
 }
 
 // 滚动到指定位置 上、中、下
-function scrollToEnd(val){
+function scrollToEnd(val) {
     var h = null;
     switch (val) {
         case 1:
             h = 0;
             break;
         case 2:
-            h = $(document).height()-$(window).height() / 2;
+            h = $(document).height() - $(window).height() / 2;
             break;
         case 3:
-            h = $(document).height()-$(window).height();
+            h = $(document).height() - $(window).height();
             break;
     }
     $(document).scrollTop(h);
+}
+
+
+/**
+ * 改变数据状态，只能是0和1
+ *
+ * @param  this
+ * @return $
+ */
+function ajax_status(obj) {
+    var id = $(obj).attr("data-id");
+    var url = $(obj).attr("data-url");
+
+    $.get(url, { id: id, url: url }, function (data) {
+
+        if (data.code == 0) {
+            if (data.value == 1) {
+                $(obj).removeClass("layui-btn-danger").attr("data-url", data.url).text("开启");
+            } else {
+                $(obj).addClass("layui-btn-danger").attr("data-url", data.url).text("关闭");
+            }
+        } else {
+            return layer.alert(data.msg, { icon: 2 });
+        }
+
+    }, 'json');
 }

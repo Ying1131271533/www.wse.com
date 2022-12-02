@@ -10,10 +10,11 @@ return [
     // 自动写入时间戳字段
     // true为自动识别类型 false关闭
     // 字符串则明确指定时间字段类型 支持 int timestamp datetime date
-    'auto_timestamp'  => true,
+    // 'auto_timestamp'  => true,
 
     // 时间字段取出后的默认时间格式
-    'datetime_format' => 'Y-m-d H:i:s',
+    // 'datetime_format' => 'Y-m-d H:i:s',
+    'datetime_format' => false, // 时间戳
 
     // 时间字段配置 配置格式：create_time,update_time
     'datetime_field'  => '',

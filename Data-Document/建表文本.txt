@@ -5,9 +5,11 @@ id int id
 username char(25) 管理员名称
 real_name char(25) null 真实名字
 password char(32) 密码
+password_salt char(5) 密码盐
 phone char(25) null 手机
 wechat char(50) null 微信
 status tinyint(1) 1 登录状态：0 禁止 1 正常
+last_login_token char(50) null 上次登录Token
 login_number int 0 登录次数
 last_login_ip char(20) null 上次登录IP
 last_login_time char(20) null 上次登录时间
@@ -20,27 +22,20 @@ role - 角色
 
 id int id
 name char(25) 角色名称
-explain char(50) 角色介绍
-update_time int 更新时间
-create_time int 创建时间
-delete_time int null 删除时间
+explain char(50) 角色说明
 
 
 node - 节点
 
 id int id
+parent_id int 父级id
 node char(45) 节点
 name char(25) 名称
-view char(50) 视图节点
+view char(50) 视图
 level tinyint(1) 层级 0 开始
-parent_id int 父级id
 icon char(50) null 图标
-show tinyint(1) 显示：0 否 1 是
-target char(10) _blank 链接打开方式：默认打开新窗口
 sort smallint 无符号 排序
-update_time int 更新时间
-create_time int 创建时间
-delete_time int null 删除时间
+status tinyint(1) 状态：0 关闭 1 开启
 
 
 
@@ -72,6 +67,7 @@ name char(25) 分类名称
 url char(255) null 链接
 img char(100) null 图标图片
 sort smallint 排序
+target char(10) _blank 链接打开方式：默认打开新窗口
 show tinyint(1) 是否在导航栏：0 否 1 是
 status tinyint(1) 状态
 update_time int 更新时间

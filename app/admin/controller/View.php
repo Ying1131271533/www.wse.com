@@ -28,4 +28,32 @@ class View
     {
         return FacadeView::fetch('admin/index');
     }
+	
+    // 管理员添加
+    public function admin_save()
+    {
+        return FacadeView::fetch('admin/save');
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

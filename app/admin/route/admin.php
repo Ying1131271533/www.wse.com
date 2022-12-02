@@ -8,4 +8,6 @@ Route::group('admin', function(){
     Route::rule('login', 'Admin/login', 'POST');
     // 管理员列表
     Route::rule('index', 'Admin/index', 'GET');
+    // 管理员保存
+    Route::rule('save', 'Admin/save', 'POST');
 });

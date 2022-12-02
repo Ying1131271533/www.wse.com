@@ -46,54 +46,27 @@ class CheckParams
 
         // 拼接验证类名，注意路径不要出错
         // $validateClassName = 'app' . $root . '\validate\\' . $controller;
-        // 红叶的命名方式就用下面这个
-        $validateClassName = 'app\common\validate' . $root . '\\' . $controller;
-
+        $validateClassName = 'app\\common\\validate\\' . $controller;
+        
         // 判断当前验证类是否存在
         if (class_exists($validateClassName)) {
             $validate = new $validateClassName;
             // 仅当存在验证场景才校验
             if ($validate->hasScene($action)) {
 
-                /* try {
-                    $validate->scene($action)->check($params);
-                } catch (ValidateException $e) {
-                    throw new Params($e->getMessage());
-                }
-                $resultParams    = $validate->getDateByRule($params);
-                $request->params = $resultParams; */
-
                 // 设置当前验证场景
                 $validate->scene($action);
                 // 校验不通过则直接返回错误信息
                 if (!$validate->check($params)) {
-                    // throw new Params(['msg' => $validate->getError()]);
                     // 红叶的命名方式就用下面这个
-                    throw new \Exception($validate->getError(), 300);
-                } else {
-                    $resultParams    = $validate->getDateByRule($params);
-                    $request->params = $resultParams;
+                    throw new \Exception($validate->getError(), config('status.failed'));
                 }
+                // 返回检测通过的参数
+                $resultParams    = $validate->getDateByRule($params);
+                $request->params = $resultParams;
             }
         } /* else{
     $request->params = $params;
     } */
-    }
-
-    /**
-     * 验证请求是否超时
-     *
-     * @param [int] $time [时间戳参数]
-     * @return [json_encode]    [检测结果]
-     */
-    public function check_time(int $time)
-    {
-        if (!isset($time) || intval($time) <= 1) {
-            throw new Params(['msg' => '时间戳不正确！']);
-        }
-
-        if (time() - intval($time) > 60) {
-            throw new Params(['msg' => '时间戳不正确！', 'code' => 301]);
-        }
     }
 }
