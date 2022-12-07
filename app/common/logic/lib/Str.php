@@ -12,7 +12,7 @@ class Str
     }
 
     // 生产盐
-    public function salt(int $bit)
+    public function salt(int $bit = 5)
     {
         // 盐字符集
         $chars = 'abcdefqhijklmnoparstuvwxvzABCDEFGHIJKLMNOPORSTUVWXYZ0123456789';

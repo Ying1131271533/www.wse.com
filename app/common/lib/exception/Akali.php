@@ -4,6 +4,6 @@ namespace app\common\lib\exception;
 class Akali extends BaseException
 {
     public $msg    = '阿卡丽';
-    public $HttpStatus   = 200;
-    public $code = 200;
+    public $errorCode   = 200;
+    public $httpStatus = 200;
 }

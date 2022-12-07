@@ -1,23 +1,21 @@
 <?php
 // 应用公共文件
 
-use think\cache\driver\Memcache;
-
 /**
  * 返回api接口数据
  *
- * @param  string    $msg       描述信息
- * @param  int       $HttpStatus      http状态码
- * @param  int       $code    程序状态码
- * @param  notype    $data      返回的数据
- * @return json                 api返回的json数据
+ * @param  string    $msg           描述信息
+ * @param  int       $code          程序状态码
+ * @param  int       $HttpStatus    http状态码
+ * @param  notype    $data          返回的数据
+ * @return json                     api返回的json数据
  */
-function show(string $msg, int $code = 20000, $data = [], int $HttpStatus = 200)
+function show(string $msg, int $code = 200, int $HttpStatus = 200, $data = null)
 {
     // 组装数据
     $resultData = [
-        'msg'  => $msg,
         'code' => $code,
+        'msg'  => $msg,
         'data' => $data,
     ];
     // 返回数据
@@ -46,43 +44,41 @@ function show_res($status, $message, $data, $HttpStatus = 200)
 /**
  * 返回成功的api接口数据
  *
- * @param  array|string     $data       返回的数据
- * @param  string           $smg        描述信息
- * @param  int              $status     程序状态码
- * @param  int              $code       http状态码
- * @return json                         api返回的json数据
+ * @param  array|string     $data           返回的数据
+ * @param  int              $code           程序状态码
+ * @param  int              $HttpStatus     http状态码
+ * @param  string           $msg            描述信息
+ * @return json                             api返回的json数据
  */
-function success($data = [], int $status = 20000, int $code = 200, string $msg = '成功')
+function success($data = [], int $code = 200, int $HttpStatus = 200, string $msg = '成功')
 {
     // 组装数据
-    if (is_string($data) && (int) ($data) == 0) {
-        $resultData = [
-            'status' => $status,
-            'msg'    => $data,
-            // 'data'   => [],
-        ];
-    } else {
-        $resultData = [
-            'status' => $status,
-            'msg'    => $msg,
-            'data'   => $data,
-        ];
+    $resultData = [
+        'code' => $code,
+        'msg'  => $msg,
+        'data' => $data,
+    ];
+    // 有分页
+    if (isset($data['current_page'])) {
+        $resultData['code']  = 0;
+        $resultData['total'] = $data['total'];
+        $resultData['data'] = $data['data'];
     }
     // 返回数据
     // echo json($resultData, $code);exit;
-    return json($resultData, $code);
+    return json($resultData, $HttpStatus);
 }
 
 /**
  * 返回资源创建成功的api接口数据
  *
  * @param  array|string     $data           返回的数据
- * @param  string           $smg            描述信息
+ * @param  string           $msg            描述信息
  * @param  int              $code           程序状态码
  * @param  int              $HttpStatus     http状态码
  * @return json                             api返回的json数据
  */
-function create($data = [], int $code = 20001, int $HttpStatus = 201, string $msg = '成功')
+function create($data = [], int $code = 201, int $HttpStatus = 201, string $msg = '成功')
 {
     // 组装数据
     $resultData = [
@@ -102,7 +98,7 @@ function create($data = [], int $code = 20001, int $HttpStatus = 201, string $ms
  * @param  int       $HttpStatus    http状态码
  * @return json                     api返回的json数据
  */
-function fail(string $msg = '失败', int $code = 40000, int $HttpStatus = 200)
+function fail(string $msg = '失败', int $code = 100, int $HttpStatus = 100)
 {
     // 组装数据
     $resultData = [
@@ -111,6 +107,25 @@ function fail(string $msg = '失败', int $code = 40000, int $HttpStatus = 200)
     ];
     // 返回数据
     // echo json_encode($resultData, $code);exit;
+    return json($resultData, $HttpStatus);
+}
+
+/**
+ * 返回跳转的api接口数据
+ *
+ * @param  string    $msg           描述信息
+ * @param  int       $code          程序状态码
+ * @param  int       $HttpStatus    http状态码
+ * @return json                     api返回的json数据
+ */
+function jump(string $msg = '跳转', int $code = 101, int $HttpStatus = 101)
+{
+    // 组装数据
+    $resultData = [
+        'code' => $code,
+        'msg'  => $msg,
+    ];
+    // 返回数据
     return json($resultData, $HttpStatus);
 }
 
@@ -440,38 +455,6 @@ function get_child_tree_data(array $data = [], int $parent_id = 0, $spread = fal
     }
 
     return $tmp;
-}
-
-/**
- * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
- * @author: 神织知更
- * @time: 2022/04/14 10:45
- *
- * 获取能够连接的memcache服务器
- *
- * @param  array    $serverConfArr  服务器连接配置数组
- * @return array    $serverConfArr  返回连接成功的服务器ip、端口数据
- */
-function get_memcache_server($serverConfArr = [])
-{
-    $serverConfArr or $serverConfArr = config('app.memcache_server');
-    foreach ($serverConfArr as $key => $value) {
-        $mem      = explode(':', $value);
-        $host     = $mem[0];
-        $port     = $mem[1];
-        $memcache = new Memcache();
-        try {
-            $memcache->connect($host, $port);
-        } catch (\Exception $e) {
-            unset($serverConfArr[$key]);
-        }
-    }
-
-    if (empty($serverConfArr)) {
-        return fail('所有memcache服务器都无法连接');
-    }
-
-    return $serverConfArr;
 }
 
 /**

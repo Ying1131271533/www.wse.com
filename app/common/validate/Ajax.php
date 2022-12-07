@@ -7,10 +7,9 @@ class Ajax extends BaseValidate
     // 验证规则
     protected $rule = [
         'id|id'      => 'require|number',
-        'value|修改值'  => 'require|number',
+        // 'value|修改值'  => '',
         'field|字段名称' => 'require|alphaDash',
-        'db|数据表名称'   => 'require|alphaDash',
-        'url|url'    => 'require',
+        'db|数据表名称'   => 'require|alphaDash'
     ];
 
     // 验证消息
@@ -20,6 +19,6 @@ class Ajax extends BaseValidate
 
     // 验证场景
     protected $scene = [
-        'changeStatus' => ['id', 'value', 'field', 'db', 'url'],
+        'updateFieldValue' => ['id', 'value', 'field', 'db'],
     ];
 }

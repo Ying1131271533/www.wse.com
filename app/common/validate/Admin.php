@@ -20,8 +20,8 @@ class Admin extends BaseValidate
         'status|状态'                  => 'number',
 
         // 分页
-        'page|页码'                  => 'require|number|gt:0',
-        'size|条数'                  => 'require|number|gt:0',
+        'page|页码'                  => 'number|gt:0',
+        'limit|条数'                  => 'number|gt:0',
     ];
 
     // 验证消息
@@ -41,7 +41,7 @@ class Admin extends BaseValidate
             'password_confirm',
             'status'
         ],
-        'index'       => ['page', 'size'],
+        'index'       => ['page', 'limit'],
         'login'       => ['username', 'password'],
         'getUserById' => ['id'],
     ];

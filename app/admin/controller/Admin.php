@@ -3,6 +3,9 @@ namespace app\admin\controller;
 
 use app\admin\logic\Admin as AdminLogic;
 use app\BaseController;
+use app\common\lib\exception\Fail;
+use app\common\lib\exception\Params;
+use app\common\lib\exception\Token;
 use think\App;
 
 class Admin extends BaseController
@@ -20,16 +23,24 @@ class Admin extends BaseController
     public function login()
     {
         $params = $this->request->params;
-        return $this->success($params);
+        $token = $this->logic->login($params);
+        return success($token);
+    }
+
+    // 是否已登录，验证token
+    public function isLogin()
+    {
+        return success('token验证成功！');
     }
 
     // 列表
     public function index()
     {
-        $params = $this->request->params;
-        // halt($params);
-        $data = $this->logic->adminList($params);
-        return $this->success($data);
+        $adminList = $this->logic->adminList(
+            $this->request->page,
+            $this->request->limit
+        );
+        return success($adminList);
     }
 
     // 添加
@@ -37,6 +48,14 @@ class Admin extends BaseController
     {
         $params = $this->request->params;
         $this->logic->save($params);
-        return $this->success('保存成功');
+        return success('保存成功');
+    }
+
+    // 添加
+    public function update()
+    {
+        $params = $this->request->params;
+        $this->logic->save($params);
+        return success('更新成功');
     }
 }

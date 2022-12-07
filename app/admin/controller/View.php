@@ -24,15 +24,21 @@ class View
     }
 	
     // 管理员列表
-    public function admin_index()
+    public function adminIndex()
     {
         return FacadeView::fetch('admin/index');
     }
 	
     // 管理员添加
-    public function admin_save()
+    public function adminSave()
     {
         return FacadeView::fetch('admin/save');
+    }
+	
+    // 管理员更新
+    public function adminUpdate()
+    {
+        return FacadeView::fetch('admin/update');
     }
 }
 

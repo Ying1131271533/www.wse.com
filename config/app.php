@@ -35,18 +35,19 @@ return [
     // 显示错误信息
     'show_error_msg'   => true,
 
+    
     /************** 自定义配置 **************/
 
     // 页码
     'page'             => 1,
-    'size'             => 20,
+    'limit'            => 10,
 
     // redis连接配置
     'redis'            => [
         // 'host'     => 'redis',
-        'host'     => 'localhost',
+        'host' => 'localhost',
         // 'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
-        'port'     => 6379,
+        'port' => 6379,
     ],
 
     // memcache连接配置
@@ -73,8 +74,8 @@ return [
         'password' => 'HnBSVNqu2fTDJH*SPL4K',
     ],
     // swoole连接配置
-    'swoole'    => [
-        'host'     => '127.0.0.1',
-        'port'     => 9501,
+    'swoole'           => [
+        'host' => '127.0.0.1',
+        'port' => 9501,
     ],
 ];

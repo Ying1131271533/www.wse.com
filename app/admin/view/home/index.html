@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="__XADMIN__/css/theme6.css">
     <script src="__XADMIN__/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="__XADMIN__/js/xadmin.js"></script>
+    
+    <script src="__COMMON__/js/jquery.min.js" charset="utf-8"></script>
+    <script src="__COMMON__/js/jquery.cookie.js" charset="utf-8"></script>
+    <script src="__COMMON__/js/common.js" charset="utf-8"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
         <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -22,6 +26,9 @@
     <script>
     // 是否开启刷新记忆tab功能
     // var is_remember = false;
+
+    // 验证登录
+    isAdminLogin();
     </script>
 </head>
 
@@ -111,7 +118,7 @@
                         <i class="iconfont nav_right">&#xe6a7;</i></a>
                     <ul class="sub-menu">
                         <li>
-                            <a onclick="xadmin.add_tab('管理员列表','/view/admin_index')">
+                            <a onclick="xadmin.add_tab('管理员列表','/view/admin_index', true)">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>管理员列表</cite>
                             </a>

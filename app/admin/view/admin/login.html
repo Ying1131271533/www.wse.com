@@ -12,8 +12,10 @@
   <link rel="stylesheet" href="__XADMIN__/css/font.css">
   <link rel="stylesheet" href="__XADMIN__/css/login.css">
   <link rel="stylesheet" href="__XADMIN__/css/xadmin.css">
-  <script src="__COMMON__/js/jquery.min.js" type="text/javascript"></script>
   <script src="__XADMIN__/lib/layui/layui.js" charset="utf-8"></script>
+  <script src="__COMMON__/js/jquery.min.js" charset="utf-8"></script>
+  <script src="__COMMON__/js/jquery.cookie.js" charset="utf-8"></script>
+  <script src="__COMMON__/js/common.js" charset="utf-8"></script>
   <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -31,27 +33,75 @@
       <hr class="hr15">
       <input name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input">
       <hr class="hr15">
+      <div class="layui-form-item">
+        <div class="layui-input-block" style="margin-left: 0px;">
+          <div id="slider"></div>
+        </div>
+      </div>
+      <hr class="hr15">
       <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
       <hr class="hr20">
     </form>
   </div>
 
-  <script>
-    $(function () {
-      layui.use('form', function () {
-        var form = layui.form;
-        // layer.msg('玩命卖萌中', function(){
-        //   //关闭后的操作
-        //   });
-        //监听提交
-        form.on('submit(login)', function (data) {
-          // alert(888)
-          layer.msg(JSON.stringify(data.field), function () {
-            location.href = 'index.html'
+  <script type="text/javascript" charset="utf-8">
+
+    // 获取token
+    let token = getToken();
+
+    layui.config({
+      base: '/static/common/lib/dist/sliderVerify/'
+    }).use(['sliderVerify', 'jquery', 'form'], function () {
+
+      // 滑块验证
+      var sliderVerify = layui.sliderVerify,
+        $ = layui.jquery,
+        form = layui.form;
+      var slider = sliderVerify.render({
+        elem: '#slider',
+        onOk: function () { // 当验证通过回调
+          layer.msg("滑块验证通过");
+        }
+      })
+
+      // 是否已登录过
+      if (!empty(token)) {
+          layer.msg('已登录，无需重复登录', {}, function () {
+              $(window).attr('location', '/view/index');
           });
-          return false;
-        });
+      }
+      
+      //监听提交
+      form.on('submit(login)', function (data) {
+        if (slider.isOk()) {
+          // 发异步，把数据提交给php
+          $.ajax({
+            type: "POST",
+            contentType: "application/x-www-form-urlencoded",
+            url: '/admin/login',
+            data: {
+              username: data.field.username,
+              password: data.field.password
+            },
+            success: function (res) {
+              console.log(res);
+              if (res.code === config('failed')) {
+                layer.msg(res.msg);
+              } else if (res.code === config('success')) {
+                layer.msg('登录成功！', {time: 500}, function () {
+                  $.cookie('admin_login_token', res.data, { expires: 100 * 365, path: '/' });
+                  $(window).attr('location', '/view/index');
+                });
+              }
+            }
+          });
+
+        } else {
+          layer.msg("请先通过滑块验证");
+        }
+        return false;
       });
+  
     })
   </script>
   <!-- 底部结束 -->
