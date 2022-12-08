@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\logic;
 
+use app\common\lib\Token;
 use app\common\logic\lib\Redis;
 use app\common\logic\lib\Str;
 use app\common\model\Admin as AdminModel;
@@ -58,6 +59,15 @@ class Admin
 
         // 返回token
         return $token;
+    }
+
+    // 退出登录
+    public function logout()
+    {
+        // 获取token
+        $token = Token::getToken();
+        // 删除token
+        $this->redis->delete(config('redis.token_pre') . $token);
     }
 
     // 管理员列表

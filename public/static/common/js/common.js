@@ -247,7 +247,7 @@ function scrollToEnd(val) {
  * @param  this
  * @return $
  */
-function ajax_status(obj) {
+function update_field_value(obj) {
     // 数据
     var id = $(obj).attr("data-id"); // id
     var value = $(obj).attr("data-value") == 1 ? 0 : 1; // 要修改的值

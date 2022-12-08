@@ -3,9 +3,8 @@ namespace app\admin\controller;
 
 use app\admin\logic\Admin as AdminLogic;
 use app\BaseController;
-use app\common\lib\exception\Fail;
-use app\common\lib\exception\Params;
-use app\common\lib\exception\Token;
+use app\common\lib\exception\Miss;
+use app\common\model\Admin as AdminModel;
 use think\App;
 
 class Admin extends BaseController
@@ -27,6 +26,13 @@ class Admin extends BaseController
         return success($token);
     }
 
+    // 退出登录
+    public function logout()
+    {
+        $this->logic->logout();
+        return success('退出成功');
+    }
+
     // 是否已登录，验证token
     public function isLogin()
     {
@@ -41,6 +47,14 @@ class Admin extends BaseController
             $this->request->limit
         );
         return success($adminList);
+    }
+
+    // 单条
+    public function read(int $id)
+    {
+        $admin = AdminModel::findAdminById($id);
+        if(!$admin) throw new Miss();
+        return success($admin);
     }
 
     // 添加

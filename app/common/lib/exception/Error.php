@@ -6,5 +6,5 @@ class Error extends BaseException
 {
     public $msg    = '服务发生错误';
     public $errorCode   = 500;
-    public $httpStatus = 500;
+    public $httpStatus = 200;
 }

@@ -53,13 +53,13 @@ class ExceptionHandle extends Handle
     {
         // 添加自定义异常处理机制
         if ($e instanceof BaseException) {
-            return show($e->msg, $e->code, $e->status, $e->data);
+            return show($e->msg, $e->errorCode, $e->httpStatus);
         }
 
         if ($e instanceof \Exception) {
             if (env('APP_DEBUG')) {
                 // 这里打开后就只能在接口显示错误
-                // return show($e->getMessage(), $e->getCode());
+                return show($e->getMessage(), $e->getCode());
             } else {
                 return show('系统内部错误', $e->getCode());
             }

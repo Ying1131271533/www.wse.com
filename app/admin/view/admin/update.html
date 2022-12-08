@@ -1,5 +1,5 @@
 {extend name="public/base" /}
-{block name="title"}管理员更新{/block}
+{block name="title"}管理员保存{/block}
 {block name="load"}
 <!-- css -->
 <!-- js -->
@@ -34,8 +34,7 @@
                     手机
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="phone" name="phone" autocomplete="off"
-                        class="layui-input">
+                    <input type="text" id="phone" name="phone" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     联系手机
@@ -46,8 +45,7 @@
                     微信
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_email" name="email" required="" lay-verify="" autocomplete="off"
-                        class="layui-input">
+                    <input type="text" id="L_email" name="email" lay-verify="" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <!-- <div class="layui-form-item">
@@ -63,8 +61,8 @@
                     <span class="x-red">*</span>密码
                 </label>
                 <div class="layui-input-inline">
-                    <input type="password" id="L_password" name="password" required="" lay-verify="password" autocomplete="off"
-                        class="layui-input">
+                    <input type="password" id="L_password" name="password" required="" lay-verify="password"
+                        autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     6到50个字符
@@ -75,12 +73,12 @@
                     <span class="x-red">*</span>确认密码
                 </label>
                 <div class="layui-input-inline">
-                    <input type="password" id="L_password_confirm" name="password_confirm" required="" lay-verify="password_confirm"
-                        autocomplete="off" class="layui-input">
+                    <input type="password" id="L_password_confirm" name="password_confirm" required=""
+                        lay-verify="password_confirm" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">单选框</label>
+                <label class="layui-form-label">状态</label>
                 <div class="layui-input-block">
                     <input type="radio" name="status" value="1" title="开启" checked>
                     <input type="radio" name="status" value="0" title="关闭">
@@ -97,6 +95,9 @@
     </div>
 </div>
 <script>
+    url = getParams();
+    console.log(url);
+    return false;
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form,
@@ -119,27 +120,8 @@
                 }
             }
         });
-
-        //监听提交
-        form.on('submit(form)', function (data) {
-            console.log(data.field);
-            //发异步，把数据提交给php
-            $.ajax({
-                type: "PUT",
-                contentType: "application/x-www-form-urlencoded",
-                url: '/admin/update',
-                data: data.field,
-                success: function (res) {
-                    if (res.code === config('failed')) {
-                        layer.msg(res.msg, { icon: 2 });
-                    } else if (res.code === config('success')) {
-                        layer.msg(res.msg);
-                    }
-                }
-            });
-
-            return false;
-        });
+        
+        layui_ajax_update(form, '/admin/save', layer);
 
     });
 </script>

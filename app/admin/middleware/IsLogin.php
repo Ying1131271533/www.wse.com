@@ -3,23 +3,22 @@
 namespace app\admin\middleware;
 
 use app\BaseController;
+use app\common\lib\exception\Fail;
 use app\common\lib\exception\Jump;
-use app\common\model\Admin;
-use app\common\model\User;
-use Exception;
+use app\common\lib\Token;
 
 class IsLogin extends BaseController
 {
     public function handle($request, \Closure $next)
     {
         // 获取token
-        $token = $this->getToken();
+        $token = Token::getToken();
         if (empty($token)) {
-            throw new Jump('非法请求~');
+            throw new Jump('非法请求~无效的token');
         }
 
         // 使用token获取用户信息
-        $user = $this->getUser($token);
+        $user = Token::getUser($token);
         if (empty($user)) {
             throw new Jump('登录过期，请重新登录！~');
         }

@@ -50,7 +50,7 @@ function show_res($status, $message, $data, $HttpStatus = 200)
  * @param  string           $msg            描述信息
  * @return json                             api返回的json数据
  */
-function success($data = [], int $code = 200, int $HttpStatus = 200, string $msg = '成功')
+function success($data = null, int $code = 200, int $HttpStatus = 200, string $msg = '成功')
 {
     // 组装数据
     $resultData = [

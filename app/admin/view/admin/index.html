@@ -29,7 +29,8 @@
         </div>
         <div class="layui-card-header">
           <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-          <button class="layui-btn" onclick="xadmin.open('添加管理员', '/view/admin_save', 600, 500)"><i class="layui-icon"></i>添加</button>
+          <button class="layui-btn" onclick="xadmin.open('添加管理员', '/view/admin_save', 600, 500)"><i
+              class="layui-icon"></i>添加</button>
         </div>
         <div class="layui-card-body ">
           <table class="layui-table" lay-data="{ url:'/admin/index',page:true,toolbar: '#toolbarDemo',id:'test' }"
@@ -59,17 +60,6 @@
     </div>
   </div>
 </div>
-<script type="text/html" id="editTpl">
-  <a title="修改"  onclick="xadmin.open('修改', '/view/admin_edit')" href="javascript:;">
-    <i class="layui-icon">&#xe642;</i>
-  </a>
-  <a title="修改密码"  onclick="xadmin.open('修改密码', '/view/admin_password')" href="javascript:;">
-    <i class="layui-icon">&#xe683;</i>
-  </a>
-  <a title="删除" onclick="del(this, '要删除的id')" href="javascript:;">
-    <i class="layui-icon">&#xe640;</i>
-  </a>
-</script>
 <script type="text/html" id="toolbarDemo">
   <div class = "layui-btn-container" > 
     <button class = "layui-btn layui-btn-sm" lay-event = "getCheckData" > 获取选中行数据 </button>
@@ -78,13 +68,24 @@
   </div> 
 </script>
 <script type="text/html" id="statusTpl">
-  <a onclick="ajax_status(this)"
+  <a onclick="update_field_value(this)"
     data-id="{{ d.id }}"
     data-value="{{ d.status }}"
     data-field="status"
     data-db="admin"
     class="layui-btn layui-btn-sm {{ d.status == 1 ? '' : 'layui-btn-danger' }}">
     {{ d.status == 1 ? '开启' : '关闭' }}
+  </a>
+</script>
+<script type="text/html" id="editTpl">
+  <a title="修改" onclick="xadmin.open('修改', '/view/admin_update/id/{{ d.id }}')" href="javascript:;">
+    <i class="layui-icon">&#xe642;</i>
+  </a>
+  <a title="修改密码"  onclick="xadmin.open('修改密码', '/view/admin_password/id/{{ d.id }}')" href="javascript:;">
+    <i class="layui-icon">&#xe683;</i>
+  </a>
+  <a title="删除" onclick="del(this, '{{ d.id }}')" href="javascript:;">
+    <i class="layui-icon">&#xe640;</i>
   </a>
 </script>
 <script>

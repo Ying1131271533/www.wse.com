@@ -21,8 +21,8 @@ return [
     'domain_bind'      => [
         'www'   => 'front',
         'admin' => 'admin',
-        'api'   => 'api',
         'm'     => 'mobile',
+        'api'   => 'api',
     ],
     // 禁止URL访问的应用列表（自动多应用模式有效）
     'deny_app_list'    => [],
@@ -35,19 +35,31 @@ return [
     // 显示错误信息
     'show_error_msg'   => true,
 
-    
-    /************** 自定义配置 **************/
+    // 签名，签名由参数变成字符串组合起来的，可以参照微信的接口
+    'sign'             => 'Akali',
+    // jwt密钥
+    'token_key'        => 'U2OpdWDyzQ4iSUWaCAaXaGg3qEzR00Qv3fwMkkWKQ5CXjIWLJTmg8g==',
+
+    // 一把盐 其实是在amdin里面的config.app
+    'token_salt'       => 'AIGDKNGP8fga8f4IGHIBdaurcn123545fgpgsg',
 
     // 页码
     'page'             => 1,
-    'limit'            => 10,
+    // 条数
+    'size'             => 10,
+
+    // redis的服务器群
+    'redis_server'     => ['127.0.0.1:6381', '127.0.0.1:6382', '127.0.0.1:6383'],
+    // memcache的服务器群
+    'memcache_server'  => ['127.0.0.1:11212', '127.0.0.1:11213', '127.0.0.1:11214'],
 
     // redis连接配置
     'redis'            => [
+        'host'     => '127.0.0.1',
         // 'host'     => 'redis',
-        'host' => 'localhost',
-        // 'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
-        'port' => 6379,
+        'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
+        'port'     => 6379,
+        'select'   => 0,
     ],
 
     // memcache连接配置
@@ -59,23 +71,68 @@ return [
 
     // rabbitmq连接配置
     'rabbitmq'         => [
+        // 'host'     => '124.71.218.160',
+        // 'host'     => '127.0.0.1',
+        // 'host'     => '192.168.0.184',
         'host'     => 'rabbitmq',
         'port'     => 5672,
+        // 'port'     => 5673,
+        // 'port'     => 5674,
         'login'    => 'admin',
         'password' => 'Pt-89]j9+qLai^Rc/3@n|c^Um',
         'vhost'    => '/',
+        // 'vhost'    => '/akali',
     ],
 
     // elasticsearch连接配置
     'elasticsearch'    => [
+
+        // 华为
         'http'     => ['http://elasticsearch:9200'],
         'https'    => ['https://elasticsearch:9200'],
         'username' => 'elastic',
-        'password' => 'HnBSVNqu2fTDJH*SPL4K',
+        'password' => 'kMy6-Tai8pMnoCEYvcoR',
+
+        // 神织知更
+        // 'http' => ['http://127.0.0.1:9200'],
+        // 'https' => ['https://127.0.0.1:9200'],
+        // 'username' => 'elastic',
+        // 'password' => 'Uw8zFqIGfRV_oUY_P8hM',
+        // 'http_ca' => 'D:/Server/ElasticSearch/config/certs/http_ca.crt',
+
+        // // 虚拟机
+        // 'http' => ['http://192.168.159.128:9200'],
+        // 'https' => ['https://192.168.85.128:9200'],
+        // 'username' => 'elastic',
+        // 'password' => 'XyX=ION5joUhx6IpFmBc',
+        // 'http_ca' => 'D:/Web/www.ruiwen.com/config/cents/es-api-ca-akali.crt',
+
+        // 威速易
+        // 'http' => ['http://127.0.0.1:9200'],
+        // 'https' => ['https://127.0.0.1:9200'],
+        // 'username' => 'elastic',
+        // 'password' => 'l6chmFR-ZtVDGZwZLag5',
+        // 'http_ca' => 'D:/Server/ElasticSearch/config/certs/http_ca.crt',
+
+        // 虚拟机
+        // 'http' => ['http://192.168.159.128:9200'],
+        // 'https' => ['https://192.168.159.128:9200'],
+        // 'username' => 'elastic',
+        // 'password' => 'EHe*RHWYv*TMNV*FGyhO',
+        // 'http_ca' => 'D:/Web/www.ruiwen.com/config/cents/es-api-ca-wse.crt',
+
+        // docker
+        // 'http' => ['http://192.168.159.128:9210'],
+        // 'https' => ['https://192.168.159.128:9210'],
+        // 'username' => 'elastic',
+        // 'password' => 'UzgSm1kavMdTGQdIkX5h',
+        // 'http_ca' => 'D:/Web/www.ruiwen.com/config/cents/es-api-ca-wse-docker.crt',
     ],
+
     // swoole连接配置
     'swoole'           => [
-        'host' => '127.0.0.1',
-        'port' => 9501,
+        'host'     => '127.0.0.1',
+        'port_tcp' => 9501,
+        'port_udp' => 9502,
     ],
 ];

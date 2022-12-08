@@ -13,10 +13,12 @@ Route::group('admin', function(){
 Route::group('admin', function(){
     // 验证登录
     Route::rule('is_login', 'Admin/isLogin', 'POST');
-    // 管理员列表
+    // 列表
     Route::rule('index', 'Admin/index', 'GET');
-    // 管理员保存
+    // 单条
+    Route::rule('read/:id', 'Admin/read', 'GET');
+    // 保存
     Route::rule('save', 'Admin/save', 'POST');
-    // 管理员更新
+    // 更新
     Route::rule('upate', 'Admin/upate', 'PUT');
 })->middleware(app\admin\middleware\IsLogin::class);

@@ -32,6 +32,7 @@ class Admin extends BaseValidate
 
     // 验证场景
     protected $scene = [
+        'read'        => ['id'],
         'save'        => [
             'username',
             'real_name',
