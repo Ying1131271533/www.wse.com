@@ -220,6 +220,26 @@
         //         }
         //     });
         // });
+        // 退出登录
+        $('#quit').click(function () {
+            $.ajax({
+                type: "POST",
+                contentType: "application/x-www-form-urlencoded",
+                url: '/api/User/logout',
+                success: function (res) {
+                    if (res.status === config('failed')) {
+                        layer.msg(res.message);
+                        return false;
+                    }
+                    if (res.status === config('success')) {
+                        layer.msg(res.result, {}, function () {
+                            $.removeCookie('api_login_token', { path: '/' });
+                            $(window).attr('location', '/api/View/User/login');
+                        });
+                    }
+                }
+            });
+        });
     </script>
 
     <script>//百度统计可去掉

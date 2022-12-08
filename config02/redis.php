@@ -20,5 +20,5 @@ return [
     // 文件数据过期时间 15min
     'code_expire'  => 3600 / 4,
     // websocket
-    'socket_pre'   => 'socket_uid_',
+    'socket_pre' => 'socket_uid_'
 ];

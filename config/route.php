@@ -42,12 +42,4 @@ return [
     'default_jsonp_handler' => 'jsonpReturn',
     // 默认JSONP处理方法
     'var_jsonp_handler'     => 'callback',
-    
-    // 全局路由中间件
-    'middleware'            => [
-        // 表单令牌
-        // app\common\middleware\Token::class, // amdin已经使用了，所以这里无效
-        // 参数验证
-        // app\common\middleware\CheckParams::class,
-    ],
 ];
