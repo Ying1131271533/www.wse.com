@@ -459,7 +459,7 @@ function layui_ajax_update(form, url, layer) {
 // 读取单挑数据
 function ajax_read(url) {
     // url后传递的参数
-    var id = location.href.match(/\d+/g)[0];
+    var id = get_url_id();
     let data = null;
 
     $.ajax({
@@ -481,4 +481,15 @@ function ajax_read(url) {
     
     // 返回数据
     return data;
+}
+
+// 获取地址的id
+function get_url_id() {
+
+    var id = location.href.match(/\d+/g)[0];
+    if(empty(id)){
+        layer.msg('地址参数出错！，请刷新页面', {icon: 2});
+        return false;
+    }
+    return id;
 }
