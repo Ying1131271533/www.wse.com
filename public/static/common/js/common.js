@@ -35,7 +35,7 @@ function arrayDuplicate(a, b) {
     return c;
 }
 
-// 获取url后面的参数
+// 获取url后面的参数 红叶
 function getParams() {
     var url = location.search;
     url = decodeURI(url);
@@ -51,6 +51,30 @@ function getParams() {
     // url后传递的参数
     // var id = theRequest.id;
     return theRequest;
+}
+
+// 获取url中"?"符后的字串
+function get_param_by_url() {
+    var url = window.location.href;
+    var theRequest = new Object();
+    var index = url.indexOf("?");
+    if (index != -1) {
+       var str = url.substr(index + 1);
+       strs = str.split("&");
+       for(var i = 0; i < strs.length; i ++) {
+           theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+       }
+    }
+    return theRequest;
+ }
+
+// 采用正则表达式获取地址栏参数
+// string name 要获取的参数名 例如 'id'
+function get_query_string(name)
+{
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)return unescape(r[2]); return null;
 }
 
 // 获取时间戳
@@ -152,7 +176,7 @@ function isAdminLogin() {
         },
         success: function (res) {
             if (res.code === config('goto')) {
-                layer.msg('登录凭证失效！', {}, function () {
+                layer.msg('登录凭证失效！', { time: 500 }, function () {
                     $.removeCookie('admin_login_token', { path: '/' });
                     // $.removeCookie('api_login_token', {domain: document.domain, path: '/'});
                     $(window).attr('location', '/view/login');
@@ -223,6 +247,36 @@ function getUser() {
     return user;
 }
 
+// 获取管理员
+function getAdmin() {
+    let user = null;
+    $.ajax({
+        type: "POST",
+        contentType: "application/x-www-form-urlencoded",
+        url: '/admin/getAdminByToken',
+        beforeSend: function (request) {
+            request.setRequestHeader("access-token", getApiToken());
+        },
+        success: function (res) {
+            if (res.code === config('goto')) {
+                layer.msg('登录凭证失效！', {}, function () {
+                    $.removeCookie('admin_login_token', { path: '/' });
+                    $(window).attr('location', '/view/login');
+                });
+            }
+
+            if (res.code === config('failed')) {
+                layer.msg(res.msg);
+                return false;
+            }
+            // console.log(res.data);
+            user = res.data;
+        }
+    });
+    // 返回用户信息，必须要在ajax外面返回值
+    return user;
+}
+
 // 滚动到指定位置 上、中、下
 function scrollToEnd(val) {
     var h = null;
@@ -264,6 +318,9 @@ function update_field_value(obj) {
             value: value,
             db: db,
         },
+        beforeSend: function (request) {
+            request.setRequestHeader("access-token", getToken());
+        },
         success: function (res) {
 
             if (res.code == config('failed')) {
@@ -301,6 +358,9 @@ function ajax_field_value(id, field, value, db) {
             value: value,
             db: db,
         },
+        beforeSend: function (request) {
+            request.setRequestHeader("access-token", getToken());
+        },
         success: function (res) {
 
             if (res.code == config('failed')) {
@@ -325,7 +385,7 @@ function ajax_field_value(id, field, value, db) {
  * @param  obj      layer   layer实例
  */
 function layui_ajax_save(form, url, layer) {
-    form.on('submit(form)', function(data) {
+    form.on('submit(form)', function (data) {
         console.log(data);
         //发异步，把数据提交给php
         $.ajax({
@@ -333,11 +393,14 @@ function layui_ajax_save(form, url, layer) {
             contentType: "application/x-www-form-urlencoded",
             url: url,
             data: data.field,
+            beforeSend: function (request) {
+                request.setRequestHeader("access-token", getToken());
+            },
             success: function (res) {
                 if (res.code === config('failed')) {
                     layer.msg(res.msg);
                 } else if (res.code === config('success')) {
-                    layer.msg("保存成功", { time: 500 }, function() {
+                    layer.msg("保存成功", { time: 500 }, function () {
                         // 关闭当前frame
                         xadmin.close();
                         // 可以对父窗口进行刷新 
@@ -364,7 +427,7 @@ function layui_ajax_save(form, url, layer) {
  * @param  obj      layer   layer实例
  */
 function layui_ajax_update(form, url, layer) {
-    form.on('submit(form)', function(data) {
+    form.on('submit(form)', function (data) {
         // console.log(data);
         //发异步，把数据提交给php
         $.ajax({
@@ -372,11 +435,14 @@ function layui_ajax_update(form, url, layer) {
             contentType: "application/x-www-form-urlencoded",
             url: url,
             data: data.field,
+            beforeSend: function (request) {
+                request.setRequestHeader("access-token", getToken());
+            },
             success: function (res) {
                 if (res.code === config('failed')) {
                     layer.msg(res.msg);
                 } else if (res.code === config('success')) {
-                    layer.msg("保存成功", { time: 500 }, function() {
+                    layer.msg("保存成功", { time: 500 }, function () {
                         // 关闭当前frame
                         xadmin.close();
                         // 可以对父窗口进行刷新 
@@ -388,4 +454,31 @@ function layui_ajax_update(form, url, layer) {
 
         return false;
     });
+}
+
+// 读取单挑数据
+function ajax_read(url) {
+    // url后传递的参数
+    var id = location.href.match(/\d+/g)[0];
+    let data = null;
+
+    $.ajax({
+        type: "GET",
+        contentType: "application/x-www-form-urlencoded",
+        url: url + '/' + id,
+        async: false, // 关闭异步
+        beforeSend: function (request) {
+            request.setRequestHeader("access-token", getToken());
+        },
+        success: function (res) {
+            if (res.code !== config('success')) {
+                layer.msg(res.msg);
+                return false;
+            }
+            data = res.data;
+        }
+    });
+    
+    // 返回数据
+    return data;
 }

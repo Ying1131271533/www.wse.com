@@ -23,7 +23,7 @@ class Admin extends BaseController
     {
         $params = $this->request->params;
         $token = $this->logic->login($params);
-        return success($token);
+        return success(['token' => $token]);
     }
 
     // 退出登录
@@ -67,6 +67,15 @@ class Admin extends BaseController
 
     // 添加
     public function update()
+    {
+        $params = $this->request->params;
+        halt($params);
+        $this->logic->save($params);
+        return success('更新成功');
+    }
+
+    // 添加
+    public function password()
     {
         $params = $this->request->params;
         $this->logic->save($params);

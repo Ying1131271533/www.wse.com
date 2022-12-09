@@ -1,5 +1,5 @@
 {extend name="public/base" /}
-{block name="title"}管理员保存{/block}
+{block name="title"}管理员更新{/block}
 {block name="load"}
 <!-- css -->
 <!-- js -->
@@ -57,31 +57,10 @@
                 </div>
             </div> -->
             <div class="layui-form-item">
-                <label for="L_password" class="layui-form-label">
-                    <span class="x-red">*</span>密码
-                </label>
-                <div class="layui-input-inline">
-                    <input type="password" id="L_password" name="password" required="" lay-verify="password"
-                        autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">
-                    6到50个字符
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_password_confirm" class="layui-form-label">
-                    <span class="x-red">*</span>确认密码
-                </label>
-                <div class="layui-input-inline">
-                    <input type="password" id="L_password_confirm" name="password_confirm" required=""
-                        lay-verify="password_confirm" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">状态</label>
+                <label class="layui-form-label">登录状态</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="status" value="1" title="开启" checked>
-                    <input type="radio" name="status" value="0" title="关闭">
+                    <input type="radio" id="status" name="status" value="1" title="开启">
+                    <input type="radio" id="status" name="status" value="0" title="关闭">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -91,14 +70,28 @@
                     保存
                 </button>
             </div>
+
+            <input type="hidden" id="id" name="id" required="" value="">
         </form>
     </div>
 </div>
 <script>
-    url = getParams();
-    console.log(url);
-    return false;
+
+    // 获取数据
+    var data = ajax_read('/admin/read');
+    console.log(data);
+
+    // 表单赋值
+    $('#id').val(data.id);
+    $('#username').val(data.username);
+    $('#real_name').val(data.real_name);
+    $('#phone').val(data.phone);
+    $('#wechat').val(data.wechat);
+    $('input[name="status"][value="' + data.status + '"]').attr('checked', true);
+    
+    // layui
     layui.use(['form', 'layer'], function () {
+        
         $ = layui.jquery;
         var form = layui.form,
             layer = layui.layer;
@@ -112,16 +105,11 @@
                 if (value.length < 2 || value.length > 25) {
                     return '登录名为2到25个字符！';
                 }
-            },
-            password: [/(.+){6,50}$/, '密码必须6到50位'],
-            password_confirm: function (value) {
-                if ($('#L_password').val() != $('#L_password_confirm').val()) {
-                    return '两次密码不一致';
-                }
             }
         });
-        
-        layui_ajax_update(form, '/admin/save', layer);
+
+        // 更新数据
+        layui_ajax_update(form, '/admin/update', layer);
 
     });
 </script>

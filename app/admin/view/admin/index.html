@@ -78,10 +78,10 @@
   </a>
 </script>
 <script type="text/html" id="editTpl">
-  <a title="修改" onclick="xadmin.open('修改', '/view/admin_update/id/{{ d.id }}')" href="javascript:;">
+  <a title="修改" onclick="xadmin.open('修改', '/view/admin_update/{{ d.id }}', 600, 400)" href="javascript:;">
     <i class="layui-icon">&#xe642;</i>
   </a>
-  <a title="修改密码"  onclick="xadmin.open('修改密码', '/view/admin_password/id/{{ d.id }}')" href="javascript:;">
+  <a title="修改密码"  onclick="xadmin.open('修改密码', '/view/admin_password/{{ d.id }}', 600, 300)" href="javascript:;">
     <i class="layui-icon">&#xe683;</i>
   </a>
   <a title="删除" onclick="del(this, '{{ d.id }}')" href="javascript:;">
@@ -92,12 +92,12 @@
   layui.use('laydate', function () {
     var laydate = layui.laydate;
 
-    //执行一个laydate实例
+    // 执行一个laydate实例
     laydate.render({
       elem: '#start' //指定元素
     });
 
-    //执行一个laydate实例
+    // 执行一个laydate实例
     laydate.render({
       elem: '#end' //指定元素
     });
@@ -108,16 +108,14 @@
   layui.use('table', function () {
     var table = layui.table;
 
-    //监听单元格编辑
+    // 监听单元格编辑
     table.on('edit(test)',
       function (obj) {
         var value = obj.value // 得到修改后的值
-          ,
-          data = obj.data // 得到所在行所有键值
-          ,
-          field = obj.field; // 得到字段
-        // layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
-        ajax_field_value(data.id, field, value, 'admin');
+          ,data = obj.data // 得到所在行所有键值
+          ,field = obj.field; // 得到字段
+          // layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
+          ajax_field_value(data.id, field, value, 'admin');
       });
 
     //头工具栏事件

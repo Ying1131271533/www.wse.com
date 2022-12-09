@@ -14,19 +14,19 @@ class Admin extends BaseValidate
         'phone|手机'                   => 'mobile',
         'wechat|微信'                  => 'max:28|min:6',
         'password|密码'                => 'require|max:50|min:6',
-        'password_confirm|确认密码'         => 'require|max:50|min:6|confirm:password',
+        'password_confirm|确认密码'      => 'require|max:50|min:6|confirm:password',
         'password_salt|密码盐'          => 'require|lenght:5',
         'last_login_token|上次登录Token' => 'require',
         'status|状态'                  => 'number',
 
         // 分页
-        'page|页码'                  => 'number|gt:0',
-        'limit|条数'                  => 'number|gt:0',
+        'page|页码'                    => 'number|gt:0',
+        'limit|条数'                   => 'number|gt:0',
     ];
 
     // 验证消息
     protected $message = [
-        'id.require' => '管理员id不能为空',
+        'id.require'               => '管理员id不能为空',
         'password_confirm.confirm' => '两次密码不一致',
     ];
 
@@ -40,7 +40,23 @@ class Admin extends BaseValidate
             'wechat',
             'password',
             'password_confirm',
-            'status'
+            'status',
+        ],
+        'update'      => [
+            'id',
+            'username',
+            'real_name',
+            'phone',
+            'wechat',
+            'status',
+        ],
+        'delete'      => [
+            'id',
+        ],
+        'password'    => [
+            'id',
+            'password',
+            'password_confirm',
         ],
         'index'       => ['page', 'limit'],
         'login'       => ['username', 'password'],

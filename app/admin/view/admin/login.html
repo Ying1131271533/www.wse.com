@@ -89,7 +89,7 @@
                 layer.msg(res.msg);
               } else if (res.code === config('success')) {
                 layer.msg('登录成功！', {time: 500}, function () {
-                  $.cookie('admin_login_token', res.data, { expires: 100 * 365, path: '/' });
+                  $.cookie('admin_login_token', res.data.token, { expires: 100 * 365, path: '/' });
                   $(window).attr('location', '/view/index');
                 });
               }

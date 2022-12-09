@@ -81,7 +81,7 @@
                         <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a>
                     </dd>
                     <dd>
-                        <a href="/view/logout">退出</a>
+                        <a href="javascript:;" id="quit">退出</a>
                     </dd>
                 </dl>
             </li>
@@ -210,7 +210,7 @@
     <!-- 中部结束 -->
 
     <script>
-        // 打开其它页面时，关闭之前的页面
+        // 打开其它页面时，关闭之前的页面窗口
         // layui.use(['jquery'], function () {
         //     var $ = layui.jquery
         //     $('.sub-menu li a').click(function(){
@@ -225,16 +225,16 @@
             $.ajax({
                 type: "POST",
                 contentType: "application/x-www-form-urlencoded",
-                url: '/api/User/logout',
+                url: '/admin/logout',
                 success: function (res) {
-                    if (res.status === config('failed')) {
+                    if (res.code === config('failed')) {
                         layer.msg(res.message);
                         return false;
                     }
-                    if (res.status === config('success')) {
-                        layer.msg(res.result, {}, function () {
-                            $.removeCookie('api_login_token', { path: '/' });
-                            $(window).attr('location', '/api/View/User/login');
+                    if (res.code === config('success')) {
+                        layer.msg(res.data, { time: 500 }, function () {
+                            $.removeCookie('admin_login_token', { path: '/' });
+                            $(window).attr('location', '/view/login');
                         });
                     }
                 }

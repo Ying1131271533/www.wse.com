@@ -13,6 +13,8 @@ Route::group('admin', function(){
 Route::group('admin', function(){
     // 验证登录
     Route::rule('is_login', 'Admin/isLogin', 'POST');
+    // 退出登录
+    Route::rule('logout', 'Admin/logout', 'POST');
     // 列表
     Route::rule('index', 'Admin/index', 'GET');
     // 单条

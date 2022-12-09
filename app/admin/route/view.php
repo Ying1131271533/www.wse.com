@@ -19,5 +19,7 @@ Route::group('view', function(){
     // 保存
     Route::rule('admin_save', 'View/adminSave', 'GET');
     // 更新
-    Route::rule('admin_update/id/:id', 'View/adminUpdate', 'GET');
+    Route::rule('admin_update/:id', 'View/adminUpdate', 'GET');
+    // 更改密码
+    Route::rule('admin_password/:id', 'View/adminPassword', 'GET');
 });
