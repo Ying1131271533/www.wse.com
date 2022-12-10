@@ -4,8 +4,11 @@ namespace app\admin\middleware;
 
 use app\BaseController;
 use app\common\lib\exception\Fail;
+use app\common\lib\exception\Forbidden;
 use app\common\lib\exception\Jump;
+use app\common\lib\exception\Miss;
 use app\common\lib\Token;
+use app\common\model\Admin as AdminModel;
 
 class IsLogin extends BaseController
 {
@@ -21,6 +24,16 @@ class IsLogin extends BaseController
         $user = Token::getUser($token);
         if (empty($user)) {
             throw new Jump('登录过期，请重新登录！~');
+        }
+
+        // 找到用户
+        $user = AdminModel::cache(cache_time())->find($user['id']);
+        if(empty($user)){
+            throw new Forbidden('该用户已被删除');
+            Token::deleteToken();
+        }else if($user['status'] == 0){
+            throw new Forbidden('该用户被禁止登录');
+            Token::deleteToken();
         }
 
         // 账号异地登录

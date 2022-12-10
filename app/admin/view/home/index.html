@@ -71,24 +71,31 @@
         </ul>
         <ul class="layui-nav right" lay-filter="">
             <li class="layui-nav-item">
-                <a href="javascript:;">admin</a>
+                <a href="javascript:;" id="admin_name">admin</a>
                 <dl class="layui-nav-child">
                     <!-- 二级菜单 -->
                     <dd>
-                        <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a>
+                        <a onclick="admin_info()">个人信息</a>
                     </dd>
                     <dd>
-                        <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a>
-                    </dd>
-                    <dd>
-                        <a href="javascript:;" id="quit">退出</a>
+                        <a href="javascript:;" onclick="logout()">退出</a>
                     </dd>
                 </dl>
             </li>
             <li class="layui-nav-item to-index">
-                <a href="/view/index">前台首页</a>
+                <a href="www.wse.com">前台首页</a>
             </li>
         </ul>
+
+        <script>
+            // 获取用户信息
+            var admin = getAdmin();
+            console.log(admin);
+            $('#admin_name').text(admin.username);
+            function admin_info() {
+                xadmin.open('个人信息', '/view/admin_info/' + admin.id);
+            }
+        </script>
     </div>
     <!-- 顶部结束 -->
     <!-- 中部开始 -->
@@ -221,25 +228,26 @@
         //     });
         // });
         // 退出登录
-        $('#quit').click(function () {
+        function logout() {
             $.ajax({
                 type: "POST",
                 contentType: "application/x-www-form-urlencoded",
                 url: '/admin/logout',
                 success: function (res) {
                     if (res.code === config('failed')) {
-                        layer.msg(res.message);
+                        layer.msg(res.msg);
                         return false;
                     }
-                    if (res.code === config('success')) {
-                        layer.msg(res.data, { time: 500 }, function () {
+                    
+                    if (res.code === config('success') || res.code === config('goto')) {
+                        layer.msg(res.msg, { time: 500 }, function () {
                             $.removeCookie('admin_login_token', { path: '/' });
                             $(window).attr('location', '/view/login');
                         });
                     }
                 }
             });
-        });
+        }
     </script>
 
     <script>//百度统计可去掉

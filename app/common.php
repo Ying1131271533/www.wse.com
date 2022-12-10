@@ -77,6 +77,25 @@ function success($data = null, int $code = 200, int $HttpStatus = 200, string $m
 }
 
 /**
+ * 只有返回信息的数据
+ *
+ * @param  string           $msg            描述信息
+ * @param  int              $code           程序状态码
+ * @param  int              $HttpStatus     http状态码
+ * @return json                             api返回的json数据
+ */
+function msg($msg = '成功', int $code = 200, int $HttpStatus = 200)
+{
+    // 组装数据
+    $resultData = [
+        'code' => $code,
+        'msg'  => $msg,
+    ];
+    return json($resultData, $HttpStatus);
+}
+
+
+/**
  * 返回资源创建成功的api接口数据
  *
  * @param  array|string     $data           返回的数据
@@ -105,7 +124,7 @@ function create($data = [], int $code = 201, int $HttpStatus = 201, string $msg 
  * @param  int       $HttpStatus    http状态码
  * @return json                     api返回的json数据
  */
-function fail(string $msg = '失败', int $code = 100, int $HttpStatus = 100)
+function fail(string $msg = '失败', int $code = 100, int $HttpStatus = 200)
 {
     // 组装数据
     $resultData = [
@@ -149,6 +168,25 @@ function get_rand_char(int $length)
     $max    = strlen($strPol) - 1;
     for ($i = 0; $i < $length; $i++) {
         $str .= $strPol[rand(0, $max)];
+    }
+    return $str;
+}
+
+// 生产token
+function createToken($str)
+{
+    $tokenSalt = md5(uniqid(md5(microtime(true)), true));
+    return sha1($tokenSalt . $str);
+}
+
+// 生产盐
+function salt(int $bit = 5)
+{
+    // 盐字符集
+    $chars = 'abcdefqhijklmnoparstuvwxvzABCDEFGHIJKLMNOPORSTUVWXYZ0123456789';
+    $str   = '';
+    for ($i = 0; $i < $bit; $i++) {
+        $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
     }
     return $str;
 }

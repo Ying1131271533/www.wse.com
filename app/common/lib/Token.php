@@ -20,4 +20,9 @@ class Token
     {
         return self::getUser()['id'];
     }
+
+    public static function deleteToken()
+    {
+        return (new Redis())->delete(config('redis.token_pre') . self::getToken());
+    }
 }

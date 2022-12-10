@@ -59,22 +59,21 @@ function get_param_by_url() {
     var theRequest = new Object();
     var index = url.indexOf("?");
     if (index != -1) {
-       var str = url.substr(index + 1);
-       strs = str.split("&");
-       for(var i = 0; i < strs.length; i ++) {
-           theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
-       }
+        var str = url.substr(index + 1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
     }
     return theRequest;
- }
+}
 
 // 采用正则表达式获取地址栏参数
 // string name 要获取的参数名 例如 'id'
-function get_query_string(name)
-{
-    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+function get_query_string(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
-    if(r!=null)return unescape(r[2]); return null;
+    if (r != null) return unescape(r[2]); return null;
 }
 
 // 获取时间戳
@@ -224,6 +223,7 @@ function getUser() {
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
         url: '/api/User/getUserByToken',
+        async: false,
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getApiToken());
         },
@@ -249,13 +249,14 @@ function getUser() {
 
 // 获取管理员
 function getAdmin() {
-    let user = null;
+    let admin = null;
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: '/admin/getAdminByToken',
+        url: '/admin/get_admin_by_token',
+        async: false,
         beforeSend: function (request) {
-            request.setRequestHeader("access-token", getApiToken());
+            request.setRequestHeader("access-token", getToken());
         },
         success: function (res) {
             if (res.code === config('goto')) {
@@ -270,11 +271,11 @@ function getAdmin() {
                 return false;
             }
             // console.log(res.data);
-            user = res.data;
+            admin = res.data;
         }
     });
     // 返回用户信息，必须要在ajax外面返回值
-    return user;
+    return admin;
 }
 
 // 滚动到指定位置 上、中、下
@@ -292,204 +293,4 @@ function scrollToEnd(val) {
             break;
     }
     $(document).scrollTop(h);
-}
-
-
-/**
- * 改变数据状态，只能是0和1
- *
- * @param  this
- * @return $
- */
-function update_field_value(obj) {
-    // 数据
-    var id = $(obj).attr("data-id"); // id
-    var value = $(obj).attr("data-value") == 1 ? 0 : 1; // 要修改的值
-    var field = $(obj).attr("data-field"); // 字段名称
-    var db = $(obj).attr("data-db"); // 表名
-
-    $.ajax({
-        type: "POST",
-        contentType: "application/x-www-form-urlencoded",
-        url: '/ajax/update_field_value',
-        data: {
-            id: id,
-            field: field,
-            value: value,
-            db: db,
-        },
-        beforeSend: function (request) {
-            request.setRequestHeader("access-token", getToken());
-        },
-        success: function (res) {
-
-            if (res.code == config('failed')) {
-                layer.msg(res.msg, { icon: 2 });
-                return false;
-            }
-
-            if (res.data.value == 1) {
-                $(obj).removeClass("layui-btn-danger").attr("data-value", 1).text("开启");
-            } else {
-                $(obj).addClass("layui-btn-danger").attr("data-value", 0).text("关闭");
-            }
-        }
-    });
-}
-
-/**
- * 修改数据字段的值
- *
- * @param  id 数据id
- * @param  field 字段
- * @param  value 要修改的值
- * @param  db 表名
- * @return json
- */
-function ajax_field_value(id, field, value, db) {
-
-    $.ajax({
-        type: "POST",
-        contentType: "application/x-www-form-urlencoded",
-        url: '/ajax/update_field_value',
-        data: {
-            id: id,
-            field: field,
-            value: value,
-            db: db,
-        },
-        beforeSend: function (request) {
-            request.setRequestHeader("access-token", getToken());
-        },
-        success: function (res) {
-
-            if (res.code == config('failed')) {
-                layer.msg(res.msg, { icon: 2 });
-                return false;
-            }
-
-            layer.msg('修改成功');
-        }
-    });
-}
-
-/**
- * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
- * @author: 神织知更
- * @time: 2022/04/06 15:57
- *
- * 数据保存
- *
- * @param  obj      from    layui表单实例
- * @param  string 	url		提交的url
- * @param  obj      layer   layer实例
- */
-function layui_ajax_save(form, url, layer) {
-    form.on('submit(form)', function (data) {
-        console.log(data);
-        //发异步，把数据提交给php
-        $.ajax({
-            type: "POST",
-            contentType: "application/x-www-form-urlencoded",
-            url: url,
-            data: data.field,
-            beforeSend: function (request) {
-                request.setRequestHeader("access-token", getToken());
-            },
-            success: function (res) {
-                if (res.code === config('failed')) {
-                    layer.msg(res.msg);
-                } else if (res.code === config('success')) {
-                    layer.msg("保存成功", { time: 500 }, function () {
-                        // 关闭当前frame
-                        xadmin.close();
-                        // 可以对父窗口进行刷新 
-                        xadmin.father_reload();
-                    });
-                }
-            }
-        });
-
-        return false;
-    });
-}
-
-
-/**
- * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
- * @author: 神织知更
- * @time: 2022/04/06 15:57
- *
- * 数据更新
- *
- * @param  obj      from    layui表单实例
- * @param  string 	url		提交的url
- * @param  obj      layer   layer实例
- */
-function layui_ajax_update(form, url, layer) {
-    form.on('submit(form)', function (data) {
-        // console.log(data);
-        //发异步，把数据提交给php
-        $.ajax({
-            type: "PUT",
-            contentType: "application/x-www-form-urlencoded",
-            url: url,
-            data: data.field,
-            beforeSend: function (request) {
-                request.setRequestHeader("access-token", getToken());
-            },
-            success: function (res) {
-                if (res.code === config('failed')) {
-                    layer.msg(res.msg);
-                } else if (res.code === config('success')) {
-                    layer.msg("保存成功", { time: 500 }, function () {
-                        // 关闭当前frame
-                        xadmin.close();
-                        // 可以对父窗口进行刷新 
-                        // xadmin.father_reload();
-                    });
-                }
-            }
-        });
-
-        return false;
-    });
-}
-
-// 读取单挑数据
-function ajax_read(url) {
-    // url后传递的参数
-    var id = get_url_id();
-    let data = null;
-
-    $.ajax({
-        type: "GET",
-        contentType: "application/x-www-form-urlencoded",
-        url: url + '/' + id,
-        async: false, // 关闭异步
-        beforeSend: function (request) {
-            request.setRequestHeader("access-token", getToken());
-        },
-        success: function (res) {
-            if (res.code !== config('success')) {
-                layer.msg(res.msg);
-                return false;
-            }
-            data = res.data;
-        }
-    });
-    
-    // 返回数据
-    return data;
-}
-
-// 获取地址的id
-function get_url_id() {
-
-    var id = location.href.match(/\d+/g)[0];
-    if(empty(id)){
-        layer.msg('地址参数出错！，请刷新页面', {icon: 2});
-        return false;
-    }
-    return id;
 }

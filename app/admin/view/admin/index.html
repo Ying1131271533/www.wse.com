@@ -19,10 +19,10 @@
               <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
             </div>
             <div class="layui-inline layui-show-xs-block">
-              <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+              <input type="text" name="name" placeholder="请输入用户名" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-inline layui-show-xs-block">
-              <button class="layui-btn" lay-submit="" lay-filter="sreach">
+              <button class="layui-btn" lay-submit="" lay-filter="search">
                 <i class="layui-icon">&#xe615;</i></button>
             </div>
           </form>
@@ -68,7 +68,7 @@
   </div> 
 </script>
 <script type="text/html" id="statusTpl">
-  <a onclick="update_field_value(this)"
+  <a onclick="ajax_change_status(this)"
     data-id="{{ d.id }}"
     data-value="{{ d.status }}"
     data-field="status"
@@ -84,7 +84,7 @@
   <a title="修改密码"  onclick="xadmin.open('修改密码', '/view/admin_password/{{ d.id }}', 600, 300)" href="javascript:;">
     <i class="layui-icon">&#xe683;</i>
   </a>
-  <a title="删除" onclick="del(this, '{{ d.id }}')" href="javascript:;">
+  <a title="删除" onclick="layui_form_delete(this, '/admin/delete', '{{ d.id }}')" href="javascript:;">
     <i class="layui-icon">&#xe640;</i>
   </a>
 </script>
@@ -94,28 +94,31 @@
 
     // 执行一个laydate实例
     laydate.render({
-      elem: '#start' //指定元素
+      elem: '#start' // 指定元素
     });
 
     // 执行一个laydate实例
     laydate.render({
-      elem: '#end' //指定元素
+      elem: '#end' // 指定元素
     });
 
   });
 </script>
 <script>
-  layui.use('table', function () {
-    var table = layui.table;
+  layui.use(['form', 'table', 'layer'], function () {
+    $ = layui.jquery;
+    var form = layui.form,
+      table = layui.table,
+      layer = layui.layer;
 
     // 监听单元格编辑
     table.on('edit(test)',
       function (obj) {
         var value = obj.value // 得到修改后的值
-          ,data = obj.data // 得到所在行所有键值
-          ,field = obj.field; // 得到字段
-          // layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
-          ajax_field_value(data.id, field, value, 'admin');
+          , data = obj.data // 得到所在行所有键值
+          , field = obj.field; // 得到字段
+        // layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
+        ajax_field_value(data.id, field, value, 'admin');
       });
 
     //头工具栏事件
@@ -136,15 +139,36 @@
             break;
         };
       });
+
+    //监听提交
+    // form.on('submit(search)', function (data) {
+    //   if (slider.isOk()) {
+    //     // 发异步，把数据提交给php
+    //     $.ajax({
+    //       type: "POST",
+    //       contentType: "application/x-www-form-urlencoded",
+    //       url: '/admin/login',
+    //       data: data.field,
+    //       success: function (res) {
+    //         console.log(res);
+    //         if (res.code === config('failed')) {
+    //           layer.msg(res.msg);
+    //         } else if (res.code === config('success')) {
+    //           layer.msg('登录成功！', { time: 500 }, function () {
+    //             $.cookie('admin_login_token', res.data.token, { expires: 100 * 365, path: '/' });
+    //             $(window).attr('location', '/view/index');
+    //           });
+    //         }
+    //       }
+    //     });
+
+    //   } else {
+    //     layer.msg("请先通过滑块验证");
+    //   }
+    //   return false;
+    // });
+
   });
 
-  // 删除
-  function del(obj, id) {
-    layer.confirm('确认要删除吗？', function (index) {
-      // 发异步删除数据
-      $(obj).parents("tr").remove();
-      layer.msg('已删除!', { icon: 1, time: 1000 });
-    });
-  }
 </script>
 {/block}

@@ -26,6 +26,11 @@ class Admin extends BaseModel
         return $this->where('username', $username)->where('status', 1)->find();
     }
 
+    public static function findByIdWithStatus($id)
+    {
+        return self::where('id', $id)->where('status', 1)->find();
+    }
+
     public function adminList($page, $limit)
     {
         return $this->withoutField(['password', 'password_salt', 'last_login_token'])

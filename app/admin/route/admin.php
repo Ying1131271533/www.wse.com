@@ -22,5 +22,11 @@ Route::group('admin', function(){
     // 保存
     Route::rule('save', 'Admin/save', 'POST');
     // 更新
-    Route::rule('upate', 'Admin/upate', 'PUT');
+    Route::rule('update', 'Admin/update', 'PUT');
+    // 删除
+    Route::rule('delete/:id', 'Admin/delete', 'DELETE');
+    // 更新密码
+    Route::rule('password', 'Admin/password', 'PUT');
+    // 获取用户token
+    Route::rule('get_admin_by_token', 'Admin/getAdminByToken', 'POST');
 })->middleware(app\admin\middleware\IsLogin::class);
