@@ -9,7 +9,7 @@ class Admin extends BaseValidate
     // 验证规则
     protected $rule = [
         'id|管理员id'                   => 'require|number|gt:0',
-        'username|管理员名称'             => 'require|max:25|min:2',
+        'username|管理员名称'             => 'require|max:25|min:2|chsDash',
         'real_name|真实姓名'             => 'max:25|min:2',
         'phone|手机'                   => 'mobile',
         'wechat|微信'                  => 'max:28|min:6',
@@ -24,9 +24,9 @@ class Admin extends BaseValidate
         'limit|条数'                   => 'number|gt:0',
 
         // 条件
-        'start|开始日'                  => '',
-        'end|截止日'                    => '',
-        'name|用户名'                   => '',
+        'start|开始日'                  => 'date',
+        'end|截止日'                    => 'date',
+        'name|用户名'                   => 'chsDash',
 
     ];
 

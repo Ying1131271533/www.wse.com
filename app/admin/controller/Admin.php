@@ -44,7 +44,8 @@ class Admin extends BaseController
     public function index()
     {
         $params = $this->request->params;
-        halt($params);
+        // halt($this->request->query());
+        // return success($params);
         $adminList = $this->logic->adminList(
             $this->request->page,
             $this->request->limit,

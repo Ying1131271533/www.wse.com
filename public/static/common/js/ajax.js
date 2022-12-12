@@ -85,7 +85,7 @@ function ajax_field_value(id, field, value, db) {
  *
  * 数据保存
  *
- * @param  obj      from            layui表单实例
+ * @param  obj      form            layui表单实例
  * @param  string 	url             提交的url
  * @param  obj      layer           layer实例
  * @param  bool     father_reload   是否对父窗口进行刷新 
@@ -128,7 +128,7 @@ function layui_ajax_save(form, url, layer, father_reload = true) {
  *
  * 数据更新
  *
- * @param  obj      from            layui表单实例
+ * @param  obj      form            layui表单实例
  * @param  string 	url             提交的url
  * @param  obj      layer           layer实例
  * @param  bool     father_reload   是否对父窗口进行刷新 
@@ -170,7 +170,7 @@ function layui_ajax_update(form, url, layer, father_reload = true) {
  *
  * 搜索
  *
- * @param  obj      from            layui表单实例
+ * @param  obj      form            layui表单实例
  * @param  string 	url             提交的url
  */
 function layui_ajax_search(form, url) {
@@ -264,15 +264,14 @@ function ajax_delete(obj, url, id) {
  *
  * @param  obj      obj     当前元素
  * @param  string 	url     提交的url
- * @param  int      id      数据id
  */
-function layui_form_delete(obj, url, id) {
+function layui_form_delete(obj, url) {
 
     layer.confirm('确认要删除吗？', function (index) {
         // 发异步删除数据
         $.ajax({
             type: "DELETE",
-            url: url + '/' + id,
+            url: url,
             beforeSend: function (request) {
                 request.setRequestHeader("access-token", getToken());
             },

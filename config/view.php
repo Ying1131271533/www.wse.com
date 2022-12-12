@@ -31,5 +31,6 @@ return [
         '__API__' => '/static/api',
         '__COMMON__' => '/static/common',
         '__XADMIN__' => '/static/admin/lib/xadmin',
+        '__LAYUIADMIN__' => '/static/admin/lib/layuiadmin',
     ]
 ];

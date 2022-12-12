@@ -134,7 +134,7 @@ function isAdminLogin(secret) {
         },
         success: function (res) {
             if (res.code === config('goto')) {
-                layer.msg('登录凭证失效！', {}, function () {
+                layer.msg('登录凭证失效！', { time: 500 }, function () {
                     $.remvoeCookie('admin_login_token', { path: '/' });
                     // $(window).attr('location', '/' + secret + 'loginView');
                 });
@@ -154,7 +154,7 @@ function isApiLogin() {
         },
         success: function (res) {
             if (res.code === config('goto')) {
-                layer.msg('登录凭证失效！', {}, function () {
+                layer.msg('登录凭证失效！', { time: 500 }, function () {
                     $.removeCookie('api_login_token', { path: '/' });
                     // $.removeCookie('api_login_token', {domain: document.domain, path: '/'});
                     $(window).attr('location', '/api/View/user/login');
@@ -293,4 +293,21 @@ function scrollToEnd(val) {
             break;
     }
     $(document).scrollTop(h);
+}
+
+// 循环获取表单的值
+function get_input_value() {
+    let data = {};
+    $('.input-value').each(function (index, element) {
+        var name = $(this).attr('name');
+        var title = $(this).attr('title');
+        var val = $(this).val();
+        if (!val) {
+            layer.msg(title + '不能为空', { icon: 2, tiem: 500});
+            success = false;
+            return false;
+        }
+        data[name] = val;
+    });
+    return data;
 }
