@@ -65,7 +65,7 @@ class CheckParams
                 $request->params = $resultParams;
                 // 分页参数
                 $request->page = $request->param('?page') ? $request->param('page') : config('app.page');
-                $request->size = $request->param('?limit') ? $request->param('limit') : config('app.limit');
+                $request->limit = $request->param('?limit') ? $request->param('limit') : config('app.limit');
             }
         } /* else{
     $request->params = $params;

@@ -175,7 +175,7 @@ function isAdminLogin() {
         },
         success: function (res) {
             if (res.code === config('goto')) {
-                layer.msg('登录凭证失效！', { time: 500 }, function () {
+                layer.msg(res.msg, { time: 500 }, function () {
                     $.removeCookie('admin_login_token', { path: '/' });
                     // $.removeCookie('api_login_token', {domain: document.domain, path: '/'});
                     $(window).attr('location', '/view/login');

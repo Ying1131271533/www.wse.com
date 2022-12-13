@@ -33,7 +33,7 @@ class Admin
         }
 
         // 用户状态
-        if($admin['status'] == 0){
+        if ($admin['status'] == 0) {
             throw new Fail('该用户被禁止登录');
         }
 
@@ -76,10 +76,13 @@ class Admin
         Token::deleteToken();
     }
 
-    // 管理员列表
-    public function adminList($page, $limit)
+    // 获取管理员列表
+    public function getAdminList($data)
     {
-        return $this->adminModel->adminList($page, $limit);
+        $where = [];
+        !empty($data['idReload']) and $where[]   = ['id', '=', $data['idReload']];
+        !empty($data['usernameReload']) and $where[] = ['username', 'like', "%{$data['usernameReload']}%"];
+        return $this->adminModel->getAdminList($where, $data['page'], $data['limit']);
     }
 
     public function save($data)
@@ -138,6 +141,19 @@ class Admin
         }
     }
 
+    public function changeStatus($id, $value)
+    {
+        $admin = AdminModel::find($id);
+        if (empty($admin)) throw new Miss('管理员不存在');
+
+        $result = $admin->save(['status' => $value]);
+        if (empty($result)) throw new Fail('更新失败');
+        return [
+            'id' => $admin['id'],
+            'value' => $admin['status'],
+        ];
+    }
+
     public function delete($id)
     {
         // 用户是否存在
@@ -151,6 +167,9 @@ class Admin
 
         // 删除用户，没想到不用cache(true)都能删除缓存
         $result = $admin->delete();
-        if(!$result) throw new Fail('删除失败！');
+        if (!$result) {
+            throw new Fail('删除失败！');
+        }
+
     }
 }

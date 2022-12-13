@@ -26,7 +26,11 @@ class Admin extends BaseValidate
         // 条件
         'start|开始日'                  => 'date',
         'end|截止日'                    => 'date',
-        'name|用户名'                   => 'chsDash',
+        'idReload|ID'                => 'number|gt:0',
+        'usernameReload|用户名'         => 'chsDash',
+        
+        // ajax
+        'value|状态'                  => 'require',
 
     ];
 
@@ -65,7 +69,7 @@ class Admin extends BaseValidate
             'password',
             'password_confirm',
         ],
-        'index'       => ['page', 'limit', 'start', 'end', 'name'],
+        'index'       => ['page', 'limit', 'idReload', 'usernameReload'],
         'login'       => ['username', 'password'],
         'getUserById' => ['id'],
     ];

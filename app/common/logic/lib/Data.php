@@ -19,7 +19,7 @@ class Data
      */
     public function changeFieldValue($data)
     {
-        $result = Db::table($data['db'])->where('id', $data['id'])->update([$data['field'] => $data['value']]);
+        $result = Db::table($data['db'])->cache(true)->where('id', $data['id'])->update([$data['field'] => $data['value']]);
         if (empty($result)) throw new Exception('更新失败', config('status.faild'));
         return [
             'id' => $data['id'],

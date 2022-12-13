@@ -29,11 +29,11 @@ class IsLogin extends BaseController
         // 找到用户
         $user = AdminModel::cache(cache_time())->find($user['id']);
         if(empty($user)){
+            Token::deleteToken();
             throw new Forbidden('该用户已被删除');
-            Token::deleteToken();
         }else if($user['status'] == 0){
-            throw new Forbidden('该用户被禁止登录');
             Token::deleteToken();
+            throw new Forbidden('该用户被禁止登录');
         }
 
         // 账号异地登录

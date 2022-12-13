@@ -31,9 +31,10 @@ class Admin extends BaseModel
         return self::where('id', $id)->where('status', 1)->find();
     }
 
-    public function adminList($page, $limit)
+    public function getAdminList($where, $page, $limit)
     {
         return $this->withoutField(['password', 'password_salt', 'last_login_token'])
+        ->where($where)
         ->order('id', 'asc')
         ->paginate($limit, false, ['page' => $page])
         ->toArray();

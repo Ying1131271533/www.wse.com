@@ -1,0 +1,187 @@
+{extend name="public/base" /}
+{block name="title"}管理员列表{/block}
+{block name="load"}
+<!-- css -->
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-body ">
+          <!-- <form class="layui-form layui-col-space5">
+            <div class="layui-inline layui-show-xs-block">
+              <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start">
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+              <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+              <input type="text" name="name" id="name" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-inline layui-show-xs-block">
+              <button class="layui-btn" lay-submit="" id="search" lay-filter="search">
+                <i class="layui-icon">&#xe615;</i></button>
+            </div>
+          </form> -->
+
+          <div class="layui-form">
+            <div class="layui-input-inline">
+              <input class="layui-input" type="text" name="id" value="" placeholder="ID" id="idReload">
+            </div>
+            <div class="layui-input-inline">
+              <input class="layui-input" type="text" name="name" value="" placeholder="用户名" id="nameReload">
+            </div>
+            <div class="layui-input-inline">
+              <button class="layui-btn" id="search" lay-filter="search" data-type="reload">搜索<button>
+            </div>
+          </div>
+          
+        </div>
+        <div class="layui-card-header">
+          <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+          <button class="layui-btn" onclick="xadmin.open('添加管理员', '/view/admin_save', 600, 500)"><i
+              class="layui-icon"></i>添加</button>
+        </div>
+        <div class="layui-card-body ">
+          <table class="layui-table" lay-data="{ url:'/admin/index',page:true,toolbar: '#toolbarDemo',id:'test' }"
+            lay-filter="test">
+            <thead>
+              <tr>
+                <th lay-data="{type:'checkbox'}">ID</th>
+                <th lay-data="{field:'id', width:50, sort: true}">ID</th>
+                <th lay-data="{field:'username', width:120, edit: 'text'}">用户名</th>
+                <th lay-data="{field:'real_name', width:120, edit: 'text'}">真实姓名</th>
+                <th lay-data="{field:'phone', edit: 'text', width: 150}">手机</th>
+                <th lay-data="{field:'wechat', edit: 'text', width: 150}">微信</th>
+                <th lay-data="{field:'login_number', width: 100}">登录次数</th>
+                <th lay-data="{field:'status', width: 100, templet: '#statusTpl'}">状态</th>
+                <th lay-data="{field:'last_login_ip', width: 200}">上次登录ip</th>
+                <th
+                  lay-data="{field:'last_login_time', width: 200, templet: function(d){ return d.last_login_time ? timestampToTime(d.last_login_time) : '--';}}">
+                  上次登录时间</th>
+                <th
+                  lay-data="{field:'create_time', minWidth: 80, templet: function(d){ return timestampToTime(d.create_time);}}">
+                  创建时间</th>
+                <th lay-data="{field:'create_time', minWidth: 150, fixed: 'right', templet: '#editTpl'}">操作</th>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/html" id="toolbarDemo">
+  <div class = "layui-btn-container" > 
+    <button class = "layui-btn layui-btn-sm" lay-event = "getCheckData" > 获取选中行数据 </button>
+    <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button > 
+    <button class = "layui-btn layui-btn-sm" lay-event = "isAll" > 验证是否全选</button>
+  </div> 
+</script>
+<script type="text/html" id="statusTpl">
+  <a onclick="ajax_change_status(this)"
+    data-id="{{ d.id }}"
+    data-value="{{ d.status }}"
+    data-field="status"
+    data-db="admin"
+    class="layui-btn layui-btn-sm {{ d.status == 1 ? '' : 'layui-btn-danger' }}">
+    {{ d.status == 1 ? '开启' : '关闭' }}
+  </a>
+</script>
+<script type="text/html" id="editTpl">
+  <a title="修改" onclick="xadmin.open('修改', '/view/admin_update/{{ d.id }}', 600, 400)" href="javascript:;">
+    <i class="layui-icon">&#xe642;</i>
+  </a>
+  <a title="修改密码"  onclick="xadmin.open('修改密码', '/view/admin_password/{{ d.id }}', 600, 300)" href="javascript:;">
+    <i class="layui-icon">&#xe683;</i>
+  </a>
+  <a title="删除" onclick="layui_form_delete(this, '/admin/delete/{{ d.id }}')" href="javascript:;">
+    <i class="layui-icon">&#xe640;</i>
+  </a>
+</script>
+<script>
+  layui.use('laydate', function () {
+    var laydate = layui.laydate;
+
+    // 执行一个laydate实例
+    laydate.render({
+      elem: '#start' // 指定元素
+    });
+
+    // 执行一个laydate实例
+    laydate.render({
+      elem: '#end' // 指定元素
+    });
+
+  });
+</script>
+<script>
+  layui.use(['form', 'table', 'layer'], function () {
+    $ = layui.jquery;
+    var form = layui.form,
+      table = layui.table,
+      layer = layui.layer;
+
+    // 监听单元格编辑
+    table.on('edit(test)',
+      function (obj) {
+        var value = obj.value // 得到修改后的值
+          , data = obj.data // 得到所在行所有键值
+          , field = obj.field; // 得到字段
+        // layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
+        ajax_field_value(data.id, field, value, 'admin');
+      });
+
+    // 头工具栏事件
+    table.on('toolbar(test)', function (obj) {
+      var checkStatus = table.checkStatus(obj.config.id);
+      switch (obj.event) {
+        case 'getCheckData':
+          var data = checkStatus.data;
+          layer.alert(JSON.stringify(data));
+          break;
+        case 'getCheckLength':
+          var data = checkStatus.data;
+          layer.msg('选中了：' + data.length + ' 个');
+          break;
+        case 'isAll':
+          layer.msg(checkStatus.isAll ? '全选' : '未全选');
+          break;
+      };
+    });
+
+    // 没用
+    var $ = layui.$, active = {
+      reload: function () {
+
+        var start = $('#start');
+        var end = $('#end');
+        var id = $('#idReload');
+        var name = $('#nameReload');
+        
+
+        // 执行重载
+        table.reload('test', {
+          where: {
+            id: start.val(),
+            name: start.val(),
+          }
+        });
+
+        // 执行重载
+        table.reload('url', '/admin/index/id/1');
+      }
+    };
+    
+    //点击事件
+    $('#search').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+
+  });
+
+</script>
+{/block}

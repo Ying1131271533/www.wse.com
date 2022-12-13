@@ -4,106 +4,84 @@
 <!-- css -->
 <!-- js -->
 {/block}
-<!-- 主体内容 -->
 {block name="main"}
 <div class="layui-fluid">
   <div class="layui-form">
     <div class="layui-input-inline">
-      <input class="layui-input" type="text" name="username" value="" placeholder="ID" id="idReload">
-    </div>
-    <div class="layui-input-inline  layui-col-space5">
-      <input class="layui-input" type="text" name="user_id" value="" placeholder="会员ID" id="uidReload">
+      <input class="layui-input" type="text" name="id" value="" placeholder="ID" id="idReload">
     </div>
     <div class="layui-input-inline">
-      <input class="layui-input" type="text" name="order" value="" placeholder="快递单号" id="numberReload">
+      <input class="layui-input" type="text" name="username" value="" placeholder="用户名" id="usernameReload">
     </div>
     <div class="layui-input-inline">
-      <button class="layui-btn akali" data-type="reload">搜索<button>
+      <button class="layui-btn" id="search" data-type="reload">搜索<button>
     </div>
   </div>
 
-  <div class="layui-card-body layui-col-space5">
-    <div class="layui-input-inline">
-      <a class="{$status == '' ?  'layui-btn' : 'layui-btn layui-btn-primary'} layui-btn-sm"
-        href="{:url('').$kdidStr}">全部<a>
-    </div>
-    <div class="layui-input-inline">
-      <a class="{$status == 1 ?  'layui-btn' : 'layui-btn layui-btn-primary'} layui-btn-sm"
-        href="{:url('', ['status' => '1']).$kdidStr}">未导出<a>
-    </div>
-    <div class="layui-input-inline">
-      <a class="{$status == 2 ?  'layui-btn' : 'layui-btn layui-btn-primary'} layui-btn-sm"
-        href="{:url('', ['status' => '2']).$kdidStr}">已导出<a>
-    </div>
-    <div class="layui-input-inline">
-      <a class="{$status == 3 ?  'layui-btn' : 'layui-btn layui-btn-primary'} layui-btn-sm"
-        href="{:url('', ['status' => '3']).$kdidStr}">退单<a>
-    </div>
-  </div>
 
-  <form class="layui-form" action="{:url('export')}" method="post" name="number" lay-filter="bag">
-    <div class="layui-card-body layui-col-space5">
-      <div class="layui-input-inline">
-        <input type="checkbox" name="id" title="全选" lay-filter="bag" lay-skin="primary">
-      </div>
-      <div class="layui-input-inline">
-        <!-- <button class="layui-btn layui-btn-sm" onclick="excel()">导出订单<button> -->
-        <button type="subimt" class="layui-btn layui-btn-sm">导出订单<button>
-      </div>
-      <div class="layui-input-inline">
-        <button type="subimt" class="layui-btn layui-btn-sm" onclick="tuis()">批量退单<button>
-      </div>
-    </div>
-
-    <table id="layui_user" lay-filter="user"></table>
-  </form>
+  <table id="table_akali" lay-filter="table_akali"></table>
 </div>
 
-<!-- {js href="/static/admin/layuiadmin/layui/layui.js" /} -->
+<!-- 加载layuijs -->
+<script src="__LAYUIADMIN__/layui/layui.js" charset="utf-8"></script>
 
-<script type="text/html" id="editTpl">
-  {{# if(d.status == 1 || d.status == 0){ }}
-  <!-- <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>修改</a> -->
-  <a class="layui-btn layui-btn-xs layui-bg-blue" lay-event="tui"><i class="layui-icon">&#xe640;</i>退单</a>
-  {{# }else { }}
-  ——
-  {{# }}}
-</script>
+<script type="text/html" id="usernameTpl">
+    <a href="javascript:;" lay-event="username" style="color:#01AAED;">{{ d.username }}</a>
+  </script>
+
+<script type="text/html" id="realNameTpl">
+    <p style="color:#009688">{{ d.real_name }}</p>
+  </script>
+
+<script type="text/html" id="phoneTpl">
+    <p>{{ d.phone }}</p>
+  </script>
+
+<script type="text/html" id="wechatTpl">
+    <p>{{ d.wechat }}</p>
+  </script>
+
+<script type="text/html" id="loginNumberTpl">
+    <p>{{ d.login_number }}</p>
+  </script>
+
+<script type="text/html" id="lastLoginIpTpl">
+    <p>{{ d.last_login_ip }}</p>
+  </script>
+
+<script type="text/html" id="lastLoginTimeTpl">
+    <p>{{ d.last_login_time }}</p>
+  </script>
+
+<script type="text/html" id="createTimeTpl">
+    <p>{{ d.create_time }}</p>
+  </script>
 
 <script type="text/html" id="statusTpl">
-  <a onclick="ajax_change_status(this)"
+    <a onclick="ajax_change_status(this)"
     data-id="{{ d.id }}"
     data-value="{{ d.status }}"
     data-field="status"
     data-db="admin"
-    class="layui-btn layui-btn-sm {{ d.status == 1 ? '' : 'layui-btn-danger' }}">
-    {{ d.status == 1 ? '开启' : '关闭' }}
-  </a>
-</script>
+      class="layui-btn layui-btn-sm {{ d.status == 1 ? '' : 'layui-btn-danger' }}">
+      {{ d.status == 1 ? '开启' : '关闭' }}
+    </a>
+  </script>
 
-<script type="text/html" id="wechatTpl">
-  <p>{{ d.wechat }}</p>
-</script>
-
-<script type="text/html" id="loginNumberTpl">
-  <p>{{ d.login_number }}</p>
-</script>
-
-<script type="text/html" id="phoneTpl">
-  <p>{{ d.phone }}</p>
-</script>
-
-<script type="text/html" id="realNameTpl">
-  <p style="color:#009688">{{ d.real_name }}</p>
-</script>
-
-<script type="text/html" id="usernameTpl">
-  <a href="javascript:;" lay-event="username" style="color:#01AAED;">{{ d.username }}</a>
-</script>
-
-<script type="text/html" id="idTpl">
-  <input type="checkbox" name="ids[]" title="" value="{{ d.id }}" lay-filter="bags" lay-skin="primary"> {{ d.id }}
-</script>
+<script type="text/html" id="operationTpl">
+    <button class="layui-btn layui-btn-sm" lay-event="update">
+			<i class="layui-icon">&#xe642;</i>
+			修改
+		</button>
+    <button class="layui-btn layui-btn-sm" lay-event="password">
+			<i class="layui-icon">&#xe683;</i>
+			修改密码
+		</button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">
+			<i class="layui-icon">&#xe640;</i>
+			删除
+		</button>
+  </script>
 
 <script>
   layui.use(['jquery', 'layer', 'table', 'flow', 'form'], function () {
@@ -113,64 +91,60 @@
       , flow = layui.flow
       , form = layui.form
 
-
     // 第一个实例
     var ins1 = table.render({
-      elem: '#layui_user'
-      , url: "{:url('index_data', ['id' => $id, 'kd_id' => $kd_id, 'user_id' => $user_id, 'number' => $number, 'status' => 1])}" //数据接口
+      elem: '#table_akali'
+      , url: '/admin/index' //数据接口
       , page: true //开启分页
-      , id: 'user'
+      , id: 'table_akali'
       , limit: 20
       , limits: [20, 100, 200, 500]
-      , size: 'sm'
+      , size: 'lg'
       , cols: [[ //表头
-        { field: 'id', title: 'ID', width: 100, sort: true, fixed: 'left', templet: '#idTpl' }
+        { field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left' }
         , { field: 'username', title: '管理员名称', width: 120, edit: 'text', templet: '#usernameTpl' }
         , { field: 'real_name', title: '真实姓名', width: 120, templet: '#realNameTpl' }
         , { field: 'phone', title: '手机', width: 150, templet: '#phoneTpl' }
         , { field: 'wechat', title: '微信', width: 150, templet: '#wechatTpl' }
-        , { field: 'login_number', title: '登录次数', width: 150, templet: '#loginNumberTpl' }
+        , { field: 'login_number', title: '登录次数', width: 150, sort: true, templet: '#loginNumberTpl' }
+        , { field: 'last_login_ip', title: '上次登录ip', width: 150, templet: '#lastLoginIpTpl' }
+        , { field: 'last_login_time', title: '上次登录时间', width: 150, sort: true, templet: '#lastLoginTimeTpl' }
+        , { field: 'create_time', title: '创建时间', width: 150, sort: true, templet: '#createTimeTpl' }
         , { field: 'status', title: '状态', width: 90, templet: '#statusTpl', fixed: 'right' }
-        , { field: 'edit', title: '操作', width: 160, templet: '#editTpl', fixed: 'right' }
+        , { field: 'edit', title: '操作', minwidth: 160, templet: '#operationTpl', fixed: 'right' }
       ]]
     });
 
-    // 复选框
-    form.on('checkbox(bag)', function (data) {
-      console.log(data.elem); //得到checkbox原始DOM对象
-      console.log(data.elem.checked); //开关是否开启，true或者false
-      console.log(data.value); //开关value值，也可以通过data.elem.value得到
-      console.log(data.othis); //得到美化后的DOM对象
 
-      var status = data.elem.checked;
-      $('input[name="ids[]"]').prop('checked', status);
-      form.render();
 
-    });
+    var $ = layui.$, active = {
+      reload: function () {
+        var idReload = $('#idReload');
+        var usernameReload = $('#usernameReload');
 
-    form.on('checkbox(bags)', function (data) {
-      console.log(data.elem); //得到checkbox原始DOM对象
-      console.log(data.elem.checked); //开关是否开启，true或者false
-      console.log(data.value); //开关value值，也可以通过data.elem.value得到
-      console.log(data.othis); //得到美化后的DOM对象
-
-      var length = $('input[name="ids[]"]').not("input:checked").length;
-      if (length < 1) {
-        $('input[name="id"]').prop('checked', true);
-      } else {
-        $('input[name="id"]').prop('checked', false);
+        //执行重载
+        table.reload('table_akali', {
+          where: {
+            idReload: idReload.val(),
+            usernameReload: usernameReload.val(),
+          }
+        });
       }
+    };
 
-      form.render();
+    //点击事件
+    $('#search').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
     });
 
-    //监听排序事件 
-    table.on('sort(user)', function (obj) {
+    // 监听排序事件 
+    table.on('sort(table_akali)', function (obj) {
       console.log(obj.field);
       console.log(obj.type);
       console.log(this);
 
-      table.reload('user', {
+      table.reload('table_akali', {
         initSort: obj
         , where: {
           field: obj.field
@@ -180,95 +154,66 @@
 
     });
 
-    var $ = layui.$, active = {
-      reload: function () {
-        var idReload = $('#idReload');
-        var uidReload = $('#uidReload');
-        var numberReload = $('#numberReload');
-
-        var id = $('#idReload').val();
-        var uid = $('#uidReload').val();
-        var number = $('#numberReload').val();
-        window.location.href = "{:url()}?id=" + id + '&user_id=' + uid + '&number=' + number;
-        /*			//执行重载
-              table.reload('user', {
-                where: {
-                  id:idReload.val(),
-                  user_id:uidReload.val(),
-                  number:numberReload.val(),
-                }
-              });
-        */
-      }
-    };
-
-    //点击事件
-    $('.akali').on('click', function () {
-      var type = $(this).data('type');
-      active[type] ? active[type].call(this) : '';
-    });
-
-
     //监听工具条
-    table.on('tool(user)', function (obj) {
-      var data = obj.data; //获得当前行数据
-      var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+    table.on('tool(table_akali)', function (obj) {
+      var data = obj.data; // 获得当前行数据
+      var layEvent = obj.event; // 获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
-      switch (obj.event) {
-        case 'edit':
-          layer.open({
-            type: 2,
-            title: '修改',
-            content: '{:url("edit")}?id=' + data.id,
-            shadeClose: true,
-            shade: [0.8, '#000000'],
-            area: ['800px', '600px'],
-          });
-          break;
-        case 'tui':
-          window.location.href = "{:url('tui')}?id=" + data.id + '&user_id=' + data.user_id + '&number=' + data.number;
-          break;
-        case 'username':
-          window.location.href = "{:url('user/index')}?id=" + data.user_id;
-          break;
-      };
-
-    });
-
-    $(document).keydown(function (event) {
-      if (event.keyCode == 13) {
-        $('.akali').triggerHandler('click');
+      if (layEvent === 'update') {
+        layer.open({
+          type: 2,
+          title: '管理员更新',
+          content: '/view/admin_update/' + data.id,
+          shadeClose: true,
+          shade: [0.8, '#000000'],
+          area: ['600px', '400px'],
+        });
+      } else if (layEvent === 'password') {
+        layer.open({
+          type: 2,
+          title: '修改密码',
+          content: '/view/admin_password/' + data.id,
+          shadeClose: true,
+          shade: [0.8, '#000000'],
+          area: ['500px', '300px'],
+        });
+      } else if (layEvent === 'delete') {
+        layui_form_delete(obj, '/admin/delete/' + data.id);
       }
     });
-
   });
 
+  // 管理员改变状态
+  function admin_change_status(obj) {
+    // 数据
+    var id = $(obj).attr("data-id"); // id
+    var value = $(obj).attr("data-value") == 1 ? 0 : 1; // 要修改的值
 
-  // 导出文档
-  function excel() {
-    layui.use(['jquery', 'layer'], function () {
-      var $ = layui.$
-        , layer = layui.layer
+    $.ajax({
+      type: "PUT",
+      contentType: "application/x-www-form-urlencoded",
+      url: '/admin/change_status',
+      data: {
+        id: id,
+        value: value,
+      },
+      beforeSend: function (request) {
+        request.setRequestHeader("access-token", getToken());
+      },
+      success: function (res) {
 
+        if (res.code == config('failed')) {
+          layer.msg(res.msg, { icon: 2 });
+          return false;
+        }
 
-      $('form[name="number"]').submit();
+        if (res.data.value == 1) {
+          $(obj).removeClass("layui-btn-danger").attr("data-value", 1).text("开启");
+        } else {
+          $(obj).addClass("layui-btn-danger").attr("data-value", 0).text("关闭");
+        }
+      }
     });
   }
-
-
-  // 退单
-  function tuis() {
-    layui.use(['jquery', 'layer'], function () {
-      var $ = layui.$
-        , layer = layui.layer
-
-
-      $('form[name=number]').attr('action', '{:url("tuis")}');
-      $('form[name="number"]').submit();
-    });
-
-  }
-
-
 </script>
 {/block}

@@ -14,7 +14,7 @@ function ajax_change_status(obj) {
     var db = $(obj).attr("data-db"); // 表名
 
     $.ajax({
-        type: "POST",
+        type: "PUT",
         contentType: "application/x-www-form-urlencoded",
         url: '/ajax/update_field_value',
         data: {
@@ -54,7 +54,7 @@ function ajax_change_status(obj) {
 function ajax_field_value(id, field, value, db) {
 
     $.ajax({
-        type: "POST",
+        type: "PUT",
         contentType: "application/x-www-form-urlencoded",
         url: '/ajax/update_field_value',
         data: {
@@ -83,7 +83,7 @@ function ajax_field_value(id, field, value, db) {
  * @author: 神织知更
  * @time: 2022/04/06 15:57
  *
- * 数据保存
+ * 数据保存(添加)
  *
  * @param  obj      form            layui表单实例
  * @param  string 	url             提交的url
