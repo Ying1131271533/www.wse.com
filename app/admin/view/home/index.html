@@ -90,7 +90,7 @@
         <script>
             // 获取用户信息
             var admin = getAdmin();
-            console.log(admin);
+            // console.log(admin);
             $('#admin_name').text(admin.username);
             function admin_info() {
                 xadmin.open('个人信息', '/view/admin_info/' + admin.id);
@@ -125,27 +125,21 @@
                         <i class="iconfont nav_right">&#xe6a7;</i></a>
                     <ul class="sub-menu">
                         <li>
-                            <a onclick="xadmin.add_tab('管理员列表','/view/admin_index', true)">
+                            <a onclick="xadmin.add_tab('管理员列表', '/view/admin_index', true)">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>管理员列表</cite>
                             </a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('角色管理','admin-role.html')">
+                            <a onclick="xadmin.add_tab('角色列表', '/view/role_index', true)">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>角色管理</cite>
+                                <cite>角色列表</cite>
                             </a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('权限分类','admin-cate.html')">
+                            <a onclick="xadmin.add_tab('节点列表', '/view/node_index', true)">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>权限分类</cite>
-                            </a>
-                        </li>
-                        <li>
-                            <a onclick="xadmin.add_tab('权限管理','admin-rule.html')">
-                                <i class="iconfont">&#xe6a7;</i>
-                                <cite>权限管理</cite>
+                                <cite>节点列表</cite>
                             </a>
                         </li>
                     </ul>

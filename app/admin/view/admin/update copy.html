@@ -1,0 +1,116 @@
+{extend name="public/base" /}
+{block name="title"}管理员更新{/block}
+{block name="load"}
+<!-- css -->
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>登录名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="username" name="username" required="" lay-verify="username"
+                        autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>将会成为管理员唯一的登入名
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="real_name" class="layui-form-label">
+                    真实姓名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="real_name" name="real_name" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="phone" class="layui-form-label">
+                    手机
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="phone" name="phone" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    联系手机
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    微信
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="email" lay-verify="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!-- <div class="layui-form-item">
+                <label class="layui-form-label"><span class="x-red">*</span>角色</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="超级管理员" checked="">
+                    <input type="checkbox" name="like1[read]" lay-skin="primary" title="编辑人员">
+                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="宣传人员" checked="">
+                </div>
+            </div> -->
+            <div class="layui-form-item">
+                <label class="layui-form-label">登录状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" id="status" name="status" value="1" title="开启">
+                    <input type="radio" id="status" name="status" value="0" title="关闭">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="" class="layui-form-label">
+                </label>
+                <button class="layui-btn" lay-filter="form" lay-submit="">
+                    保存
+                </button>
+            </div>
+
+            <input type="hidden" id="id" name="id" required="" value="">
+        </form>
+    </div>
+</div>
+<script>
+
+    // 获取数据
+    var data = ajax_read('/admin/read');
+    console.log(data);
+
+    // 表单赋值
+    $('#id').val(data.id);
+    $('#username').val(data.username);
+    $('#real_name').val(data.real_name);
+    $('#phone').val(data.phone);
+    $('#wechat').val(data.wechat);
+    $('input[name="status"][value="' + data.status + '"]').attr('checked', true);
+    
+    // layui
+    layui.use(['form', 'layer'], function () {
+        
+        $ = layui.jquery;
+        var form = layui.form,
+            layer = layui.layer;
+
+        // 自定义验证规则
+        form.verify({
+            username: function (value) {
+                if (empty(value)) {
+                    return '登录名不能为空！';
+                }
+                if (value.length < 2 || value.length > 25) {
+                    return '登录名为2到25个字符！';
+                }
+            }
+        });
+
+        // 更新数据
+        layui_ajax_update(form, '/admin/update', layer);
+
+    });
+</script>
+{/block}

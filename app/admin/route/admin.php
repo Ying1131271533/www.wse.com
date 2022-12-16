@@ -4,7 +4,7 @@
 use think\facade\Route;
 
 // 管理员
-Route::group('admin', function(){
+Route::group('', function(){
     // 登录
     Route::rule('login', 'Admin/login', 'POST');
 });
@@ -16,15 +16,15 @@ Route::group('admin', function(){
     // 退出登录
     Route::rule('logout', 'Admin/logout', 'POST');
     // 列表
-    Route::rule('index', 'Admin/index', 'GET');
+    Route::rule('', 'Admin/index', 'GET');
     // 单条
-    Route::rule('read/:id', 'Admin/read', 'GET');
+    Route::rule(':id', 'Admin/read', 'GET');
     // 保存
-    Route::rule('save', 'Admin/save', 'POST');
+    Route::rule('', 'Admin/save', 'POST');
     // 更新
-    Route::rule('update', 'Admin/update', 'PUT');
+    Route::rule('', 'Admin/update', 'PUT');
     // 删除
-    Route::rule('delete/:id', 'Admin/delete', 'DELETE');
+    Route::rule(':id', 'Admin/delete', 'DELETE');
     // 更新密码
     Route::rule('password', 'Admin/password', 'PUT');
     // 获取用户token

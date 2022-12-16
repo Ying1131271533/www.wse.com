@@ -28,11 +28,11 @@ function ajax_change_status(obj) {
         },
         success: function (res) {
 
-            if (res.code == config('failed')) {
+            if (res.code !== config('success')) {
                 layer.msg(res.msg, { icon: 2 });
                 return false;
             }
-
+            
             if (res.data.value == 1) {
                 $(obj).removeClass("layui-btn-danger").attr("data-value", 1).text("开启");
             } else {
@@ -78,127 +78,55 @@ function ajax_field_value(id, field, value, db) {
     });
 }
 
-/**
- * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
- * @author: 神织知更
- * @time: 2022/04/06 15:57
- *
- * 数据保存(添加)
- *
- * @param  obj      form            layui表单实例
- * @param  string 	url             提交的url
- * @param  obj      layer           layer实例
- * @param  bool     father_reload   是否对父窗口进行刷新 
- */
-function layui_ajax_save(form, url, layer, father_reload = true) {
-    form.on('submit(form)', function (data) {
-        console.log(data);
-        //发异步，把数据提交给php
-        $.ajax({
-            type: "POST",
-            contentType: "application/x-www-form-urlencoded",
-            url: url,
-            data: data.field,
-            beforeSend: function (request) {
-                request.setRequestHeader("access-token", getToken());
-            },
-            success: function (res) {
-                if (res.code === config('failed')) {
-                    layer.msg(res.msg);
-                } else if (res.code === config('success')) {
-                    layer.msg("保存成功", { time: 500 }, function () {
-                        // 关闭当前frame
-                        xadmin.close();
-                        // 可以对父窗口进行刷新 
-                        if (father_reload) xadmin.father_reload();
-                    });
-                }
-            }
-        });
-
-        return false;
-    });
-}
-
 
 /**
  * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
  * @author: 神织知更
  * @time: 2022/04/06 15:57
  *
- * 数据更新
+ * 表单的input分配值
  *
- * @param  obj      form            layui表单实例
- * @param  string 	url             提交的url
- * @param  obj      layer           layer实例
- * @param  bool     father_reload   是否对父窗口进行刷新 
+ * @param  obj      data    数据
  */
-function layui_ajax_update(form, url, layer, father_reload = true) {
-    form.on('submit(form)', function (data) {
-        // console.log(data);
-        //发异步，把数据提交给php
-        $.ajax({
-            type: "PUT",
-            contentType: "application/x-www-form-urlencoded",
-            url: url,
-            data: data.field,
-            beforeSend: function (request) {
-                request.setRequestHeader("access-token", getToken());
-            },
-            success: function (res) {
-                if (res.code === config('failed')) {
-                    layer.msg(res.msg);
-                } else if (res.code === config('success')) {
-                    layer.msg("保存成功", { time: 500 }, function () {
-                        // 关闭当前frame
-                        xadmin.close();
-                        // 可以对父窗口进行刷新 
-                        if (father_reload) xadmin.father_reload();
-                    });
+function input_assign_value(data = null) {
+    for(let key in data){
+        var length = $('#' + key).length;
+        if (length > 0) {
+            if ($('#' + key).is("input")) {
+                $('#' + key).val(data[key]);
+                var type = $('#' + key).attr('type');
+                if (type == 'radio' && key == 'status') {
+                    $('input[name="status"][value="' + data[key] + '"]').attr('checked', true);
                 }
             }
-        });
+            if ($('#' + key).is("select")) {
 
-        return false;
-    });
-}
-
-/**
- * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
- * @author: 神织知更
- * @time: 2022/04/06 15:57
- *
- * 搜索
- *
- * @param  obj      form            layui表单实例
- * @param  string 	url             提交的url
- */
-function layui_ajax_search(form, url) {
-    let data = null;
-    form.on('submit(form)', function (data) {
-        // console.log(data);
-        //发异步，把数据提交给php
-        $.ajax({
-            type: "POST",
-            contentType: "application/x-www-form-urlencoded",
-            url: url,
-            data: data.field,
-            beforeSend: function (request) {
-                request.setRequestHeader("access-token", getToken());
-            },
-            success: function (res) {
-                if (res.code !== config('success')) {
-                    layer.msg(res.msg);
-                    return false;
-                }
-                
-                data = res.data;
             }
-        });
+            if ($('#' + key).is("textarea")) {
 
-        return data;
-    });
+            }
+        };
+    }
+
 }
+
+// 获取表单值
+function get_input_value() {
+    let data = {};
+    $('.input-value').each(function (index, element) {
+        var name = $(this).attr('name');
+        var title = $(this).attr('title');
+        var val = $(this).val();
+        if (!val) {
+            layer.msg(title + '不能为空', { icon: 2, tiem: 500});
+            success = false;
+            return false;
+        }
+        data[name] = val;
+    });
+    return data;
+}
+
 
 
 // 读取单条数据
@@ -228,6 +156,30 @@ function ajax_read(url) {
     return data;
 }
 
+// 读取多条数据
+function ajax_list(url) {
+    let data = null;
+    $.ajax({
+        type: "GET",
+        contentType: "application/x-www-form-urlencoded",
+        url: url,
+        async: false, // 关闭异步
+        beforeSend: function (request) {
+            request.setRequestHeader("access-token", getToken());
+        },
+        success: function (res) {
+            if (res.code !== config('success')) {
+                layer.msg(res.msg);
+                return false;
+            }
+            data = res.data;
+        }
+    });
+
+    // 返回数据
+    return data;
+}
+
 /**
  * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
  * @author: 神织知更
@@ -237,12 +189,11 @@ function ajax_read(url) {
  *
  * @param  obj      obj     当前元素
  * @param  string 	url     提交的url
- * @param  int      id      数据id
  */
-function ajax_delete(obj, url, id) {
+function ajax_delete(obj, url) {
     $.ajax({
-        type: "GET",
-        url: url + '/' + id,
+        type: "DELETE",
+        url: url,
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getToken());
         },
@@ -252,37 +203,6 @@ function ajax_delete(obj, url, id) {
                 return true;
             }
         }
-    });
-}
-
-/**
- * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
- * @author: 神织知更
- * @time: 2022/04/06 15:57
- *
- * layui表单删除单条数据
- *
- * @param  obj      obj     当前元素
- * @param  string 	url     提交的url
- */
-function layui_form_delete(obj, url) {
-
-    layer.confirm('确认要删除吗？', function (index) {
-        // 发异步删除数据
-        $.ajax({
-            type: "DELETE",
-            url: url,
-            beforeSend: function (request) {
-                request.setRequestHeader("access-token", getToken());
-            },
-            success: function (res) {
-                layer.msg(res.msg, { icon: 1, time: 500 });
-                if (res.code === config('success')) {
-                    // 移除元素
-                    $(obj).parents("tr").remove();
-                }
-            }
-        });
     });
 }
 

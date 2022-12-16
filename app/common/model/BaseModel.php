@@ -19,7 +19,7 @@ abstract class BaseModel extends model
     protected $hidden = [
         // 'passowrd',
         // 'create_time',
-        'update_time',
+        // 'update_time',
         'delete_time',
     ];
     // 获取被隐藏数据

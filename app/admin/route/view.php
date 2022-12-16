@@ -23,3 +23,103 @@ Route::group('view', function(){
     // 更改密码
     Route::rule('admin_password/:id', 'View/adminPassword', 'GET');
 });
+
+// 角色
+Route::group('view', function(){
+    Route::rule('role_index', 'View/roleIndex', 'GET');
+    Route::rule('role_save', 'View/roleSave', 'GET');
+    Route::rule('role_update/:id', 'View/roleUpdate', 'GET');
+    Route::rule('role_auth/:id', 'View/roleAuth', 'GET');
+});
+
+// 节点
+Route::group('view', function(){
+    Route::rule('node_index', 'View/nodeIndex', 'GET');
+    Route::rule('node_save', 'View/nodeSave', 'GET');
+    Route::rule('node_update/:id', 'View/nodeUpdate', 'GET');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

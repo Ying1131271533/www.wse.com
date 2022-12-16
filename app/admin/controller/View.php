@@ -45,11 +45,54 @@ class View
         return FacadeView::fetch('admin/update');
     }
 	
-    // 更新
+    // 更新密码
     public function adminPassword()
     {
         return FacadeView::fetch('admin/password');
     }
+	
+	
+	/************************ 角色 ************************/
+	
+    public function roleIndex()
+    {
+        return FacadeView::fetch('role/index');
+    }
+    
+    public function roleSave()
+    {
+        return FacadeView::fetch('role/save');
+    }
+
+    public function roleUpdate()
+    {
+        return FacadeView::fetch('role/update');
+    }
+
+    public function roleAuth()
+    {
+        return FacadeView::fetch('role/auth');
+    }
+	
+	
+	
+	/************************ 节点 ************************/
+	
+    public function nodeIndex()
+    {
+        return FacadeView::fetch('node/index');
+    }
+    
+    public function nodeSave()
+    {
+        return FacadeView::fetch('node/save');
+    }
+
+    public function nodeUpdate()
+    {
+        return FacadeView::fetch('node/update');
+    }
+	
 }
 
 

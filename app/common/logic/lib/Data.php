@@ -2,6 +2,7 @@
 
 namespace app\common\logic\lib;
 
+use app\common\lib\exception\Fail;
 use Exception;
 use think\facade\Db;
 
@@ -20,7 +21,7 @@ class Data
     public function changeFieldValue($data)
     {
         $result = Db::table($data['db'])->cache(true)->where('id', $data['id'])->update([$data['field'] => $data['value']]);
-        if (empty($result)) throw new Exception('更新失败', config('status.faild'));
+        if (empty($result)) throw new Fail('更新失败');
         return [
             'id' => $data['id'],
             'value' => $data['value'],

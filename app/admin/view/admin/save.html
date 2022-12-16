@@ -1,4 +1,4 @@
-{extend name="public/base" /}
+{extend name="public/base_layui" /}
 {block name="title"}管理员保存{/block}
 {block name="load"}
 <!-- css -->
@@ -7,93 +7,119 @@
 <!-- 主体内容 -->
 {block name="main"}
 <div class="layui-fluid">
-    <div class="layui-row">
-        <form class="layui-form">
-            <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>登录名
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="username" name="username" required="" lay-verify="username"
-                        autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">
-                    <span class="x-red">*</span>将会成为管理员唯一的登入名
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="real_name" class="layui-form-label">
-                    真实姓名
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="real_name" name="real_name" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="phone" class="layui-form-label">
-                    手机
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="phone" name="phone" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">
-                    联系手机
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
-                    微信
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="L_email" name="email" lay-verify="" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <!-- <div class="layui-form-item">
-                <label class="layui-form-label"><span class="x-red">*</span>角色</label>
-                <div class="layui-input-block">
-                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="超级管理员" checked="">
-                    <input type="checkbox" name="like1[read]" lay-skin="primary" title="编辑人员">
-                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="宣传人员" checked="">
-                </div>
-            </div> -->
-            <div class="layui-form-item">
-                <label for="L_password" class="layui-form-label">
-                    <span class="x-red">*</span>密码
-                </label>
-                <div class="layui-input-inline">
-                    <input type="password" id="L_password" name="password" required="" lay-verify="password"
-                        autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">
-                    6到50个字符
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_password_confirm" class="layui-form-label">
-                    <span class="x-red">*</span>确认密码
-                </label>
-                <div class="layui-input-inline">
-                    <input type="password" id="L_password_confirm" name="password_confirm" required=""
-                        lay-verify="password_confirm" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">登录状态</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="status" value="1" title="开启" checked>
-                    <input type="radio" name="status" value="0" title="关闭">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="" class="layui-form-label">
-                </label>
-                <button class="layui-btn" lay-filter="form" lay-submit="">
-                    保存
-                </button>
-            </div>
+    <div class="layui-form">
+        <form action="" method="post" name="example">
+            <table class="layui-table" lay-size="lg" lay-skin="line">
+                <thead>
+                    <tr>
+                        <th colspan="2">管理员添加</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="150" align="right"><strong>管理员名称：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="username" placeholder="用户名">
+                            </div>
+                            <div class="layui-input-inline">
+                                <span style="color: red;">*</span> 将会成为管理员唯一的登入名
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>真实名字：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="real_name" placeholder="真实名字">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>手机：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="phone" placeholder="手机">
+                            </div>
+                            <div class="layui-input-inline">
+                                联系手机
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>微信：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="wechat" placeholder="微信">
+                            </div>
+                            <div class="layui-input-inline">
+                                联系微信
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><strong>密码：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="password" name="password" placeholder="密码">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><strong>确认密码：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="password" name="password_confirm" placeholder="确认密码">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right"><strong>角色：</strong></td>
+                        <td id="role-td">
+                            <div style="margin-bottom:10px;" id="role-div">
+                                <div class="layui-input-inline">
+                                    <select name="role[]">
+                                        <option value="">请选择</option>
+                                        <option value="1">超级管理员</option>
+                                        <option value="2">文章管理员</option>
+                                    </select>
+                                </div>
+                                <a href="javascript:;" class="layui-btn layui-btn-sm" onclick="add(this)">
+                                    <i class="layui-icon">&#xe654;</i> 增加
+                                </a>
+                                <a href="javascript:;" class="layui-btn layui-bg-black layui-btn-sm"
+                                    onclick="del(this)">
+                                    <i class="layui-icon">&#xe640;</i> 删除
+                                </a>
+                            </div>
+                            <div class="jinx" style="display:hidden;"></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right"><strong>登录状态：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="status" value="1" title="正常" checked>
+                                <input type="radio" name="status" value="0" title="禁止">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </form>
     </div>
 </div>
+
 <script>
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
@@ -118,8 +144,42 @@
             }
         });
         
-        layui_ajax_save(form, '/admin/save', layer);
+        // 保存
+        layui_ajax_save(form, '/admin');
 
     });
+
+    // 增加权限下拉框
+    function add(obj) {
+        layui.use(['jquery', 'layer'], function () {
+            var layer = layui.layer
+                , $ = layui.$
+                , form = layui.form
+
+            var html = $(obj).parents('#role-div').clone();
+            $('#"role-td').append(html);
+
+            form.render();
+        });
+
+    }
+
+    function del(obj) {
+        layui.use(['jquery', 'layer'], function () {
+            var layer = layui.layer
+                , $ = layui.$
+                , form = layui.form
+
+            var len = $('#role-div').length;
+            if (len <= 1) {
+                return false;
+            }
+
+            $(obj).parents('#role-div').remove();
+
+            form.render();
+        });
+
+    }
 </script>
 {/block}

@@ -60,10 +60,10 @@ function success($data = null, int $code = 200, int $HttpStatus = 200, string $m
     ];
 
     // 如果$data是字符串
-    // if(is_string($data)){
-    //     $resultData['msg'] = $data;
-    //     $resultData['data'] = null;
-    // }
+    if(is_string($data)){
+        $resultData['msg'] = $data;
+        $resultData['data'] = null;
+    }
 
     // 有分页
     if (isset($data['current_page'])) {

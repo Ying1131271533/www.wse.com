@@ -79,8 +79,8 @@ class Admin
     // 获取管理员列表
     public function getAdminList($data)
     {
-        $where = [];
-        !empty($data['idReload']) and $where[]   = ['id', '=', $data['idReload']];
+        $where                                       = [];
+        !empty($data['idReload']) and $where[]       = ['id', '=', $data['idReload']];
         !empty($data['usernameReload']) and $where[] = ['username', 'like', "%{$data['usernameReload']}%"];
         return $this->adminModel->getAdminList($where, $data['page'], $data['limit']);
     }
@@ -111,8 +111,18 @@ class Admin
         if (empty($admin)) {
             throw new Miss('该用户不存在');
         }
+
+        if (!empty($data['password'])) {
+            // 生成5个字符长度的盐
+            $salt = $this->str->salt(5);
+            // 数据加入密码盐
+            $data['password_salt'] = $salt;
+            // 明文密码前后加盐，生成密码
+            $data['password'] = md5($salt . $data['password'] . $salt);
+        }
+
         // 保存管理员
-        $result = $admin->save($data);
+        $result = $admin->cache(true)->save($data);
         if (!$result) {
             throw new Fail('更新失败');
         }
@@ -144,12 +154,17 @@ class Admin
     public function changeStatus($id, $value)
     {
         $admin = AdminModel::find($id);
-        if (empty($admin)) throw new Miss('管理员不存在');
+        if (empty($admin)) {
+            throw new Miss('管理员不存在');
+        }
 
         $result = $admin->save(['status' => $value]);
-        if (empty($result)) throw new Fail('更新失败');
+        if (empty($result)) {
+            throw new Fail('更新失败');
+        }
+
         return [
-            'id' => $admin['id'],
+            'id'    => $admin['id'],
             'value' => $admin['status'],
         ];
     }
@@ -161,9 +176,6 @@ class Admin
         if (empty($admin)) {
             throw new Miss('该用户不存在');
         }
-
-        // 删除token
-        Token::deleteToken();
 
         // 删除用户，没想到不用cache(true)都能删除缓存
         $result = $admin->delete();

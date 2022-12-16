@@ -4,6 +4,12 @@ namespace app\common\model;
 
 class Admin extends BaseModel
 {
+    // 关联角色
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
     // 查询用户，根据用户名和密码
     public function findAdminByUserNameWithPassword($username, $password)
     {

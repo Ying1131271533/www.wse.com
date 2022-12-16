@@ -23,7 +23,7 @@ class Admin extends BaseController
     public function login()
     {
         $params = $this->request->params;
-        $token = $this->logic->login($params);
+        $token  = $this->logic->login($params);
         return success(['token' => $token]);
     }
 
@@ -31,22 +31,22 @@ class Admin extends BaseController
     public function logout()
     {
         $this->logic->logout();
-        return msg('退出成功');
+        return success('退出成功');
     }
 
     // 是否已登录，验证token
     public function isLogin()
     {
-        return msg('token验证成功！');
+        return success('token验证成功！');
     }
 
     // 列表
     public function index()
     {
-        $params = $this->request->params;
-        $params['page'] =  $this->request->page;
-        $params['limit'] =  $this->request->limit;
-        $adminList = $this->logic->getAdminList($params);
+        $params          = $this->request->params;
+        $params['page']  = $this->request->page;
+        $params['limit'] = $this->request->limit;
+        $adminList       = $this->logic->getAdminList($params);
         return success($adminList);
     }
 
@@ -54,7 +54,9 @@ class Admin extends BaseController
     public function read(int $id)
     {
         $admin = AdminModel::findAdminById($id);
-        if(!$admin) throw new Miss();
+        if (!$admin) {
+            throw new Miss();
+        }
         return success($admin);
     }
 
@@ -86,7 +88,7 @@ class Admin extends BaseController
     public function delete(int $id)
     {
         $this->logic->delete($id);
-        return msg('删除成功');
+        return success('删除成功');
     }
 
     // 获取用户信息通过token
