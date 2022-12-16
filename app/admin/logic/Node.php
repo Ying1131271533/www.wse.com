@@ -16,6 +16,19 @@ class Node
             if(empty($node)) throw new Miss();
         }
 
-        $result = 
+        $result = $node->save($data);
+        if(!$result) throw new Fail('保存失败');
+
+        return $node;
+    }
+    
+    public static function getNodeList()
+    {
+        $nodeList = NodeModel::field('id, name, title, parent_id')->select()->toArray();
+        if(empty($nodeList)) throw new Miss();
+
+        $nodeList = get_child($nodeList);
+
+        return $nodeList;
     }
 }

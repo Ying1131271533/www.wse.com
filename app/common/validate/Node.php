@@ -40,6 +40,7 @@ class Node extends BaseValidate
             'status',
         ],
         'update' => [
+            'id',
             'parent_id',
             'name',
             'title',
