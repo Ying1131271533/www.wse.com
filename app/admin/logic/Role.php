@@ -104,14 +104,22 @@ class Role
 
     }
 
-    public static function getCheckedNode($nodes)
+    public static function getCheckedNode($id)
     {
-        $checkedNode = $nodes;
-        foreach ($nodes as $key => $value) {
-            foreach ($nodes as $k => $val) {
-                if($value['id'] == $val['parent_id']){
-                    unset($checkedNode[$key]);
-                    continue;
+        // 获取角色
+        $role = RoleModel::with('nodes')->find($id);
+        if(empty($role)) throw new Miss('找不到该角色！');
+
+        $checkedNode = [];
+        if(!$role['nodes']->isEmpty()){
+            $nodes = $role['nodes']->toArray();
+            $checkedNode = $nodes;
+            foreach ($nodes as $key => $value) {
+                foreach ($nodes as $k => $val) {
+                    if($value['id'] == $val['parent_id']){
+                        unset($checkedNode[$key]);
+                        continue;
+                    }
                 }
             }
         }

@@ -4,5 +4,5 @@
 
 return [
     // 'think\exception\Handle' => \app\common\execption\Http::class,
-    // 'think\exception\Handle' => \app\common\execption\ExceptionHandle::class,
+    'think\exception\Handle' => \app\common\execption\ExceptionHandle::class,
 ];

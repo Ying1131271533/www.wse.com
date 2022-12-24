@@ -53,9 +53,7 @@ class Role
     // 获取选中的节点ids
     public function checkedNode(int $id)
     {
-        $role = RoleModel::with('nodes')->find($id);
-        if(empty($role)) throw new Miss('找不到该角色！');
-        $checkedNode = RoleLogic::getCheckedNode($role['nodes']->toArray());
+        $checkedNode = RoleLogic::getCheckedNode($id);
         return success($checkedNode);
     }
 }
