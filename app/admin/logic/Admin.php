@@ -100,8 +100,28 @@ class Admin
         // 明文密码前后加盐，生成密码
         $data['password'] = md5($salt . $data['password'] . $salt);
 
-        // 保存管理员
-        $this->adminModel->save($data);
+        // 启动事务
+        $this->adminModel->startTrans();
+
+        try {
+            // 保存管理员
+            $adminResult = $this->adminModel->save($data);
+            if(!$adminResult) throw new Exception('管理员保存失败');
+
+            $role = array_unique($data['roles']);
+            if(!empty($role)){
+                // 保存中间表数据
+                $result = $this->adminModel->roles()->saveAll($role);
+                if(!$result) throw new Exception('保存角色关联数据失败');
+            }
+            
+            // 提交事务
+            $this->adminModel->commit();
+            return $this->adminModel;
+        } catch (Exception $e) {
+            $this->adminModel->rollback();
+            throw new Fail($e->getMessage());
+        }
     }
 
     public function update($data)
@@ -121,12 +141,36 @@ class Admin
             $data['password'] = md5($salt . $data['password'] . $salt);
         }
 
-        // 保存管理员
-        $result = $admin->cache(true)->save($data);
-        if (!$result) {
-            throw new Fail('更新失败');
-        }
+        // 启动事务
+        $admin->startTrans();
 
+        try {
+
+            // 删除原来的角色数据
+            if(!$admin['roles']->isEmpty()){
+                $rolesResult = $admin->roles()->detach();
+                if(!$rolesResult) throw new Exception('原来的角色数据删除失败');
+            }
+
+            // 保存管理员
+            $adminResult = $admin->save($data);
+            if(!$adminResult) throw new Exception('管理员保存失败');
+
+            // 保存角色
+            $role = array_unique($data['roles']);
+            if(!empty($role)){
+                // 保存中间表数据
+                $result = $admin->roles()->saveAll($role);
+                if(!$result) throw new Exception('保存角色关联数据失败');
+            }
+            
+            // 提交事务
+            $admin->commit();
+            return $admin;
+        } catch (Exception $e) {
+            $admin->rollback();
+            throw new Fail($e->getMessage());
+        }
     }
 
     public function updatePassword($data)
@@ -172,16 +216,34 @@ class Admin
     public function delete($id)
     {
         // 用户是否存在
-        $admin = AdminModel::find($id);
+        $admin = AdminModel::with('roles')->find($id);
         if (empty($admin)) {
             throw new Miss('该用户不存在');
         }
+        
+        // 开启事务
+        $admin->startTrans();
+        try {
+            // 删除角色数据
+            if(!$admin['roles']->isEmpty()){
+                $rolesResult = $admin->roles()->detach();
+                if(!$rolesResult) throw new Exception('角色数据删除失败');
+            }
+            
+            $result = $admin->delete();
+            if(!$result) throw new Exception('管理员删除失败');
+
+            $admin->commit();
+        } catch (Exception $e) {
+            $admin->rollback();
+            throw new Fail($e->getMessage());
+        }
 
         // 删除用户，没想到不用cache(true)都能删除缓存
-        $result = $admin->delete();
-        if (!$result) {
-            throw new Fail('删除失败！');
-        }
+        // $result = $admin->delete();
+        // if (!$result) {
+        //     throw new Fail('删除失败！');
+        // }
 
     }
 }

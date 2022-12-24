@@ -54,9 +54,7 @@ class Admin extends BaseController
     public function read(int $id)
     {
         $admin = AdminModel::findAdminById($id);
-        if (!$admin) {
-            throw new Miss();
-        }
+        if (!$admin) throw new Miss();
         return success($admin);
     }
 

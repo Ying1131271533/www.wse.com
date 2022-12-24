@@ -19,6 +19,9 @@ class Admin extends BaseValidate
         'last_login_token|上次登录Token' => 'require',
         'status|状态'                  => 'number',
 
+        // 角色
+        'roles|角色'                    => 'array|checkRole',
+
         // 分页
         'page|页码'                    => 'number|gt:0',
         'limit|条数'                   => 'number|gt:0',
@@ -28,17 +31,17 @@ class Admin extends BaseValidate
         'end|截止日'                    => 'date',
         'idReload|ID'                => 'number|gt:0',
         'usernameReload|用户名'         => 'chsDash',
-        
+
         // ajax
-        'value|状态'                  => 'require',
+        'value|状态'                   => 'require',
 
     ];
 
     // 验证消息
     protected $message = [
-        'id.require'               => '管理员id不能为空',
-        'password.confirm'          => '两次密码不一致',
-        'username.confirm'         => '两次密码不一致',
+        'id.require'       => '管理员id不能为空',
+        'password.confirm' => '两次密码不一致',
+        'username.confirm' => '两次密码不一致',
     ];
 
     // 验证场景
@@ -52,6 +55,7 @@ class Admin extends BaseValidate
             'password',
             'password_confirm',
             'status',
+            'roles',
         ],
         'update'      => [
             'id',
@@ -59,7 +63,7 @@ class Admin extends BaseValidate
             'real_name',
             'phone',
             'wechat',
-            'status',
+            'roles',
         ],
         'delete'      => [
             'id',
@@ -73,6 +77,23 @@ class Admin extends BaseValidate
         'login'       => ['username', 'password'],
         'getUserById' => ['id'],
     ];
+
+    // 检查图册
+    protected function checkRole($value, $rule = '', $data = [], $field = '', $field_msg = '')
+    {
+        if (!is_array($value)) {
+            return $field . '必需为数组';
+        }
+
+        foreach ($value as $role) {
+            if (!empty($role)) {
+                if (!is_numeric($role)) {
+                    throw new \Exception('角色参数有误，必须为整数');
+                }
+            }
+        }
+        return true;
+    }
 
     // 用了这里就显示不出来字段的中文别名了
     // public function sceneUpdate()

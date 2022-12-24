@@ -53,29 +53,6 @@ function getParams() {
     return theRequest;
 }
 
-// 获取url中"?"符后的字串
-function get_param_by_url() {
-    var url = window.location.href;
-    var theRequest = new Object();
-    var index = url.indexOf("?");
-    if (index != -1) {
-        var str = url.substr(index + 1);
-        strs = str.split("&");
-        for (var i = 0; i < strs.length; i++) {
-            theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
-        }
-    }
-    return theRequest;
-}
-
-// 采用正则表达式获取地址栏参数
-// string name 要获取的参数名 例如 'id'
-function get_query_string(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
-}
-
 // 获取时间戳
 function timeToTimeStamp($time) {
     if (empty($time)) {

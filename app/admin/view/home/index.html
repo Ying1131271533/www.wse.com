@@ -212,15 +212,15 @@
 
     <script>
         // 打开其它页面时，关闭之前的页面窗口
-        // layui.use(['jquery'], function () {
-        //     var $ = layui.jquery
-        //     $('.sub-menu li a').click(function(){
-        //         var len = $('.layui-tab-title li').length;
-        //         if(len > 2){
-        //             $('.layui-tab-title li i:eq(2)').trigger('click');
-        //         }
-        //     });
-        // });
+        layui.use(['jquery'], function () {
+            var $ = layui.jquery
+            $('.sub-menu li a').click(function(){
+                var len = $('.layui-tab-title li').length;
+                if(len > 2){
+                    $('.layui-tab-title li i:eq(2)').trigger('click');
+                }
+            });
+        });
         // 退出登录
         function logout() {
             $.ajax({

@@ -7,7 +7,7 @@
 <!-- 主体内容 -->
 {block name="main"}
 <div class="layui-fluid">
-    <div class="layui-form">
+    <div class="layui-form" lay-filter="form">
         <form action="" method="post" name="example">
             <table class="layui-table" lay-size="lg" lay-skin="line">
                 <thead>
@@ -77,23 +77,16 @@
                     <tr>
                         <td align="right"><strong>角色：</strong></td>
                         <td id="role-td">
-                            <div style="margin-bottom:10px;" id="role-div">
+                            <div style="margin-bottom:10px;" class="role-div">
                                 <div class="layui-input-inline">
-                                    <select name="role[]">
+                                    <select id="role-select">
                                         <option value="">请选择</option>
-                                        <option value="1">超级管理员</option>
-                                        <option value="2">文章管理员</option>
                                     </select>
                                 </div>
                                 <a href="javascript:;" class="layui-btn layui-btn-sm" onclick="add(this)">
                                     <i class="layui-icon">&#xe654;</i> 增加
                                 </a>
-                                <a href="javascript:;" class="layui-btn layui-bg-black layui-btn-sm"
-                                    onclick="del(this)">
-                                    <i class="layui-icon">&#xe640;</i> 删除
-                                </a>
                             </div>
-                            <div class="jinx" style="display:hidden;"></div>
                         </td>
                     </tr>
 
@@ -110,7 +103,7 @@
                         <td align="right"></td>
                         <td>
                             <div class="layui-input-inline">
-                                <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+                                <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
                             </div>
                         </td>
                     </tr>
@@ -121,6 +114,14 @@
 </div>
 
 <script>
+
+    // 获取角色数据
+    var role = ajax_list('/role');
+    console.log(role);
+    for (let value of role) {
+        $('#role-select').append('<option value="' + value['id'] + '">' + value['name'] + '</option>');
+    }
+
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form,
@@ -143,7 +144,7 @@
                 }
             }
         });
-        
+
         // 保存
         layui_ajax_save(form, '/admin');
 
@@ -151,35 +152,36 @@
 
     // 增加权限下拉框
     function add(obj) {
-        layui.use(['jquery', 'layer'], function () {
-            var layer = layui.layer
-                , $ = layui.$
-                , form = layui.form
+        var value = $('#role-select').val();
+        var name = $('#role-select').find("option:selected").text();
+        console.log(empty(value));
+        console.log(name);
+        
+        if (empty(value)) {
+            return false;
+        }
 
-            var html = $(obj).parents('#role-div').clone();
-            $('#"role-td').append(html);
+        $('#role-td').append(
+            '<div class="layui-input-inline" style="margin-right:10px;">' +
+            '<button type="button" class="layui-btn">'+name+'</button>' +
+            '<input type="hidden" name="roles[]" value="'+value+'">' +
+            '<a href="javascript:;" class="layui-btn layui-bg-black" onclick="del(this)">删除</a>' +
+            '</div>'
+        );
 
+        layui.use(['form'], function () {
+            var form = layui.form
             form.render();
         });
-
     }
 
     function del(obj) {
-        layui.use(['jquery', 'layer'], function () {
-            var layer = layui.layer
-                , $ = layui.$
-                , form = layui.form
-
-            var len = $('#role-div').length;
-            if (len <= 1) {
-                return false;
-            }
-
-            $(obj).parents('#role-div').remove();
-
+        $(obj).parents('.layui-input-inline').remove();
+        layui.use(['form'], function () {
+            var form = layui.form
             form.render();
         });
-
     }
+
 </script>
 {/block}

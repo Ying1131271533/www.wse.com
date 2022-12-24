@@ -22,6 +22,13 @@ class Node
         return success($node);
     }
 
+    public function update(Request $request)
+    {
+        $params = $request->params;
+        $node = NodeLogic::saveNode($params);
+        return success($node);
+    }
+
     public function index()
     {
         $nodeList = NodeLogic::getNodeList();
@@ -30,6 +37,7 @@ class Node
 
     public function delete(int $id)
     {
-        
+        NodeLogic::deleteNode($id);
+        return success();
     }
 }

@@ -19,24 +19,24 @@ Route::group('view', function(){
     // 保存
     Route::rule('admin_save', 'View/adminSave', 'GET');
     // 更新
-    Route::rule('admin_update/:id', 'View/adminUpdate', 'GET');
+    Route::rule('admin_update', 'View/adminUpdate', 'GET');
     // 更改密码
-    Route::rule('admin_password/:id', 'View/adminPassword', 'GET');
+    Route::rule('admin_password', 'View/adminPassword', 'GET');
 });
 
 // 角色
 Route::group('view', function(){
     Route::rule('role_index', 'View/roleIndex', 'GET');
     Route::rule('role_save', 'View/roleSave', 'GET');
-    Route::rule('role_update/:id', 'View/roleUpdate', 'GET');
-    Route::rule('role_auth/:id', 'View/roleAuth', 'GET');
+    Route::rule('role_update', 'View/roleUpdate', 'GET');
+    Route::rule('role_auth', 'View/roleAuth', 'GET');
 });
 
 // 节点
 Route::group('view', function(){
     Route::rule('node_index', 'View/nodeIndex', 'GET');
     Route::rule('node_save', 'View/nodeSave', 'GET');
-    Route::rule('node_update/:id', 'View/nodeUpdate', 'GET');
+    Route::rule('node_update', 'View/nodeUpdate', 'GET');
 });
 
 

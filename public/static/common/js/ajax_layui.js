@@ -11,8 +11,9 @@
  * @param  string   back_url        要返回的页面
  */
 function layui_ajax_save(form, url, back_url = null) {
-    form.on('submit(form)', function (data) {
+    form.on('submit(formSubmit)', function (data) {
         console.log(data);
+        // return false;
         // 发异步，把数据提交给php
         $.ajax({
             type: "POST",

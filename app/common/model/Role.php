@@ -9,4 +9,9 @@ class Role extends BaseModel
     {
         return $this->belongsToMany(Node::class);
     }
+
+    public function admins()
+    {
+        return $this->belongsToMany(Admin::class, AdminRole::class);
+    }
 }

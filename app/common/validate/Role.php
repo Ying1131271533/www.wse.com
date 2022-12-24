@@ -13,6 +13,8 @@ class Role extends BaseValidate
         'explain|角色描述' => 'max:50',
         'status|状态'    => 'require|number',
 
+        'checkData|选中节点'    => 'array',
+
     ];
 
     // 验证场景
@@ -30,5 +32,6 @@ class Role extends BaseValidate
             'status',
         ],
         'delete' => ['id'],
+        'auth' => ['id', 'checkData'],
     ];
 }

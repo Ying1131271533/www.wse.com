@@ -18,7 +18,7 @@ class Role
     
     public function read(int $id)
     {
-        $role = RoleModel::find($id);
+        $role = RoleModel::with('nodes')->find($id);
         if(empty($role)) throw new Miss('找不到该角色！');
         return success($role);
     }
@@ -41,5 +41,12 @@ class Role
     {
         RoleLogic::deleteById($id);
         return success('删除成功');
+    }
+
+    public function auth(Request $request)
+    {
+        $params = $request->params;
+        $role = RoleLogic::saveAuth($params);
+        return success($role);
     }
 }

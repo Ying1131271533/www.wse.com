@@ -1,12 +1,93 @@
 {extend name="public/base_layui" /}
-{block name="title"}节点保存{/block}
+{block name="title"}节点列表{/block}
 {block name="load"}
 <!-- css -->
+<link rel="stylesheet" href="__COMMON__/lib/eleTree/eleTree/eleTree.css" media="all">
+<link rel="stylesheet" href="__COMMON__/lib/eleTree/layui/css/layui.css" media="all">
+<style>
+    html,
+    body {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 15px 0px 30px 0px;
+        scroll-behavior: smooth;
+    }
+
+    .eleTree {
+        width: 350px;
+        height: 300px;
+        border: 1px solid #ccc;
+        overflow: hidden;
+    }
+
+    .red {
+        color: #ff4200;
+    }
+
+    .blue {
+        color: #01AAED;
+    }
+
+    a:hover {
+        color: #01AAED;
+    }
+
+    .nav {
+        position: fixed;
+        right: 25px;
+        top: calc(50% - 120px);
+        border: 1px solid #d2d2d2;
+        background-color: #fff;
+        z-index: 100000;
+    }
+
+    .nav-title {
+        background-color: #F8F8F8;
+        padding: 0 80px 0 20px;
+        margin: 0px;
+        height: 42px;
+        line-height: 42px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .nav ul {
+        padding: 10px 0px 10px 35px;
+    }
+
+    .nav ul li {
+        padding: 5px 0px;
+        list-style-type: decimal;
+    }
+
+    .nav ul a {
+        color: #333;
+        font-size: 14px;
+        text-decoration: none;
+    }
+</style>
 <!-- js -->
 {/block}
 <!-- 主体内容 -->
 {block name="main"}
 <div class="layui-fluid">
+    <div class="layui-row layui-col-md-offset0" style="margin-bottom:20px;">
+        <div class="layui-col-md9">
+            <a href="/view/node_save/0" class="layui-btn layui-btn-danger">添加节点</a>
+        </div>
+    </div>
+
+    <div class="layui-col-sm10 layui-col-md-offset1">
+        <div class="eleTree ele1" lay-filter="data1"></div>
+        <!-- <div class="eleTree ele2" lay-filter="data2"></div>
+        <div class="eleTree ele3" lay-filter="data3"></div>
+        <div class="eleTree ele4" lay-filter="data4"></div>
+        <div class="eleTree ele5" lay-filter="data5"></div>
+        <div class="eleTree ele6" lay-filter="data6"></div> -->
+    </div>
+</div>
+
+<div class="layui-fluid" id="node_save" style="display: none;">
     <div class="layui-form" lay-filter="form">
         <form action="" method="post" name="example">
             <table class="layui-table" lay-size="lg" lay-skin="line">
@@ -23,7 +104,7 @@
                                 <input class="layui-input" type="text" name="name" placeholder="节点名称">
                             </div>
                             <div class="layui-input-inline">
-                                <span style="color: red;">*</span>  例如：一级 admin 二级 admin/index
+                                <span style="color: red;">*</span>  例如：admin/index
                             </div>
                         </td>
                     </tr>
@@ -45,7 +126,7 @@
                                 <input class="layui-input" type="text" name="view" placeholder="视图标题">
                             </div>
                             <div class="layui-input-inline">
-                                例如：view/adminSave
+                                例如：view/admin_index
                             </div>
                         </td>
                     </tr>
@@ -64,8 +145,7 @@
                         <td width="150" align="right"><strong>图标：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <!-- <input class="layui-input" type="text" name="icon" placeholder="节点图标" > -->
-                                <input class="layui-input" type="text" name="icon" placeholder="&amp;#xe6a7;" value="">
+                                <input class="layui-input" type="text" name="icon" placeholder="节点图标">
                             </div>
                         </td>
                     </tr>
@@ -84,8 +164,7 @@
                         <td width="150" align="right"><strong>显示：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <input type="radio" name="show" value="1" title="是">
-                                <input type="radio" name="show" value="0" title="否" checked>
+                                <input type="checkbox" name="show" lay-skin="switch">
                             </div>
                             <div class="layui-input-inline">
                                 是否显示在左侧导航
@@ -96,8 +175,7 @@
                         <td width="150" align="right"><strong>刷新页面：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <input type="radio" name="refresh" value="1" title="是" checked>
-                                <input type="radio" name="refresh" value="0" title="否">
+                                <input type="checkbox" name="refresh" lay-skin="switch">
                             </div>
                             <div class="layui-input-inline">
                                 左侧导航栏点击时，是否刷新页面
@@ -130,16 +208,76 @@
 </div>
 
 <script>
+
+    function update(id) {
+        //修改信息
+        layer.open({
+            id: '1',
+            type: 2,
+            title: '节点ID:' + id,
+            shadeClose: true,
+            shade: [0.8, '#000000'],
+            area: ['700px', '500px'],
+            content: "/view/node_update/" + id,
+        });
+    }
+
+    function del(obj, id) {
+        layui_form_delete(obj, '/node/' + id);
+    }
+</script>
+
+<script src="__COMMON__/lib/eleTree/layui/layui.js"></script>
+<script>
+
+    let nodeList = ajax_list('/node');
+    // console.log(nodeList);
+	// 获取角色数据
+	let role = ajax_read('/role');
+	// console.log(role);
+	var checkbox = [];
+	for (let value of role['nodes']) {
+		checkbox.push(value['id']);
+	}
     
-    var parent_id = getParams()['parent_id'];
-    $('input[name="parent_id"]').val(parent_id);
+    layui.config({
+        base: "__COMMON__/lib/eleTree/layui/lay/mymodules/"
+    }).use(['jquery', 'table', 'eleTree', 'code', 'form', 'slider'], function () {
 
-    layui.use(['form'], function () {
-        // 表单实例化
-        var form = layui.form;
+        var $ = layui.jquery;
+        var eleTree = layui.eleTree;
+        var table = layui.table;
+        var code = layui.code;
 
-        // 保存
-        layui_ajax_save(form, '/node');
+        eleTree.render({
+            elem: '.ele1',
+            url: '/node',
+            method: 'get',
+            // where: { status: 1, show: 1 }, // 条件
+            contentType: "application/x-www-form-urlencoded",
+            headers: getToken(),
+            request: {
+                name: "title",
+                key: "id",
+                children: "children",
+                // checked: "checked",
+                // disabled: "disabled",
+                isLeaf: "isLeaf"
+            },
+            response: {
+                statusName: "code",
+                statusCode: 200,
+                dataName: "data"
+            },
+            done: function (res) {
+                // res即为你接口返回的信息。
+                console.log(res);
+            },
+			defaultCheckedKeys: checkbox, // 默认勾选的节点的 key 的数组
+            // showLine: true, // 连接线
+            showCheckbox: true, // 选中框
+            expandOnClickNode: true
+        });
     });
 </script>
 {/block}

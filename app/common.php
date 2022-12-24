@@ -462,11 +462,33 @@ function get_child(array $array = [], int $parent_id = 0)
     $tmp = [];
     foreach ($array as $value) {
         if ($value['parent_id'] == $parent_id) {
-            $value['child'] = get_child($array, $value['id']);
-            $tmp[]          = $value;
+            $value['children'] = get_child($array, $value['id']);
+            $tmp[] = $value;
         }
     }
     return $tmp;
+}
+
+/**
+ * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
+ * @author: 神织知更
+ * @time: 2022/03/31 21:56
+ *
+ * 找出多维数组中，所有指定key的值
+ *
+ * @param  string       $key        要找出的key名
+ * @param  array        $array      数据
+ * @return array                    返回处理好的数组
+ */
+function get_key_cloumn($key, $array)
+{
+    $data = [];
+    array_walk_recursive($array, function($v, $k) use ($key, &$data){
+        if($k == $key){
+            array_push($data, $v);
+        }
+    });
+    return $data;
 }
 
 /**

@@ -18,7 +18,16 @@ class Admin extends BaseModel
 
     public static function findAdminById(int $id)
     {
-        return self::withoutField(['password', 'password_salt', 'last_login_token', 'login_number', 'last_login_ip', 'last_login_time', 'create_time'])
+        return self::with('roles')
+        ->withoutField([
+            'password',
+            'password_salt',
+            'last_login_token',
+            'login_number',
+            'last_login_ip',
+            'last_login_time',
+            'create_time'
+        ])
         ->find($id);
     }
 

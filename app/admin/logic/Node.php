@@ -31,4 +31,19 @@ class Node
 
         return $nodeList;
     }
+
+    public static function deleteNode($id)
+    {
+        // 找到数据
+        $node = NodeModel::find($id);
+        if(empty($node)) throw new Miss();
+
+        // 是否存在子级数据
+        $childrenNode = NodeModel::where('parent_id', $node['id'])->find();
+        if(!empty($childrenNode)) throw new Fail('节点存在子级数据，不能删除');
+
+        // 删除
+        $result = $node->delete();
+        if(empty($node)) throw new Fail('节点删除失败');
+    }
 }
