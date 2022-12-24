@@ -11,4 +11,5 @@ Route::group('role', function(){
     Route::rule('', 'Role/update', 'PUT');
     Route::rule(':id', 'Role/delete', 'DELETE');
     Route::rule('auth', 'Role/auth', 'POST');
+    Route::rule('checked_node/:id', 'Role/checkedNode', 'GET');
 })->middleware(app\admin\middleware\IsLogin::class);

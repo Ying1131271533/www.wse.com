@@ -17,21 +17,15 @@
 			, layer = layui.layer
 			, tree = layui.tree
 
-		// 获取数据
+		// 获取所有节点数据
 		let data = ajax_list('/node');
 		console.log(data);
-		// return false;
-		// 获取角色数据
-		let role = ajax_read('/role');
-		// console.log(role);
-		var checkbox = [];
-		for (let value of role['nodes']) {
-			checkbox.push(value['id']);
-		}
-		// console.log(checkbox);
+
+		// 获取选中的节点ids
+		let checkedNode = ajax_read('/role/checked_node');
+		console.log(checkedNode);
 
 		// 树形菜单
-		// tree.render({
 		tree_demo = tree.render({
 			elem: '#test1'
 			, data: data
@@ -82,7 +76,7 @@
 			}
 		});
 
-		tree.setChecked('demoId', checkbox); // 批量勾选 id 为 1、3 的节点
+		tree.setChecked('demoId', checkedNode); // 批量勾选 id 为 1、3 的节点
 
 
 		// 自动触发修改

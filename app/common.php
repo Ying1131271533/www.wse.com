@@ -56,12 +56,12 @@ function success($data = null, int $code = 200, int $HttpStatus = 200, string $m
     $resultData = [
         'code' => $code,
         'msg'  => $msg,
-        'data' => $data
+        'data' => $data,
     ];
 
     // 如果$data是字符串
-    if(is_string($data)){
-        $resultData['msg'] = $data;
+    if (is_string($data)) {
+        $resultData['msg']  = $data;
         $resultData['data'] = null;
     }
 
@@ -69,7 +69,7 @@ function success($data = null, int $code = 200, int $HttpStatus = 200, string $m
     if (isset($data['current_page'])) {
         $resultData['code']  = 0;
         $resultData['total'] = $data['total'];
-        $resultData['data'] = $data['data'];
+        $resultData['data']  = $data['data'];
     }
     // 返回数据
     // echo json($resultData, $code);exit;
@@ -93,7 +93,6 @@ function msg($msg = '成功', int $code = 200, int $HttpStatus = 200)
     ];
     return json($resultData, $HttpStatus);
 }
-
 
 /**
  * 返回资源创建成功的api接口数据
@@ -463,7 +462,7 @@ function get_child(array $array = [], int $parent_id = 0)
     foreach ($array as $value) {
         if ($value['parent_id'] == $parent_id) {
             $value['children'] = get_child($array, $value['id']);
-            $tmp[] = $value;
+            $tmp[]             = $value;
         }
     }
     return $tmp;
@@ -483,13 +482,14 @@ function get_child(array $array = [], int $parent_id = 0)
 function get_key_cloumn($key, $array)
 {
     $data = [];
-    array_walk_recursive($array, function($v, $k) use ($key, &$data){
-        if($k == $key){
+    array_walk_recursive($array, function ($v, $k) use ($key, &$data) {
+        if ($k == $key) {
             array_push($data, $v);
         }
     });
     return $data;
 }
+
 
 /**
  * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝

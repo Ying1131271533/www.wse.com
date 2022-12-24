@@ -69,8 +69,10 @@ class Role
     public static function saveAuth($data)
     {
         $role = RoleModel::with('nodes')->find($data['id']);
-        if(empty($role)) throw new Miss();
-        
+        if (empty($role)) {
+            throw new Miss();
+        }
+
         // 开启事务
         $role->startTrans();
         try {
@@ -78,14 +80,20 @@ class Role
             // 删除旧的节点中间表数据
             if (!$role['nodes']->isEmpty()) {
                 $nodesResult = $role->nodes()->detach();
-                if (!$nodesResult) throw new Exception('原来的节点中间表数据删除失败');
+                if (!$nodesResult) {
+                    throw new Exception('原来的节点中间表数据删除失败');
+                }
+
             }
 
             // 如果有节点权限，则保存
-            if(!empty($data['checkData'])){
-                $ids = get_key_cloumn('id', $data['checkData']);
+            if (!empty($data['checkData'])) {
+                $ids        = get_key_cloumn('id', $data['checkData']);
                 $saveResult = $role->nodes()->saveAll($ids);
-                if (!$saveResult) throw new Exception('节点保存失败');
+                if (!$saveResult) {
+                    throw new Exception('节点保存失败');
+                }
+
             }
 
             $role->commit();
@@ -94,5 +102,19 @@ class Role
             throw new Fail($e->getMessage());
         }
 
+    }
+
+    public static function getCheckedNode($nodes)
+    {
+        $checkedNode = $nodes;
+        foreach ($nodes as $key => $value) {
+            foreach ($nodes as $k => $val) {
+                if($value['id'] == $val['parent_id']){
+                    unset($checkedNode[$key]);
+                    continue;
+                }
+            }
+        }
+        return array_column($checkedNode, 'id');
     }
 }
