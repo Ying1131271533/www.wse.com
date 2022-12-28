@@ -1,13 +1,23 @@
 <?php
 namespace app\admin\controller;
 
-use app\BaseController;
+use app\admin\logic\Auth;
+use app\common\lib\Token;
 
-class Home extends BaseController
+class Home
 {
     // 首页
     public function index()
     {
-        return $this->success('威速易后端');
+        $admin = Token::getUser();
+        $auth = new Auth();
+        $showNode = $auth->getShowNode($admin);
+        $showNode = get_child($showNode->toArray());
+        return success($showNode);
+    }
+
+    public function welcome()
+    {
+        
     }
 }

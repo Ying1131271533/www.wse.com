@@ -27,8 +27,6 @@
   <table id="table_akali" lay-filter="table_akali"></table>
 </div>
 
-<!-- 加载layuijs -->
-<script src="__LAYUIADMIN__/layui/layui.js" charset="utf-8"></script>
 
 
 <script type="text/html" id="lastLoginTimeTpl">
@@ -77,6 +75,8 @@
     var ins1 = table.render({
       elem: '#table_akali'
       , url: '/admin' //数据接口
+      , method: 'GET'  // 可选项。HTTP类型
+      , headers: { 'access-token': getToken() }
       , page: true //开启分页
       , id: 'table_akali'
       , limit: 20

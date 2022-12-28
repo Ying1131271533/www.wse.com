@@ -25,7 +25,7 @@ class Role
 
     public function index()
     {
-        $roleList = RoleModel::select();
+        $roleList = RoleModel::with('admins')->select();
         if(empty($roleList)) throw new Miss();
         return success($roleList);
     }

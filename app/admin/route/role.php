@@ -12,4 +12,4 @@ Route::group('role', function(){
     Route::rule(':id', 'Role/delete', 'DELETE');
     Route::rule('auth', 'Role/auth', 'POST');
     Route::rule('checked_node/:id', 'Role/checkedNode', 'GET');
-})->middleware(app\admin\middleware\IsLogin::class);
+})->middleware([app\admin\middleware\IsLogin::class, app\admin\middleware\CheckAuth::class]);

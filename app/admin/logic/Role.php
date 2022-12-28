@@ -41,7 +41,7 @@ class Role
             if (!$role['admins']->isEmpty()) {
                 $adminsResult = $role->admins()->detach();
                 if (!$adminsResult) {
-                    throw new Exception('中间表数据删除失败');
+                    throw new Exception('管理员中间表数据删除失败');
                 }
             }
 
@@ -49,7 +49,7 @@ class Role
             if (!$role['nodes']->isEmpty()) {
                 $nodesResult = $role->nodes()->detach();
                 if (!$nodesResult) {
-                    throw new Exception('中间表数据删除失败');
+                    throw new Exception('节点中间表数据删除失败');
                 }
 
             }

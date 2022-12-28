@@ -39,6 +39,27 @@ Route::group('view', function(){
     Route::rule('node_update', 'View/nodeUpdate', 'GET');
 });
 
+// 分类
+Route::group('view', function(){
+    Route::rule('category_index', 'View/categoryIndex', 'GET');
+    Route::rule('category_save', 'View/categorySave', 'GET');
+    Route::rule('category_update', 'View/categoryUpdate', 'GET');
+});
+
+// 文章分类
+Route::group('view', function(){
+    Route::rule('article_cate_index', 'View/articleCateIndex', 'GET');
+    Route::rule('article_cate_save', 'View/articleCateSave', 'GET');
+    Route::rule('article_cate_update', 'View/articleCateUpdate', 'GET');
+});
+
+// 文章管理
+Route::group('view', function(){
+    Route::rule('article_index', 'View/articleIndex', 'GET');
+    Route::rule('article_save', 'View/articleSave', 'GET');
+    Route::rule('article_update', 'View/articleUpdate', 'GET');
+});
+
 
 
 

@@ -244,10 +244,10 @@ function ajax_delete(url) {
         success: function (res) {
 
             if (res.code === config('success')) {
-                layer.msg(res.msg, { icon: 1 });
+                layer.msg(res.msg, { icon: 1, time: 500 });
                 result = true;
             } else {
-                layer.msg(res.msg, { icon: 2 });
+                layer.msg(res.msg, { icon: 2, time: 500 });
                 result = false;
             }
         }

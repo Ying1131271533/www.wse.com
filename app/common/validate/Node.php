@@ -10,7 +10,7 @@ class Node extends BaseValidate
     protected $rule = [
         'id|id'          => 'require|number|gt:0',
         'parent_id|父级id' => 'require|number',
-        'name|节点'        => 'require|max:45|unique:node',
+        'name|节点名称'        => 'require|max:45|unique:node',
         'title|节点标题'     => 'require|max:25',
         'url|url'        => 'require|max:45|unique:node|alpha',
         'view|节点视图'      => 'max:50',

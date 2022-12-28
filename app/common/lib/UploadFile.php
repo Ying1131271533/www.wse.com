@@ -1,11 +1,12 @@
 <?php
-namespace app\common\controller;
+namespace app\common\lib;
 
 use app\common\lib\exception\Fail;
 use app\Request;
 use think\facade\Filesystem;
 
-class Upload
+// 上传文件
+class UploadFile
 {
     /**
      * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
@@ -17,21 +18,25 @@ class Upload
      * @param  Request          $request    请求对象
      * @return string|array     $savename   返回文件路径
      */
-    public function file(Request $request)
+    public function file($request)
     {
         // 获取上传文件类型
         $file_type = $request->params['type'];
+        
+        // 获取上传文件类型的验证配置
+        $validate_config = config('app.upload_file_type');
+        // 是否支持此类型文件上传
+        if(!array_key_exists($file_type, $validate_config)){
+            throw new Fail('暂时不支持此类型文件上传');
+        }
 
         // 获取上传文件和判断文件是否为空
         $file = $request->file();
-        if (empty($file) || empty($file[$file_type])) {
+        if (empty($file)) {
             throw new Fail('上传的文件不能为空');
         }
-
-        // 获取上传文件类型的配置
-        $config = config('app.upload_file_type');
-        $path = $this->upload($file, $config[$file_type], $file_type);
-        return success(['path' => $path]);
+        $path = $this->upload($file, $validate_config[$file_type], $file_type);
+        return $path;
     }
 
     /**

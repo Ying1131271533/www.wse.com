@@ -59,20 +59,132 @@ delete_time int null 删除时间
 
 
 
-category - 导航分类
+category - 分类
 
 id int id
 parent_id int id 父级id
 name char(25) 分类名称
 url char(255) null 链接
 img char(100) null 图标图片
-sort smallint 排序
+sort smallint 0 排序
 target char(10) _blank 链接打开方式：默认打开新窗口
 show tinyint(1) 是否在导航栏：0 否 1 是
-status tinyint(1) 状态
+status tinyint(1) 状态：0 禁止 1 正常
 update_time int 更新时间
 create_time int 创建时间
 delete_time int null 删除时间
+
+
+
+aticle - 文章
+
+id int id
+aticle_cate_id int 分类id
+author char(25) null 作者
+title char(80) 文章标题
+thmub char(100) 封面
+description char(255) 描述
+view int 0 浏览数
+url char(255) 链接
+sort smallint 排序
+status tinyint(1) 状态：0 禁止 1 正常
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+
+aticle_desc - 文章内容
+
+aticle_id int id
+content text 内容
+delete_time int null 删除时间
+
+
+aticle_cate - 文章分类
+
+id int id
+cate_name char(25) 分类名称
+sort smallint 0 排序
+status tinyint(1) 状态：0 禁止 1 正常
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+
+news - 新闻
+
+id int id
+aticle_cate_id int 分类id
+author char(25) null 作者
+title char(80) 文章标题
+thmub char(100) 封面
+description char(255) 描述
+view int 0 浏览数
+url char(255) 链接
+sort smallint 排序
+status tinyint(1) 状态：0 禁止 1 正常
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+
+news_desc - 新闻内容
+
+aticle_id int id
+content text 内容
+delete_time int null 删除时间
+
+
+news_cate - 新闻分类
+
+id int id
+cate_name char(25) 分类名称
+sort smallint 排序
+status tinyint(1) 状态：0 禁止 1 正常
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+
+
+about - 关于
+
+id int id
+aticle_cate_id int 分类id
+author char(25) null 作者
+title char(80) 文章标题
+thumb char(100) null 封面
+description char(255) null 描述
+view int 0 浏览数
+url char(255) null 链接
+sort smallint 排序
+content text 内容
+status tinyint(1) 状态：0 禁止 1 正常
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+about_cate - 新闻分类
+
+id int id
+cate_name char(25) 分类名称
+sort smallint 排序
+status tinyint(1) 状态：0 禁止 1 正常
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+
+
+
+
+
 
 
 

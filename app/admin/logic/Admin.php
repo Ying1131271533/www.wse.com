@@ -59,11 +59,20 @@ class Admin
             'last_login_time'  => time(),
         ]);
 
-        // 保存token，设置过期时间：一个月
-        $this->redis->set(config('redis.token_pre') . $token, [
+        $data = [
             'id'       => $admin['id'],
             'username' => $admin['username'],
-        ], cache_time('one_month'));
+        ];
+
+        // 获取权限
+        if (config('auth.type') == 2 && !in_array($admin['username'], config('auth.super'))) {
+            $auth   = new Auth;
+            $access = $auth->getAccess($admin['id']);
+            $data['access'] = $access;
+        }
+        
+        // 保存token，设置过期时间：一个月
+        $this->redis->set(config('redis.token_pre') . $token, $data, cache_time('one_month'));
 
         // 返回token
         return $token;
@@ -106,15 +115,20 @@ class Admin
         try {
             // 保存管理员
             $adminResult = $this->adminModel->save($data);
-            if(!$adminResult) throw new Exception('管理员保存失败');
+            if (!$adminResult) {
+                throw new Exception('管理员保存失败');
+            }
 
             $role = array_unique($data['roles']);
-            if(!empty($role)){
+            if (!empty($role)) {
                 // 保存中间表数据
                 $result = $this->adminModel->roles()->saveAll($role);
-                if(!$result) throw new Exception('保存角色关联数据失败');
+                if (!$result) {
+                    throw new Exception('保存角色关联数据失败');
+                }
+
             }
-            
+
             // 提交事务
             $this->adminModel->commit();
             return $this->adminModel;
@@ -147,23 +161,31 @@ class Admin
         try {
 
             // 删除原来的角色数据
-            if(!$admin['roles']->isEmpty()){
+            if (!$admin['roles']->isEmpty()) {
                 $rolesResult = $admin->roles()->detach();
-                if(!$rolesResult) throw new Exception('原来的角色数据删除失败');
+                if (!$rolesResult) {
+                    throw new Exception('原来的角色数据删除失败');
+                }
+
             }
 
             // 保存管理员
             $adminResult = $admin->save($data);
-            if(!$adminResult) throw new Exception('管理员保存失败');
+            if (!$adminResult) {
+                throw new Exception('管理员保存失败');
+            }
 
             // 保存角色
             $role = array_unique($data['roles']);
-            if(!empty($role)){
+            if (!empty($role)) {
                 // 保存中间表数据
                 $result = $admin->roles()->saveAll($role);
-                if(!$result) throw new Exception('保存角色关联数据失败');
+                if (!$result) {
+                    throw new Exception('保存角色关联数据失败');
+                }
+
             }
-            
+
             // 提交事务
             $admin->commit();
             return $admin;
@@ -220,18 +242,23 @@ class Admin
         if (empty($admin)) {
             throw new Miss('该用户不存在');
         }
-        
+
         // 开启事务
         $admin->startTrans();
         try {
             // 删除角色数据
-            if(!$admin['roles']->isEmpty()){
+            if (!$admin['roles']->isEmpty()) {
                 $rolesResult = $admin->roles()->detach();
-                if(!$rolesResult) throw new Exception('角色数据删除失败');
+                if (!$rolesResult) {
+                    throw new Exception('角色数据删除失败');
+                }
+
             }
-            
+
             $result = $admin->delete();
-            if(!$result) throw new Exception('管理员删除失败');
+            if (!$result) {
+                throw new Exception('管理员删除失败');
+            }
 
             $admin->commit();
         } catch (Exception $e) {

@@ -1,5 +1,5 @@
 {extend name="public/base_layui" /}
-{block name="title"}管理员保存{/block}
+{block name="title"}管理员修改{/block}
 {block name="load"}
 <!-- css -->
 <!-- js -->
@@ -12,7 +12,7 @@
             <table class="layui-table" lay-size="lg" lay-skin="line">
                 <thead>
                     <tr>
-                        <th colspan="2">管理员添加</th>
+                        <th colspan="2">管理员修改</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,7 +20,8 @@
                         <td width="150" align="right"><strong>管理员名称：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="username" placeholder="用户名">
+                                <input class="layui-input" type="text" name="username" placeholder="用户名"
+                                    lay-filter="username">
                             </div>
                             <div class="layui-input-inline">
                                 <span style="color: red;">*</span> 将会成为管理员唯一的登入名
@@ -57,7 +58,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td align="right"><strong>密码：</strong></td>
                         <td>
                             <div class="layui-input-inline">
@@ -72,30 +73,20 @@
                                 <input class="layui-input" type="password" name="password_confirm" placeholder="确认密码">
                             </div>
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td align="right"><strong>角色：</strong></td>
                         <td id="role-td">
                             <div style="margin-bottom:10px;" class="role-div">
                                 <div class="layui-input-inline">
-                                    <select name="role[]" id="role">
+                                    <select id="role-select">
                                         <option value="">请选择</option>
                                     </select>
                                 </div>
                                 <a href="javascript:;" class="layui-btn layui-btn-sm" onclick="add(this)">
                                     <i class="layui-icon">&#xe654;</i> 增加
                                 </a>
-                                <!-- <a href="javascript:;" class="layui-btn layui-bg-black layui-btn-sm"
-                                    onclick="del(this)">
-                                    <i class="layui-icon">&#xe640;</i> 删除
-                                </a> -->
-                            </div>
-                            <div class="layui-input-inline">
-                                <button type="button" class="layui-btn">阿卡丽</button>
-                                <input type="hidden" name="role[]" value="1">
-                                <a href="javascript:;" class="layui-btn layui-bg-black"
-                                    onclick="del(this)">删除</a>
                             </div>
                         </td>
                     </tr>
@@ -104,7 +95,7 @@
                         <td align="right"><strong>登录状态：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <input type="radio" name="status" value="1" title="正常" checked>
+                                <input type="radio" name="status" value="1" title="正常">
                                 <input type="radio" name="status" value="0" title="禁止">
                             </div>
                         </td>
@@ -114,6 +105,7 @@
                         <td>
                             <div class="layui-input-inline">
                                 <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+                                <input type="hidden" name="id">
                             </div>
                         </td>
                     </tr>
@@ -123,19 +115,39 @@
     </div>
 </div>
 
+
+
 <script>
 
     // 获取角色数据
     var role = ajax_list('/role');
     console.log(role);
     for (let value of role) {
-        $('#role').append('<option value="' + value['id'] + '">' + value['name'] + '</option>');
+        $('#role-select').append('<option value="' + value['id'] + '">' + value['name'] + '</option>');
     }
 
+    // 表单赋值
+    let data = ajax_read('/admin');
+    for (let role of data['roles']) {
+        $('#role-td').append(
+            '<div class="layui-input-inline" style="margin-right:10px;">' +
+            '<button type="button" class="layui-btn">'+role['name']+'</button>' +
+            '<input type="hidden" name="roles[]" value="'+role['id']+'">' +
+            '<a href="javascript:;" class="layui-btn layui-bg-black" onclick="del(this)">删除</a>' +
+            '</div>'
+        );
+    }
+
+    // layui
     layui.use(['form', 'layer'], function () {
+
         $ = layui.jquery;
         var form = layui.form,
             layer = layui.layer;
+
+        form.val("form", data);
+        // 取值
+        // data = form.val("form");
 
         // 自定义验证规则
         form.verify({
@@ -146,24 +158,33 @@
                 if (value.length < 2 || value.length > 25) {
                     return '登录名为2到25个字符！';
                 }
-            },
-            password: [/(.+){6,50}$/, '密码必须6到50位'],
-            password_confirm: function (value) {
-                if ($('#L_password').val() != $('#L_password_confirm').val()) {
-                    return '两次密码不一致';
-                }
             }
         });
 
-        // 保存
-        layui_ajax_save(form, '/admin');
+        // 更新数据
+        layui_ajax_update(form, '/admin');
 
     });
 
     // 增加权限下拉框
     function add(obj) {
-        var html = $(obj).parents('.role-div').clone();
-        $('#role-td').append(html);
+        var value = $('#role-select').val();
+        var name = $('#role-select').find("option:selected").text();
+        console.log(empty(value));
+        console.log(name);
+        
+        if (empty(value)) {
+            return false;
+        }
+
+        $('#role-td').append(
+            '<div class="layui-input-inline" style="margin-right:10px;">' +
+            '<button type="button" class="layui-btn">'+name+'</button>' +
+            '<input type="hidden" name="roles[]" value="'+value+'">' +
+            '<a href="javascript:;" class="layui-btn layui-bg-black" onclick="del(this)">删除</a>' +
+            '</div>'
+        );
+
         layui.use(['form'], function () {
             var form = layui.form
             form.render();
@@ -171,15 +192,11 @@
     }
 
     function del(obj) {
-        var len = $('.role-div').length;
-        if (len > 1) {
-            $(obj).parents('.role-div').remove();
-            layui.use(['form'], function () {
-                var form = layui.form
-                form.render();
-            });
-        }
+        $(obj).parents('.layui-input-inline').remove();
+        layui.use(['form'], function () {
+            var form = layui.form
+            form.render();
+        });
     }
-
 </script>
 {/block}

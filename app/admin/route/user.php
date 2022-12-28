@@ -7,4 +7,4 @@ Route::group('user', function(){
     Route::rule('login', 'User/index', 'GET');
     // 用户列表
     Route::rule('index', 'User/index', 'GET');
-});
+})->middleware([app\admin\middleware\IsLogin::class, app\admin\middleware\CheckAuth::class]);

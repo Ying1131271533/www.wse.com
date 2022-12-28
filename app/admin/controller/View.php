@@ -2,6 +2,8 @@
 namespace app\admin\controller;
 
 use think\facade\View as FacadeView;
+use app\admin\logic\Auth;
+use app\common\lib\Token;
 
 class View
 {
@@ -91,6 +93,57 @@ class View
     public function nodeUpdate()
     {
         return FacadeView::fetch('node/update');
+    }
+	
+	/************************ 分类 ************************/
+	
+    public function categoryIndex()
+    {
+        return FacadeView::fetch('category/index');
+    }
+    
+    public function categorySave()
+    {
+        return FacadeView::fetch('category/save');
+    }
+
+    public function categoryUpdate()
+    {
+        return FacadeView::fetch('category/update');
+    }
+
+	/************************ 文章分类 ************************/
+	
+    public function articleCateIndex()
+    {
+        return FacadeView::fetch('article_cate/index');
+    }
+    
+    public function articleCateSave()
+    {
+        return FacadeView::fetch('article_cate/save');
+    }
+
+    public function articleCateUpdate()
+    {
+        return FacadeView::fetch('article_cate/update');
+    }
+
+	/************************ 文章管理 ************************/
+	
+    public function articleIndex()
+    {
+        return FacadeView::fetch('article/index');
+    }
+    
+    public function articleSave()
+    {
+        return FacadeView::fetch('article/save');
+    }
+
+    public function articleUpdate()
+    {
+        return FacadeView::fetch('article/update');
     }
 	
 }

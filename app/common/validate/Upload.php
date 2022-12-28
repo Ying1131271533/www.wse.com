@@ -25,7 +25,7 @@ class Upload extends BaseValidate
         // 获取上传文件类型的配置
         $file_type = config('app.upload_file_type');
         if (!array_key_exists($value, $file_type)) {
-            return '文件类型：“' . $value . '”没有可以上传的方式';
+            return '文件类型：“' . $value . '”暂时没有可以上传的方式';
         }
         return true;
     }

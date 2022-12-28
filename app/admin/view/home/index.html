@@ -12,23 +12,25 @@
     <link rel="stylesheet" href="__XADMIN__/css/font.css">
     <link rel="stylesheet" href="__XADMIN__/css/xadmin.css">
     <link rel="stylesheet" href="__XADMIN__/css/theme6.css">
+
     <script src="__XADMIN__/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="__XADMIN__/js/xadmin.js"></script>
-    
+
     <script src="__COMMON__/js/jquery.min.js" charset="utf-8"></script>
     <script src="__COMMON__/js/jquery.cookie.js" charset="utf-8"></script>
     <script src="__COMMON__/js/common.js" charset="utf-8"></script>
+    <script src="__COMMON__/js/ajax.js" charset="utf-8"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
         <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
         <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-    // 是否开启刷新记忆tab功能
-    // var is_remember = false;
+        // 是否开启刷新记忆tab功能
+        // var is_remember = false;
 
-    // 验证登录
-    isAdminLogin();
+        // 验证登录
+        isAdminLogin();
     </script>
 </head>
 
@@ -90,7 +92,7 @@
         <script>
             // 获取用户信息
             var admin = getAdmin();
-            // console.log(admin);
+            console.log(admin);
             $('#admin_name').text(admin.username);
             function admin_info() {
                 xadmin.open('个人信息', '/view/admin_info/' + admin.id);
@@ -103,22 +105,7 @@
     <div class="left-nav">
         <div id="side-nav">
             <ul id="nav">
-                <li>
-                    <a href="javascript:;">
-                        <i class="iconfont left-nav-li" lay-tips="主页">&#xe68e;</i>
-                        <cite>主页</cite>
-                        <i class="iconfont nav_right">&#xe6a7;</i>
-                    </a>
-                    <ul class="sub-menu">
-                        <li>
-                            <a class="active" onclick="xadmin.add_tab('统计', '/view/welcome', true)">
-                                <i class="iconfont">&#xe6a7;</i>
-                                <cite>统计</cite>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
+                <!-- <li>
                     <a href="javascript:;">
                         <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe70b;</i>
                         <cite>管理员管理</cite>
@@ -143,43 +130,46 @@
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                        <i class="iconfont left-nav-li" lay-tips="会员管理">&#xe6b8;</i>
-                        <cite>会员管理</cite>
-                        <i class="iconfont nav_right">&#xe6a7;</i>
-                    </a>
-                    <ul class="sub-menu">
-                        <li>
-                            <a onclick="xadmin.add_tab('统计页面', '/view/welcome', true)">
-                                <i class="iconfont">&#xe6a7;</i>
-                                <cite>统计页面</cite>
-                            </a>
-                        </li>
-                        <li>
-                            <a onclick="xadmin.add_tab('会员列表(静态表格)','member-list.html', true)">
-                                <i class="iconfont">&#xe6a7;</i>
-                                <cite>会员列表(静态表格)</cite>
-                            </a>
-                        </li>
-                        <li>
-                            <a onclick="xadmin.add_tab('会员列表(动态表格)','member-list1.html', true)">
-                                <i class="iconfont">&#xe6a7;</i>
-                                <cite>会员列表(动态表格)</cite>
-                            </a>
-                        </li>
-                        <li>
-                            <a onclick="xadmin.add_tab('会员删除','member-del.html')">
-                                <i class="iconfont">&#xe6a7;</i>
-                                <cite>会员删除</cite>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
+    <script>
+        var showNode = ajax_list('/home');
+        console.log(showNode);
+
+        for (let value of showNode) {
+
+            var html = '';
+            for (let val of value['children']) {
+                if (val['show'] == 1) {
+                    var title = val['title'];
+                    var view = val['view'];
+                    var refresh = val['refresh'];
+                    html += '<li>' +
+                        '<a class="active" onclick="xadmin.add_tab(\'' + val['title'] + '\', \'\/' + view + '\', ' + val['refresh'] + ')">' +
+                        '<i class="iconfont">' + val['icon'] + '</i>' +
+                        '<cite>' + val['title'] + '</cite>' +
+                        '</a>' +
+                        '</li>';
+                }
+
+            }
+
+            $('#nav').append(
+                '<li>' +
+                '<a href="javascript:;">' +
+                '<i class="iconfont left-nav-li" lay-tips="' + value['title'] + '">' + value['icon'] + '</i>' +
+                '<cite>' + value['title'] + '</cite>' +
+                '<i class="iconfont nav_right">&#xe6a7;</i>' +
+                '</a>' +
+                '<ul class="sub-menu">' +
+                html
+                + '</ul>' +
+                '</li>'
+            );
+        }
+    </script>
     <!-- <div class="x-slide_left"></div> -->
     <!-- 左侧菜单结束 -->
     <!-- 右侧主体开始 -->
@@ -214,9 +204,9 @@
         // 打开其它页面时，关闭之前的页面窗口
         layui.use(['jquery'], function () {
             var $ = layui.jquery
-            $('.sub-menu li a').click(function(){
+            $('.sub-menu li a').click(function () {
                 var len = $('.layui-tab-title li').length;
-                if(len > 2){
+                if (len > 2) {
                     $('.layui-tab-title li i:eq(2)').trigger('click');
                 }
             });
@@ -232,7 +222,7 @@
                         layer.msg(res.msg);
                         return false;
                     }
-                    
+
                     if (res.code === config('success') || res.code === config('goto')) {
                         layer.msg(res.msg, { time: 500 }, function () {
                             $.removeCookie('admin_login_token', { path: '/' });

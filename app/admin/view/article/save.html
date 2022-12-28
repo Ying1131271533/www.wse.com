@@ -1,0 +1,140 @@
+{extend name="public/base_layui" /}
+{block name="title"}文章保存{/block}
+{block name="load"}
+<!-- css -->
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+<div class="layui-fluid">
+    <div class="layui-form" lay-filter="form">
+        <form action="" method="post" name="example">
+            <table class="layui-table" lay-size="lg" lay-skin="line">
+                <thead>
+                    <tr>
+                        <th colspan="2">文章添加</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td align="right"><strong>文章分类：</strong></td>
+                        <td>
+                            <div style="margin-bottom:10px;">
+                                <div class="layui-input-inline">
+                                    <select id="layui-select" name="article_cate">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="150" align="right"><strong>文章标题：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="title" placeholder="文章名称">
+                            </div>
+                            <div class="layui-input-inline">
+                                <span style="color: red;">*</span> 将会成为文章唯一标题
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>作者：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="author" placeholder="作者">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>封面：</strong></td>
+                        <td>
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="upload-img">上传图片</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" id="upload-preview">
+                                    <input type="hidden" name="image">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>描述：</strong></td>
+                        <td>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label"></label>
+                                <div class="layui-input-block">
+                                    <textarea name="description" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>链接：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="url" placeholder="链接">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>排序：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="sort" placeholder="排序">
+                            </div>
+                        </td>
+                    </tr>
+                    
+
+                    <tr>
+                        <td align="right"><strong>登录状态：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="status" value="1" title="正常" checked>
+                                <input type="radio" name="status" value="0" title="禁止">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    // 获取文章分类数据
+    var role = ajax_list('/article_cate');
+    console.log(role);
+    for (let value of role) {
+        $('#layui-select').append('<option value="' + value['id'] + '">' + value['cate_name'] + '</option>');
+    }
+    
+    layui.use(['form', 'layer', 'upload', 'jquery'], function () {
+        $ = layui.jquery;
+        var form = layui.form,
+            upload = layui.upload,
+            layer = layui.layer;
+
+        // 封面
+        layui_upload_image(upload);
+
+        // 保存
+        layui_ajax_save(form, '/article');
+
+    });
+
+</script>
+{/block}

@@ -9,12 +9,18 @@ Route::group('', function(){
     Route::rule('login', 'Admin/login', 'POST');
 });
 
-// 管理员
+
 Route::group('admin', function(){
     // 验证登录
     Route::rule('is_login', 'Admin/isLogin', 'POST');
     // 退出登录
     Route::rule('logout', 'Admin/logout', 'POST');
+    // 获取用户
+    Route::rule('get_admin_by_token', 'Admin/getAdminByToken', 'POST');
+})->middleware(app\admin\middleware\IsLogin::class);
+
+// 管理员
+Route::group('admin', function(){
     // 列表
     Route::rule('', 'Admin/index', 'GET');
     // 单条
@@ -27,6 +33,4 @@ Route::group('admin', function(){
     Route::rule(':id', 'Admin/delete', 'DELETE');
     // 更新密码
     Route::rule('password', 'Admin/password', 'PUT');
-    // 获取用户token
-    Route::rule('get_admin_by_token', 'Admin/getAdminByToken', 'POST');
-})->middleware(app\admin\middleware\IsLogin::class);
+})->middleware([app\admin\middleware\IsLogin::class, app\admin\middleware\CheckAuth::class]);

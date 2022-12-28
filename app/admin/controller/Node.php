@@ -11,6 +11,7 @@ class Node
     public function save(Request $request)
     {
         $params = $request->params;
+        $params['icon'] = $request->icon;
         $node = NodeLogic::saveNode($params);
         return success($node);
     }
@@ -25,6 +26,7 @@ class Node
     public function update(Request $request)
     {
         $params = $request->params;
+        $params['icon'] = $request->icon;
         $node = NodeLogic::saveNode($params);
         return success($node);
     }

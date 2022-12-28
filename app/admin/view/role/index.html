@@ -35,12 +35,16 @@
     // console.log(roleList);
 
     for (let value of roleList) {
+        var admin = '';
+        for(let val of value['admins']){
+            admin += val['username'] + '、';
+        }
         $('tbody').append(
             '<tr>'+
                 '<td>'+value['id']+'</td>'+
                 '<td>'+value['name']+'</td>'+
                 '<td>'+value['explain']+'</td>'+
-                '<td>阿卡丽</td>'+
+                '<td>'+ admin + '</td>'+
                 '<td>'+
                     '<a href="javascript:update('+value['id']+');" class="layui-btn">'+
                         '<i class="layui-icon">&#xe642;</i> 修改'+
