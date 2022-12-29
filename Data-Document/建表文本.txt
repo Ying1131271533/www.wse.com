@@ -75,11 +75,22 @@ create_time int 创建时间
 delete_time int null 删除时间
 
 
-
-aticle - 文章
+article_cate - 文章分类
 
 id int id
-aticle_cate_id int 分类id
+cate_name char(25) 分类名称
+sort smallint 0 排序
+status tinyint(1) 状态：0 禁止 1 正常
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+
+article - 文章
+
+id int id
+article_cate_id int 分类id
 author char(25) null 作者
 title char(80) 文章标题
 thmub char(100) 封面
@@ -94,14 +105,15 @@ delete_time int null 删除时间
 
 
 
-aticle_desc - 文章内容
+article_desc - 文章内容
 
-aticle_id int id
+id int id
 content text 内容
 delete_time int null 删除时间
+article_id int id
 
 
-aticle_cate - 文章分类
+news_cate - 新闻分类
 
 id int id
 cate_name char(25) 分类名称
@@ -116,7 +128,7 @@ delete_time int null 删除时间
 news - 新闻
 
 id int id
-aticle_cate_id int 分类id
+article_cate_id int 分类id
 author char(25) null 作者
 title char(80) 文章标题
 thmub char(100) 封面
@@ -133,20 +145,10 @@ delete_time int null 删除时间
 
 news_desc - 新闻内容
 
-aticle_id int id
+id int id
 content text 内容
 delete_time int null 删除时间
-
-
-news_cate - 新闻分类
-
-id int id
-cate_name char(25) 分类名称
-sort smallint 排序
-status tinyint(1) 状态：0 禁止 1 正常
-update_time int 更新时间
-create_time int 创建时间
-delete_time int null 删除时间
+article_id int id
 
 
 
@@ -154,7 +156,7 @@ delete_time int null 删除时间
 about - 关于
 
 id int id
-aticle_cate_id int 分类id
+article_cate_id int 分类id
 author char(25) null 作者
 title char(80) 文章标题
 thumb char(100) null 封面

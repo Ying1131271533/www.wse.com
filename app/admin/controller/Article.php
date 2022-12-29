@@ -45,18 +45,4 @@ class Article
         ArticleLogic::deleteById($id);
         return success('删除成功');
     }
-
-    public function auth(Request $request)
-    {
-        $params = $request->params;
-        $article = ArticleLogic::saveAuth($params);
-        return success($article);
-    }
-
-    // 获取选中的节点ids
-    public function checkedNode(int $id)
-    {
-        $checkedNode = ArticleLogic::getCheckedNode($id);
-        return success($checkedNode);
-    }
 }

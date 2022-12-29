@@ -52,37 +52,16 @@ class Article
 
     public static function deleteById($id)
     {
-        $article = ArticleModel::with('admins')->find($id);
-        if (empty($article)) {
-            throw new Miss();
-        }
+        // 找到文章
+        $article = ArticleModel::with('desc')->find($id);
+        if (empty($article)) throw new Miss();
 
         // 开启事务
         $article->startTrans();
         try {
-
-            // 删除文章中间表数据
-            if (!$article['admins']->isEmpty()) {
-                $adminsResult = $article->admins()->detach();
-                if (!$adminsResult) {
-                    throw new Exception('文章中间表数据删除失败');
-                }
-            }
-
-            // 删除节点中间表数据
-            if (!$article['nodes']->isEmpty()) {
-                $nodesResult = $article->nodes()->detach();
-                if (!$nodesResult) {
-                    throw new Exception('节点中间表数据删除失败');
-                }
-
-            }
-
-            $result = $article->delete();
-            if (!$result) {
-                throw new Exception('文章删除失败');
-            }
-
+            // 删除文章
+            $result = $article->together(['desc'])->delete();
+            if (!$result) throw new Exception('文章删除失败');
             $article->commit();
         } catch (Exception $e) {
             $article->rollback();
