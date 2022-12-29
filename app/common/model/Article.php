@@ -8,4 +8,18 @@ class Article extends BaseModel
     {
         return $this->belongsTo(ArticleCate::class);
     }
+
+    public function desc()
+    {
+        return $this->hasOne(ArticleDesc::class);
+    }
+
+    public static function getArticleList($where, $page, $limit)
+    {
+        return self::with(['cate'])
+        ->where($where)
+        ->order('id', 'asc')
+        ->paginate($limit, false, ['page' => $page])
+        ->toArray();
+    }
 }

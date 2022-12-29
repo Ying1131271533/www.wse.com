@@ -10,20 +10,35 @@ class Article
 {
     public static function saveArticle($data)
     {
-        $Article = new ArticleModel();
+        $article = new ArticleModel();
         $id      = isset($data['id']) ? $data['id'] : null;
         if ($id) {
-            $Article = $Article->find($id);
-            if (empty($Article)) {
+            $article = $article->find($id);
+            if (empty($article)) {
                 throw new Miss('该文章不存在！');
             }
         }
 
-        $result = $Article->save($data);
-        if (empty($result)) {
-            throw new Fail('保存失败');
+        // 启动事务
+        $article->startTrans();
+
+        try {
+
+            // 保存文章
+            $adminResult = $article->save($data);
+            if (!$adminResult) throw new Exception('文章保存失败');
+
+            // 保存中间表数据
+            $result = $article->desc()->save($data);
+            if (!$result) throw new Exception('保存文章内容关联数据失败');
+
+            // 提交事务
+            $article->commit();
+            return $article;
+        } catch (Exception $e) {
+            $article->rollback();
+            throw new Fail($e->getMessage());
         }
-        return $Article;
     }
 
     // 获取文章列表
@@ -31,109 +46,48 @@ class Article
     {
         $where                                       = [];
         !empty($data['idReload']) and $where[]       = ['id', '=', $data['idReload']];
-        !empty($data['usernameReload']) and $where[] = ['username', 'like', "%{$data['usernameReload']}%"];
-        return $this->adminModel->getAdminList($where, $data['page'], $data['limit']);
+        !empty($data['titleReload']) and $where[] = ['title', 'like', "%{$data['titleReload']}%"];
+        return ArticleModel::getArticleList($where, $data['page'], $data['limit']);
     }
 
     public static function deleteById($id)
     {
-        $Article = ArticleModel::with('admins')->find($id);
-        if (empty($Article)) {
+        $article = ArticleModel::with('admins')->find($id);
+        if (empty($article)) {
             throw new Miss();
         }
 
         // 开启事务
-        $Article->startTrans();
+        $article->startTrans();
         try {
 
-            // 删除管理员中间表数据
-            if (!$Article['admins']->isEmpty()) {
-                $adminsResult = $Article->admins()->detach();
+            // 删除文章中间表数据
+            if (!$article['admins']->isEmpty()) {
+                $adminsResult = $article->admins()->detach();
                 if (!$adminsResult) {
-                    throw new Exception('管理员中间表数据删除失败');
+                    throw new Exception('文章中间表数据删除失败');
                 }
             }
 
             // 删除节点中间表数据
-            if (!$Article['nodes']->isEmpty()) {
-                $nodesResult = $Article->nodes()->detach();
+            if (!$article['nodes']->isEmpty()) {
+                $nodesResult = $article->nodes()->detach();
                 if (!$nodesResult) {
                     throw new Exception('节点中间表数据删除失败');
                 }
 
             }
 
-            $result = $Article->delete();
+            $result = $article->delete();
             if (!$result) {
                 throw new Exception('文章删除失败');
             }
 
-            $Article->commit();
+            $article->commit();
         } catch (Exception $e) {
-            $Article->rollback();
+            $article->rollback();
             throw new Fail($e->getMessage());
         }
     }
 
-    public static function saveAuth($data)
-    {
-        $Article = ArticleModel::with('nodes')->find($data['id']);
-        if (empty($Article)) {
-            throw new Miss();
-        }
-
-        // 开启事务
-        $Article->startTrans();
-        try {
-
-            // 删除旧的节点中间表数据
-            if (!$Article['nodes']->isEmpty()) {
-                $nodesResult = $Article->nodes()->detach();
-                if (!$nodesResult) {
-                    throw new Exception('原来的节点中间表数据删除失败');
-                }
-
-            }
-
-            // 如果有节点权限，则保存
-            if (!empty($data['checkData'])) {
-                $ids        = get_key_cloumn('id', $data['checkData']);
-                $saveResult = $Article->nodes()->saveAll($ids);
-                if (!$saveResult) {
-                    throw new Exception('节点保存失败');
-                }
-
-            }
-
-            $Article->commit();
-        } catch (Exception $e) {
-            $Article->rollback();
-            throw new Fail($e->getMessage());
-        }
-
-    }
-
-    public static function getCheckedNode($id)
-    {
-        // 获取文章
-        $Article = ArticleModel::with('nodes')->find($id);
-        if (empty($Article)) {
-            throw new Miss('找不到该文章！');
-        }
-
-        $checkedNode = [];
-        if (!$Article['nodes']->isEmpty()) {
-            $nodes       = $Article['nodes']->toArray();
-            $checkedNode = $nodes;
-            foreach ($nodes as $key => $value) {
-                foreach ($nodes as $k => $val) {
-                    if ($value['id'] == $val['parent_id']) {
-                        unset($checkedNode[$key]);
-                        continue;
-                    }
-                }
-            }
-        }
-        return array_column($checkedNode, 'id');
-    }
 }

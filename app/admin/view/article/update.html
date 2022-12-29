@@ -1,5 +1,5 @@
 {extend name="public/base_layui" /}
-{block name="title"}管理员修改{/block}
+{block name="title"}文章保存{/block}
 {block name="load"}
 <!-- css -->
 <!-- js -->
@@ -12,100 +12,114 @@
             <table class="layui-table" lay-size="lg" lay-skin="line">
                 <thead>
                     <tr>
-                        <th colspan="2">管理员修改</th>
+                        <th colspan="2">文章添加</th>
                     </tr>
                 </thead>
                 <tbody>
+
                     <tr>
-                        <td width="150" align="right"><strong>管理员名称：</strong></td>
+                        <td align="right"><strong>文章分类：</strong></td>
+                        <td>
+                            <div style="margin-bottom:10px;">
+                                <div class="layui-input-inline">
+                                    <select id="layui-select" name="article_cate_id">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="150" align="right"><strong>文章标题：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="username" placeholder="用户名"
-                                    lay-filter="username">
+                                <input class="layui-input" type="text" name="title" placeholder="文章标题" style="width: 400px;">
                             </div>
                             <div class="layui-input-inline">
-                                <span style="color: red;">*</span> 将会成为管理员唯一的登入名
+                                <span style="color: red;">*</span> 将会成为文章唯一标题
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td width="150" align="right"><strong>真实名字：</strong></td>
+                        <td width="150" align="right"><strong>简介：</strong></td>
                         <td>
-                            <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="real_name" placeholder="真实名字">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="150" align="right"><strong>手机：</strong></td>
-                        <td>
-                            <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="phone" placeholder="手机">
-                            </div>
-                            <div class="layui-input-inline">
-                                联系手机
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="150" align="right"><strong>微信：</strong></td>
-                        <td>
-                            <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="wechat" placeholder="微信">
-                            </div>
-                            <div class="layui-input-inline">
-                                联系微信
+                            <div class="layui-form-item layui-form-text">
+                                <div class="layui-input-inline">
+                                    <textarea name="description" placeholder="请输入内容，不能超过255个字符" class="layui-textarea" rows="5" cols="60"></textarea>
+                                </div>
                             </div>
                         </td>
                     </tr>
                     <!-- <tr>
-                        <td align="right"><strong>密码：</strong></td>
+                        <td width="150" align="right"><strong>作者：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <input class="layui-input" type="password" name="password" placeholder="密码">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right"><strong>确认密码：</strong></td>
-                        <td>
-                            <div class="layui-input-inline">
-                                <input class="layui-input" type="password" name="password_confirm" placeholder="确认密码">
+                                <input class="layui-input" type="text" name="author" placeholder="作者">
                             </div>
                         </td>
                     </tr> -->
-
                     <tr>
-                        <td align="right"><strong>角色：</strong></td>
-                        <td id="role-td">
-                            <div style="margin-bottom:10px;" class="role-div">
-                                <div class="layui-input-inline">
-                                    <select id="role-select">
-                                        <option value="">请选择</option>
-                                    </select>
+                        <td width="150" align="right"><strong>封面：</strong></td>
+                        <td>
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="upload-img">上传图片</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" id="upload-preview">
+                                    <input type="hidden" name="image">
                                 </div>
-                                <a href="javascript:;" class="layui-btn layui-btn-sm" onclick="add(this)">
-                                    <i class="layui-icon">&#xe654;</i> 增加
-                                </a>
                             </div>
+                            
                         </td>
                     </tr>
-
                     <tr>
-                        <td align="right"><strong>登录状态：</strong></td>
+                        <td align="right"><strong>状态：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <input type="radio" name="status" value="1" title="正常">
+                                <input type="radio" name="status" value="1" title="正常" checked>
                                 <input type="radio" name="status" value="0" title="禁止">
                             </div>
                         </td>
                     </tr>
                     <tr>
+                        <td width="150" align="right"><strong>内容：</strong></td>
+                        <td>    
+                            <div class="layui-input-inline">
+                                <!-- 加载编辑器的容器 -->
+                                <script id="container" name="content" type="text/plain" style="height:150px;width:1000px;"></script>
+                                <!-- 配置文件 -->
+                                <script src="__COMMON__/lib/ueditor/ueditor.config.js" charset="utf-8"></script>
+                                <!-- 编辑器源码文件 -->
+                                <script src="__COMMON__/lib/ueditor/ueditor.all.js" charset="utf-8"></script>
+                                <!-- 实例化编辑器 -->
+                                <script type="text/javascript">
+                                    var ue = UE.getEditor('container');
+                                </script>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td width="150" align="right"><strong>链接：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="url" placeholder="链接">
+                            </div>
+                        </td>
+                    </tr> -->
+                    <!-- <tr>
+                        <td width="150" align="right"><strong>排序：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="sort" placeholder="排序">
+                            </div>
+                        </td>
+                    </tr> -->
+                    
+                    <tr>
                         <td align="right"></td>
                         <td>
                             <div class="layui-input-inline">
                                 <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
-                                <input type="hidden" name="id">
                             </div>
                         </td>
                     </tr>
@@ -115,88 +129,38 @@
     </div>
 </div>
 
-
-
 <script>
-
-    // 获取角色数据
-    var role = ajax_list('/role');
+    
+    // 获取文章分类数据
+    var role = ajax_list('/article_cate');
     console.log(role);
     for (let value of role) {
-        $('#role-select').append('<option value="' + value['id'] + '">' + value['name'] + '</option>');
+        $('#layui-select').append('<option value="' + value['id'] + '">' + value['cate_name'] + '</option>');
     }
 
-    // 表单赋值
-    let data = ajax_read('/admin');
-    for (let role of data['roles']) {
-        $('#role-td').append(
-            '<div class="layui-input-inline" style="margin-right:10px;">' +
-            '<button type="button" class="layui-btn">'+role['name']+'</button>' +
-            '<input type="hidden" name="roles[]" value="'+role['id']+'">' +
-            '<a href="javascript:;" class="layui-btn layui-bg-black" onclick="del(this)">删除</a>' +
-            '</div>'
-        );
-    }
-
-    // layui
-    layui.use(['form', 'layer'], function () {
-
+    // 获取文章数据
+    let data = ajax_read('/article');
+    
+    layui.use(['form', 'layer', 'upload', 'jquery'], function () {
         $ = layui.jquery;
         var form = layui.form,
+            upload = layui.upload,
             layer = layui.layer;
 
+        // 赋值
         form.val("form", data);
-        // 取值
-        // data = form.val("form");
-
-        // 自定义验证规则
-        form.verify({
-            username: function (value) {
-                if (empty(value)) {
-                    return '登录名不能为空！';
-                }
-                if (value.length < 2 || value.length > 25) {
-                    return '登录名为2到25个字符！';
-                }
-            }
+        form.val("form", {
+            'article_cate_id': data.cate.id,
+            'content': HtmlUtil.htmlDecode(data.desc.content)
         });
-
+        // 图片
+        $('#upload-preview').attr('src', data.image);
+        // 封面
+        layui_upload_image(upload);
         // 更新数据
-        layui_ajax_update(form, '/admin');
+        layui_ajax_update(form, '/article');
 
     });
 
-    // 增加权限下拉框
-    function add(obj) {
-        var value = $('#role-select').val();
-        var name = $('#role-select').find("option:selected").text();
-        console.log(empty(value));
-        console.log(name);
-        
-        if (empty(value)) {
-            return false;
-        }
-
-        $('#role-td').append(
-            '<div class="layui-input-inline" style="margin-right:10px;">' +
-            '<button type="button" class="layui-btn">'+name+'</button>' +
-            '<input type="hidden" name="roles[]" value="'+value+'">' +
-            '<a href="javascript:;" class="layui-btn layui-bg-black" onclick="del(this)">删除</a>' +
-            '</div>'
-        );
-
-        layui.use(['form'], function () {
-            var form = layui.form
-            form.render();
-        });
-    }
-
-    function del(obj) {
-        $(obj).parents('.layui-input-inline').remove();
-        layui.use(['form'], function () {
-            var form = layui.form
-            form.render();
-        });
-    }
 </script>
 {/block}

@@ -32,8 +32,6 @@ class Admin extends BaseValidate
         'idReload|ID'                => 'number|gt:0',
         'usernameReload|用户名'         => 'chsDash',
 
-        // ajax
-        'value|状态'                   => 'require',
 
     ];
 

@@ -288,3 +288,57 @@ function get_input_value() {
     });
     return data;
 }
+
+function open_img(obj) {
+
+    // 获取图片路径
+    var src = $(obj).attr("src");
+    
+    // 获取图片的真实宽高
+    $('<img/>').attr("src", src).on('load', function () {
+
+        // 设置图片的宽度不能超过1280px
+        var width = this.width > 1280 ? 1280 : this.width;
+        var height = this.height;
+        var html = '<img src="'+src+'" width="'+width+'" />';
+
+        // 页面层-佟丽娅
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            area: width + 'px',
+            skin: 'layui-layer-nobg', // 没有背景色
+            shadeClose: true,
+            content: html
+        });
+    });
+}
+
+// Layui 中的富文本编辑器中遇到的html代码没有转换的解决方案
+var HtmlUtil = {
+    /*1.用浏览器内部转换器实现html转码*/
+    htmlEncode:function (html){
+        //1.首先动态创建一个容器标签元素，如DIV
+        var temp = document.createElement ("div");
+        //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+        (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+        //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+        var output = temp.innerHTML;
+        temp = null;
+        return output;
+    },
+
+    /*2.用浏览器内部转换器实现html解码*/
+    htmlDecode:function (text){
+        //1.首先动态创建一个容器标签元素，如DIV
+        var temp = document.createElement("div");
+        //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+        temp.innerHTML = text;
+        //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+        var output = temp.innerText || temp.textContent;
+        temp = null;
+        return output;
+    }
+
+};

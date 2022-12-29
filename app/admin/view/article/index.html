@@ -16,7 +16,7 @@
       <input class="layui-input" type="text" name="id" value="" placeholder="ID" id="idReload">
     </div>
     <div class="layui-input-inline">
-      <input class="layui-input" type="text" name="username" value="" placeholder="用户名" id="usernameReload">
+      <input class="layui-input" type="text" name="title" value="" placeholder="文章标题" id="titleReload">
     </div>
     <div class="layui-input-inline">
       <button class="layui-btn" id="search" data-type="reload">搜索<button>
@@ -27,9 +27,12 @@
   <table id="table_akali" lay-filter="table_akali"></table>
 </div>
 
+<script type="text/html" id="cateTpl">
+  <p>{{ d.cate.cate_name }}</p>
+</script>
 
-<script type="text/html" id="lastLoginTimeTpl">
-    <p>{{ d.last_login_time ? timestampToTime(d.last_login_time) : '--' }}</p>
+<script type="text/html" id="imageTpl">
+  <img src="{{ d.image }}" width="70" style="cursor:pointer;" onclick="open_img(this)" />
 </script>
 
 <script type="text/html" id="createTimeTpl">
@@ -41,7 +44,7 @@
     data-id="{{ d.id }}"
     data-value="{{ d.status }}"
     data-field="status"
-    data-db="admin"
+    data-db="article"
       class="layui-btn layui-btn-sm {{ d.status == 1 ? '' : 'layui-btn-danger' }}">
       {{ d.status == 1 ? '开启' : '关闭' }}
     </a>
@@ -69,7 +72,7 @@
     // 第一个实例
     var ins1 = table.render({
       elem: '#table_akali'
-      , url: '/admin' // 数据接口
+      , url: '/article' // 数据接口
       , method: 'GET'  // 可选项。HTTP类型
       , headers: { 'access-token': getToken() }
       , page: true // 开启分页
@@ -79,13 +82,10 @@
       , size: 'lg'
       , cols: [[ //表头
         { field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left' }
-        , { field: 'username', title: '文章名称', width: 120 }
-        , { field: 'real_name', title: '真实姓名', width: 120 }
-        , { field: 'phone', title: '手机', width: 150 }
-        , { field: 'wechat', title: '微信', width: 150 }
-        , { field: 'login_number', title: '登录次数', width: 120, sort: true, templet: '#loginNumberTpl' }
-        , { field: 'last_login_ip', title: '上次登录ip', width: 150, templet: '#lastLoginIpTpl' }
-        , { field: 'last_login_time', title: '上次登录时间', width: 180, sort: true, templet: '#lastLoginTimeTpl' }
+        , { field: 'cate.cate_name', title: '文章分类', width: 100, templet: '#cateTpl' }
+        , { field: 'title', title: '文章标题', width: 400 }
+        , { field: 'image', title: '封面', width: 150, templet: '#imageTpl' }
+        , { field: 'view', title: '浏览次数', width: 120, sort: true }
         , { field: 'create_time', title: '创建时间', width: 180, sort: true, templet: '#createTimeTpl' }
         , { field: 'status', title: '状态', width: 90, templet: '#statusTpl', fixed: 'right' }
         , { field: 'edit', title: '操作', minwidth: 160, templet: '#operationTpl', fixed: 'right' }
@@ -97,13 +97,13 @@
     var $ = layui.$, active = {
       reload: function () {
         var idReload = $('#idReload');
-        var usernameReload = $('#usernameReload');
+        var titleReload = $('#titleReload');
 
         //执行重载
         table.reload('table_akali', {
           where: {
             idReload: idReload.val(),
-            usernameReload: usernameReload.val(),
+            titleReload: titleReload.val(),
           }
         });
       }
@@ -141,26 +141,15 @@
         layer.open({
           type: 2,
           title: '文章更新',
-          content: '/view/admin_update?id=' + data.id,
+          content: '/view/article_update?id=' + data.id,
           shadeClose: true,
           shade: [0.8, '#000000'],
-          area: ['1000px', '600px'],
-        });
-
-        // 修改密码
-      } else if (layEvent === 'password') {
-        layer.open({
-          type: 2,
-          title: '修改密码',
-          content: '/view/admin_password?id=' + data.id,
-          shadeClose: true,
-          shade: [0.8, '#000000'],
-          area: ['500px', '300px'],
+          area: ['1280px', '600px'],
         });
 
         // 删除
-      } else if (layEvent === 'delete') {
-        layui_form_delete(this, '/admin/' + data.id);
+      }else if (layEvent === 'delete') {
+        layui_form_delete(this, '/article/' + data.id);
       }
     });
   });

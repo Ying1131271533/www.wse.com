@@ -12,15 +12,15 @@ class Article
     public function save(Request $request)
     {
         $params = $request->params;
-        $Article = ArticleLogic::saveArticle($params);
-        return success($Article);
+        $article = ArticleLogic::saveArticle($params);
+        return success($article);
     }
     
     public function read(int $id)
     {
-        $Article = ArticleModel::with('nodes')->find($id);
-        if(empty($Article)) throw new Miss('找不到该角色！');
-        return success($Article);
+        $article = ArticleModel::with(['cate', 'desc'])->find($id);
+        if(empty($article)) throw new Miss();
+        return success($article);
     }
 
     // 列表
@@ -36,8 +36,8 @@ class Article
     public function update(Request $request)
     {
         $params = $request->params;
-        $Article = ArticleLogic::saveArticle($params);
-        return success($Article);
+        $article = ArticleLogic::saveArticle($params);
+        return success($article);
     }
 
     public function delete(int $id)
@@ -49,8 +49,8 @@ class Article
     public function auth(Request $request)
     {
         $params = $request->params;
-        $Article = ArticleLogic::saveAuth($params);
-        return success($Article);
+        $article = ArticleLogic::saveAuth($params);
+        return success($article);
     }
 
     // 获取选中的节点ids
