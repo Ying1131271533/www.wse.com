@@ -1,0 +1,72 @@
+{extend name="public/base_layui" /}
+{block name="title"}新闻分类列表{/block}
+{block name="load"}
+<!-- css -->
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-md-offset0" style="margin-bottom:20px;">
+        <div class="layui-col-md9">
+            <a href="/view/news_cate_save" class="layui-btn layui-btn-danger">添加新闻分类</a>
+        </div>
+    </div>
+    <form class="layui-form" action="" method="post">
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>分类名称</th>
+                    <th>排序</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<script>
+
+    let artcileCateList = ajax_list('/news_cate');
+    console.log(artcileCateList);
+
+    for (let value of artcileCateList) {
+        $('tbody').append(
+            '<tr>'+
+                '<td>'+value['id']+'</td>'+
+                '<td>'+value['cate_name']+'</td>'+
+                '<td>'+value['sort']+'</td>'+
+                '<td>'+
+                    '<a href="javascript:update('+value['id']+');" class="layui-btn">'+
+                        '<i class="layui-icon">&#xe642;</i> 修改'+
+                    '</a>'+
+                    '<a class="layui-btn layui-bg-black" href="javascript:;" onclick="del(this, '+value['id']+');">'+
+                        '<i class="layui-icon">&#xe640;</i> 删除'+
+                    '</a>'+
+                '</td>'+
+            '</tr>'
+        );
+    }
+
+
+    function update(id) {
+        //修改信息
+        layer.open({
+            id: '1',
+            type: 2,
+            title: '角色ID:' + id,
+            shadeClose: true,
+            shade: [0.8, '#000000'],
+            area: ['700px', '500px'],
+            content: "/view/news_cate_update?id=" + id,
+        });
+    }
+
+    function del(obj, id) {
+        layui_form_delete(obj, '/news_cate/' + id);
+    }
+</script>
+{/block}

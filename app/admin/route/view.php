@@ -60,6 +60,20 @@ Route::group('view', function(){
     Route::rule('article_update', 'View/articleUpdate', 'GET');
 });
 
+// 文章分类
+Route::group('view', function(){
+    Route::rule('news_cate_index', 'View/newsCateIndex', 'GET');
+    Route::rule('news_cate_save', 'View/newsCateSave', 'GET');
+    Route::rule('news_cate_update', 'View/newsCateUpdate', 'GET');
+});
+
+// 文章管理
+Route::group('view', function(){
+    Route::rule('news_index', 'View/newsIndex', 'GET');
+    Route::rule('news_save', 'View/newsSave', 'GET');
+    Route::rule('news_update', 'View/newsUpdate', 'GET');
+});
+
 
 
 

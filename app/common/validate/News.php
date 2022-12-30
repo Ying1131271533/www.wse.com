@@ -4,13 +4,13 @@ namespace app\common\validate;
 
 use app\common\validate\BaseValidate;
 
-class Article extends BaseValidate
+class News extends BaseValidate
 {
     // 验证规则
     protected $rule = [
         'id|id'                => 'require|number|gt:0',
-        'article_cate_id|分类id' => 'require|number|gt:0',
-        'title|文章标题'           => 'require|max:80|unique:article',
+        'news_cate_id|分类id' => 'require|number|gt:0',
+        'title|新闻标题'           => 'require|max:80|unique:news',
         'author|作者'            => 'max:25',
         'image|封面'             => 'require',
         'description|简介'       => 'require|max:255',
@@ -21,7 +21,7 @@ class Article extends BaseValidate
 
         // 条件
         'idReload|ID'                => 'number|gt:0',
-        'titleReload|文章标题'         => 'max:80',
+        'titleReload|新闻标题'         => 'max:80',
 
     ];
 
@@ -35,7 +35,7 @@ class Article extends BaseValidate
         'index' => ['page', 'limit', 'idReload', 'titleReload'],
         'read'   => ['id'],
         'save'   => [
-            'article_cate_id',
+            'news_cate_id',
             'title',
             'author',
             'image',
@@ -47,7 +47,7 @@ class Article extends BaseValidate
         ],
         'update' => [
             'id',
-            'article_cate_id',
+            'news_cate_id',
             'title',
             'author',
             'image',

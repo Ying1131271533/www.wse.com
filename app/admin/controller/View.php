@@ -146,6 +146,41 @@ class View
         return FacadeView::fetch('article/update');
     }
 	
+
+	/************************ 新闻分类 ************************/
+	
+    public function newsCateIndex()
+    {
+        return FacadeView::fetch('news_cate/index');
+    }
+    
+    public function newsCateSave()
+    {
+        return FacadeView::fetch('news_cate/save');
+    }
+
+    public function newsCateUpdate()
+    {
+        return FacadeView::fetch('news_cate/update');
+    }
+
+	/************************ 新闻管理 ************************/
+	
+    public function newsIndex()
+    {
+        return FacadeView::fetch('news/index');
+    }
+    
+    public function newsSave()
+    {
+        return FacadeView::fetch('news/save');
+    }
+
+    public function newsUpdate()
+    {
+        return FacadeView::fetch('news/update');
+    }
+	
 }
 
 

@@ -1,9 +1,9 @@
 <?php
 namespace app\admin\controller;
 
-use app\admin\logic\ArticleCate as ArticleCateLogic;
+use app\admin\logic\NewsCate as NewsCateLogic;
 use app\common\lib\exception\Miss;
-use app\common\model\ArticleCate as ArticleCateModel;
+use app\common\model\NewsCate as NewsCateModel;
 use app\Request;
 
 class NewsCate
@@ -11,19 +11,19 @@ class NewsCate
     public function save(Request $request)
     {
         $params = $request->params;
-        $aritcleCate = ArticleCateLogic::saveArticleCate($params);
+        $aritcleCate = NewsCateLogic::saveNewsCate($params);
         return success($aritcleCate);
     }
 
     public function index()
     {
-        $aritcleCateList = ArticleCateLogic::getArticleCateList();
+        $aritcleCateList = NewsCateLogic::getNewsCateList();
         return success($aritcleCateList);
     }
 
     public function read(int $id)
     {
-        $aritcleCate = ArticleCateModel::find($id);
+        $aritcleCate = NewsCateModel::find($id);
         if(empty($aritcleCate)) throw new Miss();
         return success($aritcleCate);
     }
@@ -31,13 +31,13 @@ class NewsCate
     public function update(Request $request)
     {
         $params = $request->params;
-        $aritcleCate = ArticleCateLogic::saveArticleCate($params);
+        $aritcleCate = NewsCateLogic::saveNewsCate($params);
         return success($aritcleCate);
     }
 
     public function delete(int $id)
     {
-        ArticleCateLogic::deleteArticleCate($id);
+        NewsCateLogic::deleteNewsCate($id);
         return success('删除成功');
     }
 }
