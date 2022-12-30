@@ -25,11 +25,6 @@ class Article extends BaseValidate
 
     ];
 
-    // 验证消息
-    protected $message = [
-        'level.max' => '目前层级只有0和1级',
-    ];
-
     // 验证场景
     protected $scene = [
         'index' => ['page', 'limit', 'idReload', 'titleReload'],

@@ -74,6 +74,27 @@ Route::group('view', function(){
     Route::rule('news_update', 'View/newsUpdate', 'GET');
 });
 
+// 关于我们分类
+Route::group('view', function(){
+    Route::rule('about_cate_index', 'View/aboutCateIndex', 'GET');
+    Route::rule('about_cate_save', 'View/aboutCateSave', 'GET');
+    Route::rule('about_cate_update', 'View/aboutCateUpdate', 'GET');
+});
+
+// 关于我们文章
+Route::group('view', function(){
+    Route::rule('about_index', 'View/aboutIndex', 'GET');
+    Route::rule('about_save', 'View/aboutSave', 'GET');
+    Route::rule('about_update', 'View/aboutUpdate', 'GET');
+});
+
+// 轮播图
+Route::group('view', function(){
+    Route::rule('slide_index', 'View/slideIndex', 'GET');
+    Route::rule('slide_save', 'View/slideSave', 'GET');
+    Route::rule('slide_update', 'View/slideUpdate', 'GET');
+});
+
 
 
 

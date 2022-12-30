@@ -4,24 +4,21 @@ namespace app\common\validate;
 
 use app\common\validate\BaseValidate;
 
-class News extends BaseValidate
+class Slide extends BaseValidate
 {
     // 验证规则
     protected $rule = [
         'id|id'                => 'require|number|gt:0',
-        'news_cate_id|分类id' => 'require|number|gt:0',
-        'title|新闻标题'           => 'require|max:80|unique:news',
-        'author|作者'            => 'max:25',
-        'image|封面'             => 'require',
-        'description|简介'       => 'require|max:255',
-        'content|内容'           => 'require',
+        'category_id|分类id' => 'require|number|gt:0',
+        'title|标题'           => 'require|max:80|unique:slide',
         'url|链接'               => 'max:255',
         'sort|排序'              => 'number',
         'status|状态'            => 'require|number',
+        'imgs|图片'             => 'require',
 
         // 条件
         'idReload|ID'                => 'number|gt:0',
-        'titleReload|新闻标题'         => 'max:80',
+        'titleReload|标题'         => 'max:80',
 
     ];
 
@@ -30,27 +27,21 @@ class News extends BaseValidate
         'index' => ['page', 'limit', 'idReload', 'titleReload'],
         'read'   => ['id'],
         'save'   => [
-            'news_cate_id',
+            'category_id',
             'title',
-            'author',
-            'image',
-            'description',
-            'content',
             'url',
             'sort',
             'status',
+            'imgs'
         ],
         'update' => [
             'id',
-            'news_cate_id',
+            'category_id',
             'title',
-            'author',
-            'image',
-            'description',
-            'content',
             'url',
             'sort',
             'status',
+            'imgs'
         ],
         'delete' => ['id'],
     ];

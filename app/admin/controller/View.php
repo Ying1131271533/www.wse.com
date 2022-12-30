@@ -181,6 +181,59 @@ class View
         return FacadeView::fetch('news/update');
     }
 	
+	
+
+	/************************ 关于我们分类 ************************/
+	
+    public function aboutCateIndex()
+    {
+        return FacadeView::fetch('about_cate/index');
+    }
+    
+    public function aboutCateSave()
+    {
+        return FacadeView::fetch('about_cate/save');
+    }
+
+    public function aboutCateUpdate()
+    {
+        return FacadeView::fetch('about_cate/update');
+    }
+
+	/************************ 关于我们文章 ************************/
+	
+    public function aboutIndex()
+    {
+        return FacadeView::fetch('about/index');
+    }
+    
+    public function aboutSave()
+    {
+        return FacadeView::fetch('about/save');
+    }
+
+    public function aboutUpdate()
+    {
+        return FacadeView::fetch('about/update');
+    }
+
+	/************************ 轮播图 ************************/
+	
+    public function slideIndex()
+    {
+        return FacadeView::fetch('slide/index');
+    }
+    
+    public function slideSave()
+    {
+        return FacadeView::fetch('slide/save');
+    }
+
+    public function slideUpdate()
+    {
+        return FacadeView::fetch('slide/update');
+    }
+	
 }
 
 
