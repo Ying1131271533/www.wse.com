@@ -219,19 +219,19 @@ class View
 
 	/************************ 轮播图 ************************/
 	
-    public function slideIndex()
+    public function slidesIndex()
     {
-        return FacadeView::fetch('slide/index');
+        return FacadeView::fetch('slides/index');
     }
     
-    public function slideSave()
+    public function slidesSave()
     {
-        return FacadeView::fetch('slide/save');
+        return FacadeView::fetch('slides/save');
     }
 
-    public function slideUpdate()
+    public function slidesUpdate()
     {
-        return FacadeView::fetch('slide/update');
+        return FacadeView::fetch('slides/update');
     }
 	
 }

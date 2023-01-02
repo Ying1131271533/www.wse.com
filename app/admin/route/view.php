@@ -90,9 +90,9 @@ Route::group('view', function(){
 
 // 轮播图
 Route::group('view', function(){
-    Route::rule('slide_index', 'View/slideIndex', 'GET');
-    Route::rule('slide_save', 'View/slideSave', 'GET');
-    Route::rule('slide_update', 'View/slideUpdate', 'GET');
+    Route::rule('slides_index', 'View/slidesIndex', 'GET');
+    Route::rule('slides_save', 'View/slidesSave', 'GET');
+    Route::rule('slides_update', 'View/slidesUpdate', 'GET');
 });
 
 

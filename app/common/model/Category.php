@@ -6,6 +6,6 @@ class Category extends BaseModel
 {
     public function slides()
     {
-        return $this->hasMany(Slide::class);
+        return $this->hasMany(Slides::class);
     }
 }

@@ -2,21 +2,16 @@
 
 namespace app\common\model;
 
-class Slide extends BaseModel
+class Slides extends BaseModel
 {
-    public function imgs()
-    {
-        return $this->hasMany(SlideImgs::class);
-    }
-
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public static function getSlideList($where, $page, $limit)
+    public static function getSlidesList($where, $page, $limit)
     {
-        return self::with(['category', 'imgs'])
+        return self::with('category')
         ->where($where)
         ->order('id', 'asc')
         ->paginate($limit, false, ['page' => $page])

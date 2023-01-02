@@ -1,26 +1,26 @@
 <?php
 namespace app\admin\controller;
 
-use app\admin\logic\Slide as SlideLogic;
+use app\admin\logic\Slides as SlidesLogic;
 use app\common\lib\exception\Fail;
 use app\common\lib\exception\Miss;
-use app\common\model\Slide as SlideModel;
+use app\common\model\Slides as SlidesModel;
 use app\Request;
 
-class Slide
+class Slides
 {
     public function save(Request $request)
     {
         $params = $request->params;
-        $slide = SlideLogic::saveSlide($params);
-        return success($slide);
+        $slides = SlidesLogic::saveSlides($params);
+        return success($slides);
     }
     
     public function read(int $id)
     {
-        $slide = SlideModel::with(['cate', 'desc'])->find($id);
-        if(empty($slide)) throw new Miss();
-        return success($slide);
+        $slides = SlidesModel::with('category')->find($id);
+        if(empty($slides)) throw new Miss();
+        return success($slides);
     }
 
     // 列表
@@ -29,20 +29,20 @@ class Slide
         $params          = $request->params;
         $params['page']  = $request->page;
         $params['limit'] = $request->limit;
-        $adminList       = SlideLogic::getSlideList($params);
+        $adminList       = SlidesLogic::getSlidesList($params);
         return success($adminList);
     }
 
     public function update(Request $request)
     {
         $params = $request->params;
-        $slide = SlideLogic::saveSlide($params);
-        return success($slide);
+        $slides = SlidesLogic::saveSlides($params);
+        return success($slides);
     }
 
     public function delete(int $id)
     {
-        SlideLogic::deleteById($id);
+        SlidesLogic::deleteById($id);
         return success('删除成功');
     }
 }

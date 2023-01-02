@@ -136,7 +136,7 @@ function layui_upload_image(upload, name = 'image') {
         , url: '/upload/file' // 上传接口
         , method: 'POST'  // 可选项。HTTP类型，默认post
         , data: { type: 'images' } // 可选项。额外的参数，如：{id: 123, abc: 'xxx'}
-        , field: 'images'
+        , field: 'images' // 上传文件的字段名
         , headers: { 'access-token': getToken() }
         , before: function (obj) {
             // 预读本地文件示例，不支持ie8
@@ -152,7 +152,53 @@ function layui_upload_image(upload, name = 'image') {
                 return false;
             }
             layer.msg('上传成功', { icon: 1, time: 500 });
-            $('input[name="'+name+'"]').val(res.data.path);
+            $('input[name="' + name + '"]').val(res.data.path);
+        }
+        , error: function () {
+            // 请求异常回调
+            layer.msg('上传失败', { icon: 2 });
+        }
+    });
+}
+
+
+/**
+ * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
+ * @author: 神织知更
+ * @time: 2022/04/06 15:57
+ *
+ * 上传多张图片
+ *
+ * @param  obj      upload      layui的上传文件对象
+ * @param  string 	name        接收图片的input名称
+ * @param  string 	multiple    是否上传多张图片
+ */
+function layui_upload_imgs(upload, name='imgs', multiple = false) {
+    //执行实例
+    var uploadInst = upload.render({
+        elem: '#upload-img' // 绑定元素
+        , url: '/upload/file' // 上传接口
+        , multiple: multiple // 上传多张图片
+        , method: 'POST'  // 可选项。HTTP类型，默认post
+        , data: { type: 'images' } // 可选项。额外的参数，如：{id: 123, abc: 'xxx'}
+        , field: 'images' // 上传文件的字段名
+        , headers: { 'access-token': getToken() }
+        , before: function (obj) {
+            // 预读本地文件示例，不支持ie8
+            obj.preview(function (index, file, result) {
+                $('#upload-preview').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+            });
+        }
+        , done: function (res) {
+            // 上传完毕回调
+            if (res.code !== config('success')) {
+                layer.msg(res.msg, { icon: 2 });
+                return false;
+            }
+            layer.msg('上传成功', { icon: 1, time: 500 });
+            for(let value of res.data.path){
+                $('.layui-upload').append('<input type="hidden" name="'+name+'[]" value="'+value+'">');
+            }
         }
         , error: function () {
             // 请求异常回调

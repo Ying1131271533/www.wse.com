@@ -8,7 +8,7 @@
 <div class="layui-fluid">
   <div class="layui-row layui-col-md-offset0" style="margin-bottom:20px;">
     <div class="layui-col-md9">
-      <a href="/view/slide_save" class="layui-btn layui-btn-danger">添加</a>
+      <a href="/view/slides_save" class="layui-btn layui-btn-danger">添加</a>
     </div>
   </div>
   <div class="layui-form">
@@ -33,7 +33,7 @@
 
 <script type="text/html" id="imageTpl">
   {{#  layui.each(d.imgs, function(index, item){ }}
-  <img src="{{ item }}" width="70" style="cursor:pointer;" onclick="open_img(this)" />
+  <img src="{{ item.path }}" width="70" style="cursor:pointer;" onclick="open_img(this)" />
   {{#  }); }}
 </script>
 
@@ -46,7 +46,7 @@
     data-id="{{ d.id }}"
     data-value="{{ d.status }}"
     data-field="status"
-    data-db="slide"
+    data-db="slides"
       class="layui-btn layui-btn-sm {{ d.status == 1 ? '' : 'layui-btn-danger' }}">
       {{ d.status == 1 ? '开启' : '关闭' }}
     </a>
@@ -74,7 +74,7 @@
     // 第一个实例
     var ins1 = table.render({
       elem: '#table_akali'
-      , url: '/slide' // 数据接口
+      , url: '/slides' // 数据接口
       , method: 'GET'  // 可选项。HTTP类型
       , headers: { 'access-token': getToken() }
       , page: true // 开启分页
@@ -143,7 +143,7 @@
         layer.open({
           type: 2,
           title: '更新',
-          content: '/view/slide_update?id=' + data.id,
+          content: '/view/slides_update?id=' + data.id,
           shadeClose: true,
           shade: [0.8, '#000000'],
           area: ['1280px', '600px'],
@@ -151,7 +151,7 @@
 
         // 删除
       }else if (layEvent === 'delete') {
-        layui_form_delete(this, '/slide/' + data.id);
+        layui_form_delete(this, '/slides/' + data.id);
       }
     });
   });

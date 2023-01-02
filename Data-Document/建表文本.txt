@@ -192,6 +192,7 @@ slide - 轮播图
 
 id int id
 title char(50) null 标题
+image char(100) 图片
 url char(255) null 链接
 sort smallint 0 排序
 status tinyint(1) 状态：0 禁止 1 正常
@@ -201,17 +202,16 @@ delete_time int null 删除时间
 category_id int id 分类id
 
 
-slide_imgs - 轮播图图片路径
+
+customer_service - 在线客服
+
 id int id
-path char(100) 路径
-delete_time int null 删除时间
-slide_id int id 轮播图id
-
-
-
-
-
-
+name char(25) 客服名称
+real_name char(15) null 客服真实姓名
+qq bigint(15) QQ号码
+wechat char(50) null 微信
+phont char(20) null 手机号码
+description char(255) null 客服描述
 
 
 
