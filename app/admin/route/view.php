@@ -96,6 +96,14 @@ Route::group('view', function(){
 });
 
 
+// 轮播图
+Route::group('view', function(){
+    Route::rule('customer_service_index', 'View/customerServiceIndex', 'GET');
+    Route::rule('customer_service_save', 'View/customerServiceSave', 'GET');
+    Route::rule('customer_service_update', 'View/customerServiceUpdate', 'GET');
+});
+
+
 
 
 

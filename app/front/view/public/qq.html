@@ -8,91 +8,28 @@
     <div id="divFloatToolsView" class="floatR">
         <div class="tp"></div>
         <div class="cn">
-            <ul>
-
+            <ul id="customerServiceList">
                 <li><span class="icoZx">在线咨询</span> </li>
-                <div id="Service_ServiceBox" class=""></div>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=2850153439'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>广州业务1</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=2850153392'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>广州业务2</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=2853576360'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>番禺业务</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=2850153409'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>花都业务</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=3004643903'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>佛山业务</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=2850153427'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>深圳业务1</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=2850153423'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>深圳业务2</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=2850153410'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>华强北业务</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=2850153404'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>坂田业务</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=3002847061'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>俄罗斯海外仓</span>
-                    </a>
-                </li>
-                <li>
-                    <a target="blank"
-                        href="http://wpa.qq.com/msgrd?V=1'uin=2853576368'Exe=QQ'Site=www.gdwse.com'Menu=yes">
-                        <img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">
-                        <span>客户投诉建议</span>
-                    </a>
-                </li>
+                
             </ul>
             <ul>
                 <li> <span id="Service_lblHotLine" class="">020-86254345转801</span> </li>
             </ul>
         </div>
+        <script>
+            // 获取客服列表
+            let customerServiceList = ajax_list('/customer_service/list');
+            // console.log(customerServiceList);
+            var html = '';
+            $.each(customerServiceList, function (key, value) {
+                html += '<li>';
+                html += '<a target="blank" href="https://wpa.qq.com/msgrd?v=3&uin='+value['qq']+'&site=qq&menu=yes&jumpflag=1">';
+                html += '<img src="__FRONT__/images/pa.gif" alt="Online" hspace="2" border="0" align="absmiddle">';
+                html += '<span>'+value['name']+'</span>';
+                html += '</a>';
+                html += '</li>';
+            });
+            $('#customerServiceList').append(html);
+        </script>
     </div>
 </div>

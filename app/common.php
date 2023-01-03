@@ -64,7 +64,7 @@ function success($data = null, int $code = 200, int $HttpStatus = 200, string $m
         $resultData['msg']  = $data;
         $resultData['data'] = null;
     }
-
+    
     // 有分页
     if (isset($data['current_page'])) {
         $resultData['code']  = 0;

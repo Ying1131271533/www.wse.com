@@ -30,7 +30,7 @@ abstract class BaseException extends Exception
         }
 
         if (array_key_exists('status', $params)) {
-            $this->status = $params['status'];
+            $this->httpStatus = $params['status'];
         }
 
         if (array_key_exists('data', $params)) {

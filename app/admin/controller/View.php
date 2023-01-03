@@ -234,6 +234,24 @@ class View
         return FacadeView::fetch('slides/update');
     }
 	
+
+	/************************ 客服 ************************/
+	
+    public function CustomerServiceIndex()
+    {
+        return FacadeView::fetch('customer_service/index');
+    }
+    
+    public function CustomerServiceSave()
+    {
+        return FacadeView::fetch('customer_service/save');
+    }
+
+    public function CustomerServiceUpdate()
+    {
+        return FacadeView::fetch('customer_service/update');
+    }
+	
 }
 
 

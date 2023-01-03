@@ -91,7 +91,8 @@ class Admin
         $where                                       = [];
         !empty($data['idReload']) and $where[]       = ['id', '=', $data['idReload']];
         !empty($data['usernameReload']) and $where[] = ['username', 'like', "%{$data['usernameReload']}%"];
-        return $this->adminModel->getAdminList($where, $data['page'], $data['limit']);
+        // return AdminModel::getAdminList($where, $data['page'], $data['limit']);
+        return AdminModel::getPageList($data['page'], $data['limit'], $where, ['password', 'password_salt', 'last_login_token'], ['id' => 'asc']);
     }
 
     public function save($data)

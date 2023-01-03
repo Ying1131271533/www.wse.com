@@ -1,9 +1,9 @@
 <?php
 namespace app\admin\controller;
 
-use app\admin\logic\Category as CategoryLogic;
+use app\admin\logic\CustomerService as CustomerServiceLogic;
 use app\common\lib\exception\Miss;
-use app\common\model\Category as CategoryModel;
+use app\common\model\CustomerService as CustomerServiceModel;
 use app\Request;
 
 class CustomerService
@@ -11,33 +11,33 @@ class CustomerService
     public function save(Request $request)
     {
         $params = $request->params;
-        $category = CategoryLogic::saveCategory($params);
-        return success($category);
+        $CustomerService = CustomerServiceLogic::saveCustomerService($params);
+        return success($CustomerService);
     }
 
     public function index()
     {
-        $categoryList = CategoryLogic::getCategoryList();
-        return success($categoryList);
+        $CustomerServiceList = CustomerServiceLogic::getCustomerServiceList();
+        return success($CustomerServiceList);
     }
 
     public function read(int $id)
     {
-        $category = CategoryModel::find($id);
-        if(empty($category)) throw new Miss();
-        return success($category);
+        $CustomerService = CustomerServiceModel::find($id);
+        if(empty($CustomerService)) throw new Miss();
+        return success($CustomerService);
     }
 
     public function update(Request $request)
     {
         $params = $request->params;
-        $category = CategoryLogic::saveCategory($params);
-        return success($category);
+        $CustomerService = CustomerServiceLogic::saveCustomerService($params);
+        return success($CustomerService);
     }
 
     public function delete(int $id)
     {
-        CategoryLogic::deleteCategory($id);
+        CustomerServiceLogic::deleteCustomerService($id);
         return success('删除成功');
     }
 }

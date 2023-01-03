@@ -210,8 +210,11 @@ name char(25) 客服名称
 real_name char(15) null 客服真实姓名
 qq bigint(15) QQ号码
 wechat char(50) null 微信
-phont char(20) null 手机号码
+phone char(20) null 手机号码
 description char(255) null 客服描述
+sort int 0 排序
+status tinyint(1) 状态：0 禁止 1 正常
+create_time int 创建时间
 
 
 

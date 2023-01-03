@@ -64,8 +64,8 @@ class CheckParams
                 $resultParams    = $validate->getDateByRule($params);
                 $request->params = $resultParams;
                 // 分页参数
-                $request->page = $request->param('?page') ? $request->param('page') : config('app.page');
-                $request->limit = $request->param('?limit') ? $request->param('limit') : config('app.limit');
+                $request->page = $request->has('page') ? $request->param('page') : config('app.page');
+                $request->limit = $request->has('limit') ? $request->param('limit') : config('app.limit');
             }
         } /* else{
     $request->params = $params;

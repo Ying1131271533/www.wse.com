@@ -20,16 +20,20 @@ class Article extends BaseValidate
         'status|状态'            => 'require|number',
 
         // 条件
-        'idReload|ID'                => 'number|gt:0',
-        'titleReload|文章标题'         => 'max:80',
+        'idReload|ID'          => 'number|gt:0',
+        'titleReload|文章标题'     => 'max:80',
 
+        // 分页
+        'page|页码'              => 'number|gt:0',
+        'limit|条数'             => 'number|gt:0',
     ];
 
     // 验证场景
     protected $scene = [
-        'index' => ['page', 'limit', 'idReload', 'titleReload'],
-        'read'   => ['id'],
-        'save'   => [
+        // admin
+        'index'          => ['page', 'limit', 'idReload', 'titleReload'],
+        'read'           => ['id'],
+        'save'           => [
             'article_cate_id',
             'title',
             'author',
@@ -40,7 +44,7 @@ class Article extends BaseValidate
             'sort',
             'status',
         ],
-        'update' => [
+        'update'         => [
             'id',
             'article_cate_id',
             'title',
@@ -52,6 +56,9 @@ class Article extends BaseValidate
             'sort',
             'status',
         ],
-        'delete' => ['id'],
+        'delete'         => ['id'],
+
+        // api
+        'getArticleList' => ['page', 'limit'],
     ];
 }
