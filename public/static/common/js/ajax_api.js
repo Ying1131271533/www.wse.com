@@ -297,10 +297,13 @@ function get_input_value() {
 }
 
 function assign(data) {
+    for(let key in data){
+        
+    }
     $.each(data, function (key, value) {
-        console.log('#'.key);
-        if($('#'.key).length > 0){
-            $('#'.key).text(value);
+        console.log('#assign-'.key);
+        if($('#assign-'.key).length > 0){
+            $('#assign-'.key).text(value);
         }
     });
 }
