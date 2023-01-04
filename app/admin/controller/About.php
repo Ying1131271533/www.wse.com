@@ -30,7 +30,7 @@ class About
         $params['page']  = $request->page;
         $params['limit'] = $request->limit;
         $adminList       = AboutLogic::getAboutList($params);
-        return success($adminList);
+        return layui($adminList);
     }
 
     public function update(Request $request)

@@ -30,7 +30,7 @@ class News
         $params['page']  = $request->page;
         $params['limit'] = $request->limit;
         $adminList       = NewsLogic::getNewsList($params);
-        return success($adminList);
+        return layui($adminList);
     }
 
     public function update(Request $request)

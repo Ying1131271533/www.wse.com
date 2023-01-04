@@ -79,81 +79,47 @@ function ajax_field_value(id, field, value, db) {
 }
 
 
-/**
- * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
- * @author: 神织知更
- * @time: 2022/04/06 15:57
- *
- * 表单的input分配值
- *
- * @param  obj      data    数据
- */
-function input_assign_value(data = null) {
-    for (let key in data) {
-        var length = $('#' + key).length;
-        if (length > 0) {
-            if ($('#' + key).is("input")) {
-                $('#' + key).val(data[key]);
-                var type = $('#' + key).attr('type');
-                if (type == 'radio' && key == 'status') {
-                    $('input[name="status"][value="' + data[key] + '"]').attr('checked', true);
-                }
-            }
-            if ($('#' + key).is("select")) {
-
-            }
-            if ($('#' + key).is("textarea")) {
-
-            }
-        };
-    }
-
-}
-
-// 获取表单值
-function get_input_value() {
-    let data = {};
-    $('.input-value').each(function (index, element) {
-        var name = $(this).attr('name');
-        var title = $(this).attr('title');
-        var val = $(this).val();
-        if (!val) {
-            layer.msg(title + '不能为空', { icon: 2, tiem: 500 });
-            success = false;
-            return false;
-        }
-        data[name] = val;
-    });
-    return data;
-}
-
-
 
 // 读取单条数据
 function ajax_read(url, is_token = false) {
     // url后传递的参数
-    var id = getParams()['id'];
+    // var id = getParams()['id'];
+    var id = get_url_id();
     let is_toekn = is_token;
     let data = null;
 
-    $.ajax({
-        type: "GET",
-        contentType: "application/x-www-form-urlencoded",
-        url: 'http://api.wse.com' + url + '/' + id,
-        async: false, // 关闭异步
-        beforeSend: function (request) {
-            if (is_toekn) {
+    if(is_token){
+        $.ajax({
+            type: "GET",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'http://api.wse.com' + url + '/' + id,
+            async: false, // 关闭异步
+            beforeSend: function (request) {
                 request.setRequestHeader("access-token", getApiToken());
+            },
+            success: function (res) {
+                if (res.code !== config('success')) {
+                    layer.msg(res.msg);
+                    return false;
+                }
+                data = res.data;
             }
-        },
-        success: function (res) {
-            if (res.code !== config('success')) {
-                layer.msg(res.msg);
-                return false;
+        });
+    }else{
+        $.ajax({
+            type: "GET",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'http://api.wse.com' + url + '/' + id,
+            async: false, // 关闭异步
+            success: function (res) {
+                if (res.code !== config('success')) {
+                    layer.msg(res.msg);
+                    return false;
+                }
+                data = res.data;
             }
-            data = res.data;
-        }
-    });
+        });
+    }
 
     // 返回数据
     return data;
@@ -209,24 +175,38 @@ function ajax_save(url, data, back_url = null, is_token = false) {
 function ajax_list(url, is_token = false) {
     let is_toekn = is_token;
     let data = null;
-    $.ajax({
-        type: "GET",
-        contentType: "application/x-www-form-urlencoded",
-        url: 'http://api.wse.com' + url,
-        async: false, // 关闭异步
-        beforeSend: function (request) {;
-            if (is_toekn) {
+    if(is_token){
+        $.ajax({
+            type: "GET",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'http://api.wse.com' + url,
+            async: false, // 关闭异步
+            beforeSend: function (request) {;
                 request.setRequestHeader("access-token", getApiToken());
+            },
+            success: function (res) {
+                if (res.code !== config('success')) {
+                    layer.msg(res.msg);
+                    return false;
+                }
+                data = res.data;
             }
-        },
-        success: function (res) {
-            if (res.code !== config('success')) {
-                layer.msg(res.msg);
-                return false;
+        });
+    }else{
+        $.ajax({
+            type: "GET",
+            contentType: "application/x-www-form-urlencoded",
+            url: 'http://api.wse.com' + url,
+            async: false, // 关闭异步
+            success: function (res) {
+                if (res.code !== config('success')) {
+                    layer.msg(res.msg);
+                    return false;
+                }
+                data = res.data;
             }
-            data = res.data;
-        }
-    });
+        });
+    }
 
     // 返回数据
     return data;
@@ -265,13 +245,62 @@ function ajax_delete(url) {
     return result;
 }
 
-// 获取地址的id
-function get_url_id() {
 
-    var id = location.href.match(/\d+/g)[0];
-    if (empty(id)) {
-        layer.msg('地址参数出错！，请刷新页面', { icon: 2 });
-        return false;
+
+
+/**
+ * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
+ * @author: 神织知更
+ * @time: 2022/04/06 15:57
+ *
+ * 表单的input分配值
+ *
+ * @param  obj      data    数据
+ */
+function input_assign_value(data = null) {
+    for (let key in data) {
+        var length = $('#' + key).length;
+        if (length > 0) {
+            if ($('#' + key).is("input")) {
+                $('#' + key).val(data[key]);
+                var type = $('#' + key).attr('type');
+                if (type == 'radio' && key == 'status') {
+                    $('input[name="status"][value="' + data[key] + '"]').attr('checked', true);
+                }
+            }
+            if ($('#' + key).is("select")) {
+
+            }
+            if ($('#' + key).is("textarea")) {
+
+            }
+        };
     }
-    return id;
+
+}
+
+// 获取表单值
+function get_input_value() {
+    let data = {};
+    $('.input-value').each(function (index, element) {
+        var name = $(this).attr('name');
+        var title = $(this).attr('title');
+        var val = $(this).val();
+        if (!val) {
+            layer.msg(title + '不能为空', { icon: 2, tiem: 500 });
+            success = false;
+            return false;
+        }
+        data[name] = val;
+    });
+    return data;
+}
+
+function assign(data) {
+    $.each(data, function (key, value) {
+        console.log('#'.key);
+        if($('#'.key).length > 0){
+            $('#'.key).text(value);
+        }
+    });
 }

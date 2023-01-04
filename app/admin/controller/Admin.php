@@ -47,7 +47,7 @@ class Admin extends BaseController
         $params['page']  = $this->request->page;
         $params['limit'] = $this->request->limit;
         $adminList       = $this->logic->getAdminList($params);
-        return success($adminList);
+        return layui($adminList);
     }
 
     // 单条

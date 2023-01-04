@@ -64,6 +64,41 @@ function success($data = null, int $code = 200, int $HttpStatus = 200, string $m
         $resultData['msg']  = $data;
         $resultData['data'] = null;
     }
+
+    // 有分页
+    if (isset($data['current_page'])) {
+        $resultData['total'] = $data['total'];
+        $resultData['data']  = $data['data'];
+    }
+    
+    // 返回数据
+    // echo json($resultData, $code);exit;
+    return json($resultData, $HttpStatus);
+}
+
+/**
+ * 返回成功的api接口数据
+ *
+ * @param  array|string     $data           返回的数据
+ * @param  int              $code           程序状态码
+ * @param  int              $HttpStatus     http状态码
+ * @param  string           $msg            描述信息
+ * @return json                             api返回的json数据
+ */
+function layui($data = null, int $code = 200, int $HttpStatus = 200, string $msg = '成功')
+{
+    // 组装数据
+    $resultData = [
+        'code' => $code,
+        'msg'  => $msg,
+        'data' => $data,
+    ];
+
+    // 如果$data是字符串
+    if (is_string($data)) {
+        $resultData['msg']  = $data;
+        $resultData['data'] = null;
+    }
     
     // 有分页
     if (isset($data['current_page'])) {

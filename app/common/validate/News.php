@@ -53,5 +53,6 @@ class News extends BaseValidate
             'status',
         ],
         'delete' => ['id'],
+        'getNewsList' => ['page', 'limit'],
     ];
 }

@@ -27,11 +27,11 @@ class IsLogin extends BaseController
         }
 
         // 找到用户
-        $user = AdminModel::cache(cache_time())->find($user['id']);
-        if(empty($user)){
+        $user = AdminModel::cache('admin:' . $user['id'], cache_time())->find($user['id']);
+        if (empty($user)) {
             Token::deleteToken();
             throw new Forbidden('该用户已被删除');
-        }else if($user['status'] == 0){
+        } else if ($user['status'] == 0) {
             Token::deleteToken();
             throw new Forbidden('该用户被禁止登录');
         }

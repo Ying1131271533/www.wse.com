@@ -2,6 +2,7 @@
 namespace app\common\execption;
 
 use app\common\lib\exception\BaseException;
+use app\Request;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
 use think\exception\Handle;

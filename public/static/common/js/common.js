@@ -20,9 +20,27 @@ function time() {
     return tmp;
 }
 
-// php的empty()函数
-function empty(str) {
-    return typeof (str) === "undefined" || str == null || str === "" || str === "NaN";
+// 模仿php的empty()函数
+function empty(val) {
+    // 如果是数组
+    if (val instanceof Array === true) {
+        if($(val).length < 1){
+            return true
+        }
+        return false;
+    }
+    // 如果是对象
+    else if (val instanceof Object === true) {
+        if($.isEmptyObject(val)){
+        // if(JSON.stringify(data) == "{}"){
+            return true
+        }
+        return false;
+    }
+    else{
+        return typeof (val) === "undefined" || val == null || val === "" || val === "NaN";
+    }
+    
 }
 
 function arrayDuplicate(a, b) {
@@ -63,7 +81,7 @@ function timeToTimeStamp($time) {
 }
 
 // 时间戳转换成日期
-function timestampToTime(timestamp) {
+function timestampToTime(timestamp, is_date = false) {
     if (empty(timestamp)) {
         return "缺失时间";
     }
@@ -76,7 +94,8 @@ function timestampToTime(timestamp) {
     let H = date.getHours() + ':';
     let m = (date.getMinutes() < 10 ? '0' + (date.getMinutes()) : date.getMinutes()) + ':';
     let s = (date.getSeconds() < 10 ? '0' + (date.getSeconds()) : date.getSeconds());
-    return Y + M + D + H + m + s;
+    let result = is_date === false ? Y + M + D + H + m + s : Y + M + D;
+    return result;
 }
 
 // 读取配置
@@ -342,3 +361,15 @@ var HtmlUtil = {
     }
 
 };
+
+
+// 获取地址的id
+function get_url_id() {
+
+    var id = location.href.match(/\d+/g)[0];
+    if (empty(id)) {
+        layer.msg('地址参数出错！，请刷新页面', { icon: 2 });
+        return false;
+    }
+    return id;
+}

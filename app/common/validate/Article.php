@@ -60,5 +60,6 @@ class Article extends BaseValidate
 
         // api
         'getArticleList' => ['page', 'limit'],
+        'getBasicInfo'   => ['id'],
     ];
 }

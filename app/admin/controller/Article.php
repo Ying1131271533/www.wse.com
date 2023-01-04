@@ -30,7 +30,7 @@ class Article
         $params['page']  = $request->page;
         $params['limit'] = $request->limit;
         $adminList       = ArticleLogic::getArticleList($params);
-        return success($adminList);
+        return layui($adminList);
     }
 
     public function update(Request $request)

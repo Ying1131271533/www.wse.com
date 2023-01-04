@@ -22,8 +22,8 @@ return [
             // 库
             'select'   => 1,
             // 缓存有效期 0表示永久缓存
-            'expire'   => null,
-            // 'expire'   => cache_time('one_month'),
+            // 'expire'   => null,
+            'expire'   => cache_time('one_month'),
         ],
     ],
 ];

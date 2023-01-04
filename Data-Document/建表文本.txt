@@ -108,7 +108,7 @@ delete_time int null 删除时间
 article_desc - 文章内容
 
 id int id
-content text 内容
+content mediumtext 内容
 delete_time int null 删除时间
 article_id int id
 
@@ -146,7 +146,7 @@ delete_time int null 删除时间
 news_desc - 新闻内容
 
 id int id
-content text 内容
+content mediumtext 内容
 delete_time int null 删除时间
 article_id int id
 
@@ -182,7 +182,7 @@ about_cate_id int 分类id
 about_desc - 关于我们内容
 
 id int id
-content text 内容
+content mediumtext 内容
 delete_time int null 删除时间
 about_id int id
 

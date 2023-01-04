@@ -30,7 +30,7 @@ class Slides
         $params['page']  = $request->page;
         $params['limit'] = $request->limit;
         $adminList       = SlidesLogic::getSlidesList($params);
-        return success($adminList);
+        return layui($adminList);
     }
 
     public function update(Request $request)

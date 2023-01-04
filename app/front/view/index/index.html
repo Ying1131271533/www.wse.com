@@ -95,44 +95,27 @@
           <div id="News1" class="">
             <div class="newstielte">跨境咨询 </div>
             <ul>
-              <li><a href="http://www.gdwse.com/products/2959.html" title="侵权预警！亚马逊沙龙排行榜NO.1，留评4000＋神器被起诉">
-                  <div class="nc-right">侵权预警！亚马逊沙龙排行榜NO.1，留评4000＋神器被起诉</div>
-                  <div class="nc-left">
-                    <p>2021-05-31</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2958.html" title="亚马逊监管再升级，大卖新玩法已在路上……">
-                  <div class="nc-right">亚马逊监管再升级，大卖新玩法已在路上……</div>
-                  <div class="nc-left">
-                    <p>2021-05-31</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2957.html" title="亚马逊等多平台紧急下架，又一五星级爆款凉了！">
-                  <div class="nc-right">亚马逊等多平台紧急下架，又一五星级爆款凉了！</div>
-                  <div class="nc-left">
-                    <p>2021-05-31</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2953.html" title="突发！亚马逊又宕机了，大批卖家订单暴跌……">
-                  <div class="nc-right">突发！亚马逊又宕机了，大批卖家订单暴跌……</div>
-                  <div class="nc-left">
-                    <p>2021-03-11</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2952.html" title="实锤！这一测评渠道被亚马逊官宣停用">
-                  <div class="nc-right">实锤！这一测评渠道被亚马逊官宣停用</div>
-                  <div class="nc-left">
-                    <p>2021-03-11</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2951.html" title="划重点！消费者在线购物有这些需求......">
-                  <div class="nc-right">划重点！消费者在线购物有这些需求......</div>
-                  <div class="nc-left">
-                    <p>2021-03-11</p>
-                  </div>
-                </a></li>
-            </ul> <a class="showhide" href="http://www.gdwse.com/products/category-1.html">查看全部&gt;&gt;</a>
+            </ul>
+            <a class="showhide" href="http://www.gdwse.com/products/category-1.html">查看全部&gt;&gt;</a>
           </div>
+          
+          <script>
+            // 获取跨境咨询列表
+            let articleList = ajax_list('/article/list?page=1&limit=6');
+            // console.log(articleList);
+            var html = '';
+            $.each(articleList, function (key, value) {
+                html += '<li>';
+                html += '<a href="http://www.wse.com/article/'+value['id']+'" title="'+value['title']+'">';
+                html += '<div class="nc-right">'+value['title']+'</div>';
+                html += '<div class="nc-left">';
+                html += '<p>'+timestampToTime(value['create_time'], true)+'</p>';
+                html += '</div>';
+                html += '</a>';
+                html += '</li>';
+            });
+            $('#News1 ul').append(html);
+        </script>
         </div>
         <div class="div_middle">
           <img src="__FRONT__/images/wse_middle.jpg">
@@ -142,44 +125,26 @@
           <div id="News2" class="">
             <div class="newstielte">公司新闻 </div>
             <ul>
-              <li><a href="http://www.gdwse.com/products/2962.html" title="又“撒钱”了！拜登提6万亿美元计划……">
-                  <div class="nc-right">又“撒钱”了！拜登提6万亿美元计划……</div>
-                  <div class="nc-left">
-                    <p>2021-05-31</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2961.html" title="外媒：Prime Day日期已经确定！">
-                  <div class="nc-right">外媒：Prime Day日期已经确定！</div>
-                  <div class="nc-left">
-                    <p>2021-05-31</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2960.html" title="大批卖家清仓甩货，亚马逊新推库存清算计划">
-                  <div class="nc-right">大批卖家清仓甩货，亚马逊新推库存清算计划</div>
-                  <div class="nc-left">
-                    <p>2021-05-31</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2956.html" title="订单挂0有救了！美国$1400救济金将到账">
-                  <div class="nc-right">订单挂0有救了！美国$1400救济金将到账</div>
-                  <div class="nc-left">
-                    <p>2021-03-11</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2955.html" title="警惕！多个品牌侵权被查，已有卖家中招">
-                  <div class="nc-right">警惕！多个品牌侵权被查，已有卖家中招</div>
-                  <div class="nc-left">
-                    <p>2021-03-11</p>
-                  </div>
-                </a></li>
-              <li><a href="http://www.gdwse.com/products/2954.html" title="日销1000，亚马逊的退货“盲盒”在TikTok上火了！">
-                  <div class="nc-right">日销1000，亚马逊的退货“盲盒”在TikTok上火了！</div>
-                  <div class="nc-left">
-                    <p>2021-03-11</p>
-                  </div>
-                </a></li>
-            </ul> <a class="showhide" href="http://www.gdwse.com/products/category-2.html">查看全部&gt;&gt;</a>
+            </ul>
+            <a class="showhide" href="http://www.gdwse.com/products/category-2.html">查看全部&gt;&gt;</a>
           </div>
+          <script>
+            // 获取跨境咨询列表
+            let newsList = ajax_list('/news/list?page=1&limit=6');
+            // console.log(newsList);
+            var html = '';
+            $.each(newsList, function (key, value) {
+                html += '<li>';
+                html += '<a href="http://www.wse.com/news/'+value['id']+'" title="'+value['title']+'">';
+                html += '<div class="nc-right">'+value['title']+'</div>';
+                html += '<div class="nc-left">';
+                html += '<p>'+timestampToTime(value['create_time'], true)+'</p>';
+                html += '</div>';
+                html += '</a>';
+                html += '</li>';
+            });
+            $('#News2 ul').append(html);
+        </script>
         </div>
       </div>
       <div class="news-center1">
@@ -246,24 +211,6 @@
               </div>
             </div>
           </div>
-          <script>
-            // 获取跨境咨询列表
-            let articleList = ajax_list('/article/list?page=1&limit=6');
-            // console.log(articleList);
-            // alert(articleList);
-            var html = '';
-            $.each(articleList, function (key, value) {
-                html += '<li>';
-                html += '<a href="http://www.wse.com/article/'+value['id']+'" title="'+value['title']+'">';
-                html += '<div class="nc-right">'+value['title']+'</div>';
-                html += '<div class="nc-left">';
-                html += '<p>'+timestampToTime(value['create_time'])+'</p>';
-                html += '</div>';
-                html += '</a>';
-                html += '</li>';
-            });
-            $('#News3 ul').append(html);
-        </script>
         </div>
         <script type="text/javascript">
           function nTabs(thisObj, Num) {

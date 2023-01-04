@@ -34,8 +34,8 @@ return [
             // 端口
             'port'     => config('app.redis.port'),
             // 过期时间
-            'expire'   => null,
-            // 'expire'   => cache_time('one_week'),
+            // 'expire'   => null,
+            'expire'   => cache_time('one_month'),
         ],
         // memcahce
         'memcache' => [
