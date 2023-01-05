@@ -16,7 +16,7 @@ abstract class BaseException extends Exception
             $this->msg = $params;
             return;
         }
-
+        
         if (!is_array($params) || empty($params)) {
             return;
         }

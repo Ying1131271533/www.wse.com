@@ -12,7 +12,7 @@ class CustomerService
         $customerServiceList = CustomerServiceModel::withoutField(['real_name'])
         ->where(['status' => 1])
         ->order(['sort' => 'asc', 'id' => 'asc'])
-        ->cache('web:customer_service_list', cache_time())
+        ->cache('api:customer_service_list', cache_time())
         ->select()
         ->toArray();
         if(empty($customerServiceList)) throw new Miss();

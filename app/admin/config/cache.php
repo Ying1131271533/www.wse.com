@@ -20,7 +20,8 @@ return [
             // 端口
             'port'     => config('app.redis.port'),
             // 库
-            'select'   => 2,
+            'select'   => 0,
+            // 'select'   => 2,
             // 缓存有效期 0表示永久缓存
             'expire'   => 0,
         ],

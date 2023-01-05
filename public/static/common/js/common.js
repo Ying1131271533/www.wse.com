@@ -24,23 +24,23 @@ function time() {
 function empty(val) {
     // 如果是数组
     if (val instanceof Array === true) {
-        if($(val).length < 1){
+        if ($(val).length < 1) {
             return true
         }
         return false;
     }
     // 如果是对象
     else if (val instanceof Object === true) {
-        if($.isEmptyObject(val)){
-        // if(JSON.stringify(data) == "{}"){
+        if ($.isEmptyObject(val)) {
+            // if(JSON.stringify(data) == "{}"){
             return true
         }
         return false;
     }
-    else{
+    else {
         return typeof (val) === "undefined" || val == null || val === "" || val === "NaN";
     }
-    
+
 }
 
 function arrayDuplicate(a, b) {
@@ -299,7 +299,7 @@ function get_input_value() {
         var title = $(this).attr('title');
         var val = $(this).val();
         if (!val) {
-            layer.msg(title + '不能为空', { icon: 2, tiem: 500});
+            layer.msg(title + '不能为空', { icon: 2, tiem: 500 });
             success = false;
             return false;
         }
@@ -312,14 +312,14 @@ function open_img(obj) {
 
     // 获取图片路径
     var src = $(obj).attr("src");
-    
+
     // 获取图片的真实宽高
     $('<img/>').attr("src", src).on('load', function () {
 
         // 设置图片的宽度不能超过1280px
         var width = this.width > 1280 ? 1280 : this.width;
         var height = this.height;
-        var html = '<img src="'+src+'" width="'+width+'" />';
+        var html = '<img src="' + src + '" width="' + width + '" />';
 
         // 页面层-佟丽娅
         layer.open({
@@ -337,11 +337,11 @@ function open_img(obj) {
 // Layui 中的富文本编辑器中遇到的html代码没有转换的解决方案
 var HtmlUtil = {
     /*1.用浏览器内部转换器实现html转码*/
-    htmlEncode:function (html){
+    htmlEncode: function (html) {
         //1.首先动态创建一个容器标签元素，如DIV
-        var temp = document.createElement ("div");
+        var temp = document.createElement("div");
         //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
-        (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+        (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html);
         //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
         var output = temp.innerHTML;
         temp = null;
@@ -349,7 +349,7 @@ var HtmlUtil = {
     },
 
     /*2.用浏览器内部转换器实现html解码*/
-    htmlDecode:function (text){
+    htmlDecode: function (text) {
         //1.首先动态创建一个容器标签元素，如DIV
         var temp = document.createElement("div");
         //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
@@ -372,4 +372,26 @@ function get_url_id() {
         return false;
     }
     return id;
+}
+
+/**
+ * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
+ * @author: 神织知更
+ * @time: 2022/03/31 21:56
+ *
+ * 递归找子级数据
+ *
+ * @param  array    data            二维数组
+ * @param  int      parent_id       父级id
+ * @return array                    返回处理好的数组
+ */
+function get_child(array = [], parent_id = 0) {
+    var tmp = {};
+    for (let value of array) {
+        if (value['parent_id'] == parent_id) {
+            value['children'] = get_child(array, value['id']);
+            tmp.push = value;
+        }
+    }
+    return tmp;
 }

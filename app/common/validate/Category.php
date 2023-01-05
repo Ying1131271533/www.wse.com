@@ -47,5 +47,7 @@ class Category extends BaseValidate
             'status',
         ],
         'delete' => ['id'],
+
+        // api
     ];
 }

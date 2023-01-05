@@ -3,36 +3,19 @@
         width: 100%;
         height: 400px;
     }
+
     .layui-carousel-ind li.layui-this {
         background-color: #0f9f57;
     }
 </style>
 <div id="Banner" class="div_banner_h">
     <div class="layui-carousel" id="test1">
-        <div carousel-item>
-            <div><a href="/"><img src="__FRONT__/images/2017110814393636182277.jpg"></a></div>
-            <div><a href="/"><img src="__FRONT__/images/2017110814393005958357.jpg"></a></div>
-            <div><a href="/"><img src="__FRONT__/images/2017110814392340314781.jpg"></a></div>
-            <div><a href="/"><img src="__FRONT__/images/2017110814390113687391.jpg"></a></div>
-            <div><a href="/"><img src="__FRONT__/images/2017110814385065122131.jpg"></a></div>
-            <div><a href="/"><img src="__FRONT__/images/2017110814391309955761.jpg"></a></div>
+        <div carousel-item id="assign-slides">
         </div>
     </div>
 </div>
 
-<script>
-    layui.use('carousel', function () {
-        var carousel = layui.carousel;
-        //建造实例
-        carousel.render({
-            elem: '#test1'
-            , width: '100%' //设置容器宽度
-            , height: '100%' //设置容器高度
-            //,arrow: 'always' // 始终显示箭头
-            //,anim: 'updown' // 切换动画方式
-        });
-    });
-</script>
+
 
 <script src="__FRONT__/js/slick.js"></script>
 <script>

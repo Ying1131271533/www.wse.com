@@ -39,5 +39,6 @@ class Slides extends BaseValidate
             'image',
         ],
         'delete' => ['id'],
+        'getSlidesList' => ['category_id'],
     ];
 }

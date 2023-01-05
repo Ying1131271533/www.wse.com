@@ -43,7 +43,6 @@
             <div class="row">
               <!-- 文章内容 -->
               <div class="pageContent col-xs-12" id="assign-content">
-                
               </div>
             </div>
           </div>
@@ -56,9 +55,13 @@
 <script>
   let article = ajax_read('/article/info');
   console.log(article);
-  article.content = HtmlUtil.htmlDecode(article.desc.content);
-  assign(article);
+  $('#assign-title').text(article.title);
+  $('#assign-content').html(HtmlUtil.htmlDecode(article.desc.content));
+
+  // 轮播图
+  slides(11);
 </script>
+
 
 <!--中间内容 结束-->
 {/block}

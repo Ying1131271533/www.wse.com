@@ -11,6 +11,10 @@ return [
     'avtive_pre'   => 'avtive_account_pre:',
     // 前缀 登录Token
     'token_pre'    => 'access_token_pre:',
+    // 前缀 登录Token admin
+    'token_admin'    => 'access_token_admin:',
+    // 前缀 登录Token api
+    'token_api'    => 'access_token_api:',
     // 登录Token持续时间(一天)
     'token_expire' => 24 * 3600,
     // 前缀 登录验证码
