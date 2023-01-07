@@ -19,8 +19,10 @@
 
 		// 获取数据
 		let data = ajax_list('/category');
-		console.log(data);
-		// return false;
+		// console.log(data);
+		// 递归找子级数据
+		data = get_chlidren(data);
+		// console.log(data);
 
 		// 树形菜单
 		tree.render({

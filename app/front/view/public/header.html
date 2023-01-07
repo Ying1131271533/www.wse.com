@@ -67,6 +67,8 @@
                 <script>
                     // 获取跨境咨询列表
                     let categoryList = ajax_list('/category/list');
+                    // 递归找子级数据
+                    categoryList = get_chlidren(categoryList);
                     // console.log(categoryList);
                     var html = '';
                     $.each(categoryList, function (key, value) {

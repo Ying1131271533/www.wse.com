@@ -246,7 +246,9 @@ class Redis extends Driver
         return $this->handler->sMembers($key);
     }
 
-    // 红叶的添加字段
+
+    /* 下面是红叶添加的函数 */
+
     public function rawCommand($command, $arguments){
         return $this -> handler -> rawCommand($command, $arguments);
     }
@@ -267,5 +269,11 @@ class Redis extends Driver
     public function discard()
     {
         return $this->handler->discard();
+    }
+
+    // 事务删除
+    public function drdelete($key)
+    {
+        return $this->handler->del($key);
     }
 }

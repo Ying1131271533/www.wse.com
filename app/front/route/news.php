@@ -4,7 +4,7 @@ use think\facade\Route;
 
 Route::group('news', function(){
     // 公司新闻列表
-    Route::rule('', 'Article/news', 'GET');
+    Route::rule('', 'News/index', 'GET');
     // 新闻详情
-    Route::rule(':id', 'Article/newsDetail', 'GET')->pattern(['id' => '\d+']);
+    Route::rule(':id', 'News/detail', 'GET')->pattern(['id' => '\d+']);
 });

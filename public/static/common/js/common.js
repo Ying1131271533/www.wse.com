@@ -365,7 +365,7 @@ var HtmlUtil = {
 
 // 获取地址的id
 function get_url_id() {
-
+    // 正则匹配地址栏最后的数字
     var id = location.href.match(/\d+/g)[0];
     if (empty(id)) {
         layer.msg('地址参数出错！，请刷新页面', { icon: 2 });
@@ -381,16 +381,16 @@ function get_url_id() {
  *
  * 递归找子级数据
  *
- * @param  array    data            二维数组
+ * @param  array    data            数据
  * @param  int      parent_id       父级id
  * @return array                    返回处理好的数组
  */
-function get_child(array = [], parent_id = 0) {
-    var tmp = {};
-    for (let value of array) {
+function get_chlidren(data = [], parent_id = 0) {
+    var tmp = [];
+    for (let value of data) {
         if (value['parent_id'] == parent_id) {
-            value['children'] = get_child(array, value['id']);
-            tmp.push = value;
+            value['children'] = get_chlidren(data, value['id']);
+            tmp.push(value);
         }
     }
     return tmp;

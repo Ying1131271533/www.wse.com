@@ -1,0 +1,67 @@
+{extend name="public/base" /}
+{block name="title"}新闻详情{/block}
+{block name="load"}
+<!-- css -->
+<style>
+  .div_dtean h4 {
+    font-size: 24px;
+  }
+</style>
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+
+<!-- 中间内容开始 -->
+
+<div class="container">
+  <div class="content">
+    <div class="row">
+
+      <!-- 左边的导航 -->
+      {include file="public/article_left" /}
+      <script>
+        $(".divrightLit ul")
+          .children()
+          .eq(0)
+          .find("a")
+          .addClass("hover_1");
+      </script>
+
+
+      <!--内容-->
+      <div class="div_dtean">
+        <div id="ctl00_cphMain_Product" class="">
+          <div class="product_3">
+            <h4 class="text-center">
+              <strong id="assign-title"></strong>
+            </h4>
+            <div class="dashed-line"></div>
+            <p class="text-center"></p>
+            <div id="owl-demo"></div>
+            <p></p>
+            <div class="row">
+              <!-- 新闻内容 -->
+              <div class="pageContent col-xs-12" id="assign-content">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let news = ajax_read('/news/info');
+  console.log(news);
+  $('#assign-title').text(news.title);
+  $('#assign-content').html(HtmlUtil.htmlDecode(news.desc.content));
+
+  // 轮播图
+  slides(11);
+</script>
+
+
+<!--中间内容 结束-->
+{/block}

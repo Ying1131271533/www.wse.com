@@ -20,6 +20,7 @@ class Article
             }
         }
 
+        // redis实例化
         $redis = new Redis();
 
         // 启动事务
@@ -82,6 +83,7 @@ class Article
             throw new Miss();
         }
 
+        // redis实例化
         $redis = new Redis();
 
         // 开启事务
@@ -98,9 +100,11 @@ class Article
             }
 
             // 删除api那边的缓存
-            $redis->drdelete('article:' . $id . ':info');
-            $redis->drdelete('article:' . $id . ':cate');
-            $redis->drdelete('article:' . $id . ':desc');
+            $redis->drclearTag([
+                'article:' . $id . ':info',
+                'article:' . $id . ':cate',
+                'article:' . $id . ':desc',
+            ]);
 
             $article->commit();
             $redis->exec();

@@ -87,7 +87,8 @@
         , { field: 'imgs', title: '图片', width: 150, templet: '#imageTpl' }
         , { field: 'sort', title: '排序', width: 120, sort: true }
         , { field: 'create_time', title: '创建时间', width: 180, sort: true, templet: '#createTimeTpl' }
-        , { field: 'status', title: '状态', width: 90, templet: '#statusTpl', fixed: 'right' }
+        // 下面这里的ajax修改状态，在changeFieldValue那边的redis匹配不到key，删除不了缓存
+        // , { field: 'status', title: '状态', width: 90, templet: '#statusTpl', fixed: 'right' }
         , { field: 'edit', title: '操作', minwidth: 160, templet: '#operationTpl', fixed: 'right' }
       ]]
     });

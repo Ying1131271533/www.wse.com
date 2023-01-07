@@ -3,7 +3,7 @@ namespace app\front\controller;
 
 use think\facade\View;
 
-class Article
+class News
 {
     public function index()
     {

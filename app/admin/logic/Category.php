@@ -10,7 +10,7 @@ use Exception;
 
 class Category
 {
-    public static function saveCategory($data)
+    public static function saveCategory(array $data)
     {
         $category = new CategoryModel();
         $id       = isset($data['id']) ? $data['id'] : null;
@@ -18,7 +18,8 @@ class Category
             $category = CategoryModel::find($id);
             if (empty($category)) throw new Miss();
         }
-
+        
+        // redis实例化
         $redis = new Redis();
 
         // 开启事务
@@ -28,6 +29,7 @@ class Category
             // redis开启事务
             $redis->multi();
             
+            // 保存数据
             $result = $category->save($data);
             if (!$result) {
                 throw new Exception('保存失败');
@@ -36,10 +38,14 @@ class Category
             // 删除api那边的缓存
             $redis->drdelete('api:category_list');
 
+            // 事务提交
             $category->commit();
             $redis->exec();
+
+            // 返回数据
             return $category;
         } catch (Exception $e) {
+            // 事务回滚
             $category->rollback();
             $redis->discard();
             throw new Fail($e->getMessage());
@@ -48,15 +54,10 @@ class Category
 
     public static function getCategoryList()
     {
-        $categoryList = CategoryModel::field('id, title, parent_id')
-            ->order('sort')
-            ->select()
-            ->toArray();
+        $categoryList = CategoryModel::field('id, title, parent_id')->order('sort')->select();
         if (empty($categoryList)) {
             throw new Miss();
         }
-
-        $categoryList = get_child($categoryList);
         return $categoryList;
     }
 
@@ -76,6 +77,7 @@ class Category
             throw new Fail('存在子级数据，不能删除');
         }
 
+        // redis实例化
         $redis = new Redis();
 
         // 开启事务
@@ -96,9 +98,11 @@ class Category
             // 删除api那边的缓存
             $redis->drdelete('api:category_list');
 
+            // 事务提交
             $category->commit();
             $redis->exec();
         } catch (Exception $e) {
+            // 事务回滚
             $category->rollback();
             $redis->discard();
             throw new Fail($e->getMessage());

@@ -42,15 +42,15 @@ class Redis
         return $this->redis->keys($key);
     }
     
-    // 虽然写着删除缓存标签，但还是可以删除缓存的
-    public function clearTag($key)
+    // 批量删除key，虽然写着删除缓存标签，但还是可以删除缓存的
+    public function clearTag(array $keys)
     {
-        return Cache::store($this->store)->clearTag($key);
+        return Cache::store($this->store)->clearTag($keys);
     }
 
-    public function drclearTag($key)
+    public function drclearTag(array $keys)
     {
-        return $this->redis->clearTag($key);
+        return $this->redis->clearTag($keys);
     }
 
     public function drget($key)
@@ -63,9 +63,22 @@ class Redis
         return Cache::store($this->store)->delete($key);
     }
 
-    public function drdelete($key)
+    // 自增
+    public function inc($key)
     {
-        return $this->redis->delete($key);
+        return Cache::store($this->store)->inc($key);
+    }
+
+    // 自减
+    public function dec($key)
+    {
+        return Cache::store($this->store)->dec($key);
+    }
+
+    // 删除
+    public function drdelete(string $key)
+    {
+        return $this->redis->drdelete($key);
     }
 
     // 事务

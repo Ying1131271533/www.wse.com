@@ -28,10 +28,10 @@ abstract class BaseModel extends model
     // halt($user->getData('name'));
 
     // 获取分页数据 - admin使用
-    // public static function getPageData(int $page = 1, int $size = 30, string $order = 'id')
-    // {
-    //     return self::order($order, 'desc')->paginate($size, false, ['page' => $page]);
-    // }
+    public static function getPageData(int $page = 1, int $size = 30, string $order = 'id')
+    {
+        return self::order($order, 'desc')->paginate($size, false, ['page' => $page]);
+    }
     
     // 获取分页数据 - api使用
     public static function getPageList(int $page = 1, int $limit = 30, array $where = [], array $without_field = [], array $order = ['id' => 'desc'])
@@ -39,7 +39,6 @@ abstract class BaseModel extends model
         return self::where($where)
         ->order($order)
         ->withoutField($without_field)
-        ->paginate($limit, false, ['page' => $page])
-        ->toArray();
+        ->paginate($limit, false, ['page' => $page]);
     }
 }

@@ -11,13 +11,12 @@ class Category
         $categoryList = CategoryModel::where(['status' => 1, 'show' => 1])
             ->order(['sort' => 'asc', 'id' => 'asc'])
             ->cache('api:category_list', cache_time())
-            ->select()
-            ->toArray();
+            ->withoutField('show, sort, status, update_time')
+            ->select();
         if (empty($categoryList)) {
             throw new Miss();
         }
 
-        $categoryList = get_child($categoryList);
         return $categoryList;
     }
 }

@@ -20,11 +20,65 @@ class Data
      */
     public function changeFieldValue($data)
     {
-        $result = Db::table($data['db'])->cache(true)->where('id', $data['id'])->update([$data['field'] => $data['value']]);
-        if (empty($result)) throw new Fail('更新失败');
-        return [
-            'id' => $data['id'],
-            'value' => $data['value'],
-        ];
+        // redis实例化
+        $redis = new Redis();
+        
+        // 启动事务
+        Db::startTrans();
+
+        try {
+            // redis开启事务
+            $redis->multi();
+
+            // 更新数据
+            $result = Db::table($data['db'])
+            ->where('id', $data['id'])
+            ->cache(true)
+            ->update([$data['field'] => $data['value']]);
+            if (!$result) {
+                throw new Exception('更新失败');
+            }
+
+            // 获取数据所有的缓存key
+            $cacheKeys = $redis->keys($data['db'] . ':' . $data['id'] . '*');
+            // 删除缓存
+            if (!empty($cacheKeys)) {
+                $redis->drclearTag($cacheKeys);
+            }
+
+            // 提交事务
+            Db::commit();
+            $redis->exec();
+
+            // 返回数据
+            return [
+                'id'    => $data['id'],
+                'value' => $data['value'],
+            ];
+        } catch (Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            $redis->discard();
+            throw new Fail($e->getMessage());
+        }
+    }
+
+    // 暂时不用这里，而是使用redis的keys正则匹配来删除
+    public function deleteRedisCache($redis, $data)
+    {
+        switch ($data['db']) {
+            // 文章
+            case 'article':
+                $redis->drclearTag([
+                    'article:' . $data['id'] . ':info',
+                    'article:' . $data['id'] . ':cate',
+                    'article:' . $data['id'] . ':desc',
+                ]);
+                break;
+
+            default:
+
+                break;
+        }
     }
 }

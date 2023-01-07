@@ -14,6 +14,7 @@ class Category extends BaseValidate
         'url|链接'         => 'max:45',
         'image|图标'       => 'max:100',
         'sort|排序'        => 'max:65535',
+        'target|链接打开方式'  => 'max:10',
         'show|导航显示'      => 'require|number',
         'status|状态'      => 'require|number',
 
@@ -33,6 +34,7 @@ class Category extends BaseValidate
             'url',
             'image',
             'sort',
+            'target',
             'show',
             'status',
         ],
@@ -43,6 +45,7 @@ class Category extends BaseValidate
             'url',
             'image',
             'sort',
+            'target',
             'show',
             'status',
         ],

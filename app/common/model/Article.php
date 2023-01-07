@@ -18,7 +18,7 @@ class Article extends BaseModel
     {
         return self::with(['cate'])
         ->where($where)
-        ->order('id', 'asc')
+        ->order('id', 'desc')
         ->paginate($limit, false, ['page' => $page])
         ->toArray();
     }

@@ -85,7 +85,7 @@ function success($data = null, int $code = 200, int $HttpStatus = 200, string $m
  * @param  string           $msg            描述信息
  * @return json                             api返回的json数据
  */
-function layui($data = null, int $code = 200, int $HttpStatus = 200, string $msg = '成功')
+function layui($data = null, int $code = 0, int $HttpStatus = 200, string $msg = '成功')
 {
     // 组装数据
     $resultData = [
@@ -102,7 +102,6 @@ function layui($data = null, int $code = 200, int $HttpStatus = 200, string $msg
     
     // 有分页
     if (isset($data['current_page'])) {
-        $resultData['code']  = 0;
         $resultData['total'] = $data['total'];
         $resultData['data']  = $data['data'];
     }
@@ -562,7 +561,8 @@ function get_child_tree_data(array $data = [], int $parent_id = 0, $spread = fal
 /**
  * 缓存时间
  *
- * @return  integer     返回时间戳
+ * @param   string      $type   返回时间戳类型
+ * @return  integer             返回时间戳
  */
 function cache_time(string $type = 'dawn_rand_time')
 {
@@ -603,7 +603,7 @@ function cache_time(string $type = 'dawn_rand_time')
         case 'dawn_time':
             $time = 86400 - (time() + 8 * 3600) % 86400 + 3600 * 3;
             break;
-        // 凌晨3点 + 随机时间
+        // 凌晨3点 + 一小时内的随机时间
         case 'dawn_rand_time':
             $time = 86400 - (time() + 8 * 3600) % 86400 + 3600 * 3 + rand(1, 3600);
             break;

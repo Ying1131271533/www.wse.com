@@ -19,9 +19,10 @@
 
 		// 获取数据
 		let data = ajax_list('/node');
-		// console.log(data);
+        data = get_chlidren(data);
+		console.log(data);
 		// return false;
-
+		
 		// 树形菜单
 		tree.render({
 			elem: '#test1'

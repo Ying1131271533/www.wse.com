@@ -136,6 +136,7 @@
         var el5;
         // 获取分类数据
         var categoryList = ajax_list('/category');
+        categoryList = get_chlidren(categoryList);
         // console.log(categoryList);
         $("input[name='category_title']").on("click", function (e) {
             e.stopPropagation();

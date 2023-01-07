@@ -109,7 +109,7 @@
             var html = '';
             $.each(articleList, function (key, value) {
                 html += '<li>';
-                html += '<a href="http://www.wse.com/article/'+value['id']+'" title="'+value['title']+'">';
+                html += '<a href="http://www.wse.com/article/'+value['id']+'" title="'+value['title']+'" target="_blank">';
                 html += '<div class="nc-right">'+value['title']+'</div>';
                 html += '<div class="nc-left">';
                 html += '<p>'+timestampToTime(value['create_time'], true)+'</p>';
@@ -138,7 +138,7 @@
             var html = '';
             $.each(newsList, function (key, value) {
                 html += '<li>';
-                html += '<a href="http://www.wse.com/news/'+value['id']+'" title="'+value['title']+'">';
+                html += '<a href="http://www.wse.com/news/'+value['id']+'" title="'+value['title']+'" target="_blank">';
                 html += '<div class="nc-right">'+value['title']+'</div>';
                 html += '<div class="nc-left">';
                 html += '<p>'+timestampToTime(value['create_time'], true)+'</p>';

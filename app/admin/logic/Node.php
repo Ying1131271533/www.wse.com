@@ -27,12 +27,8 @@ class Node
     {
         $nodeList = NodeModel::field('id, name, title, parent_id')
         ->order('sort', 'asc')
-        ->select()
-        ->toArray();
+        ->select();
         if(empty($nodeList)) throw new Miss();
-
-        $nodeList = get_child($nodeList);
-
         return $nodeList;
     }
 
