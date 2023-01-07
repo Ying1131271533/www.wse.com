@@ -1,7 +1,7 @@
 
 function slides(category_id) {
     // 获取轮播图列表
-    let slidesList = ajax_list('/slides/list/' + category_id);
+    var slidesList = ajax_list('/slides/get_slieds_list/' + category_id);
     // console.log(slidesList);
     var html = '';
     $.each(slidesList, function (key, value) {

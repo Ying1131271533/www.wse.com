@@ -18,7 +18,7 @@
         </div>
         <script>
             // 获取客服列表
-            let customerServiceList = ajax_list('/customer_service/list');
+            let customerServiceList = ajax_list('/customer_service/get_customer_serviceList');
             // console.log(customerServiceList);
             var html = '';
             $.each(customerServiceList, function (key, value) {

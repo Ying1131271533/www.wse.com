@@ -176,6 +176,7 @@ function ajax_list(url, is_token = false) {
     let is_toekn = is_token;
     let data = null;
     if(is_token){
+        alert('阿卡丽');
         $.ajax({
             type: "GET",
             contentType: "application/x-www-form-urlencoded",
@@ -211,6 +212,7 @@ function ajax_list(url, is_token = false) {
     // 返回数据
     return data;
 }
+
 
 /**
  * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
