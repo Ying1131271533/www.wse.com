@@ -5,14 +5,14 @@ namespace app\common\logic\lib;
 class Str
 {
     // 生产token
-    public function createToken($str)
+    public static function createToken($str)
     {
         $tokenSalt = md5(uniqid(md5(microtime(true)), true));
         return sha1($tokenSalt . $str);
     }
 
     // 生产盐
-    public function salt(int $bit = 5)
+    public static function salt(int $bit = 5)
     {
         // 盐字符集
         $chars = 'abcdefqhijklmnoparstuvwxvzABCDEFGHIJKLMNOPORSTUVWXYZ0123456789';

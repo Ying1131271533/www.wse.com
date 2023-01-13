@@ -127,26 +127,8 @@
         var form = layui.form,
             layer = layui.layer;
 
-        // 自定义验证规则
-        form.verify({
-            username: function (value) {
-                if (empty(value)) {
-                    return '登录名不能为空！';
-                }
-                if (value.length < 2 || value.length > 25) {
-                    return '登录名为2到25个字符！';
-                }
-            },
-            password: [/(.+){6,50}$/, '密码必须6到50位'],
-            password_confirm: function (value) {
-                if ($('#L_password').val() != $('#L_password_confirm').val()) {
-                    return '两次密码不一致';
-                }
-            }
-        });
-
         // 保存
-        layui_ajax_save(form, '/admin');
+        layui_ajax_save(form, '/user');
 
     });
 

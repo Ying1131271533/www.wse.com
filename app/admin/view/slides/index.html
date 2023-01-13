@@ -27,10 +27,6 @@
   <table id="table_akali" lay-filter="table_akali"></table>
 </div>
 
-<script type="text/html" id="cateTpl">
-  <p>{{ d.category.title }}</p>
-</script>
-
 <script type="text/html" id="imageTpl">
   <img src="{{ d.image }}" width="70" style="cursor:pointer;" onclick="open_img(this)" />
 </script>
@@ -82,7 +78,6 @@
       , size: 'lg'
       , cols: [[ //表头
         { field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left' }
-        , { field: 'category.title', title: '分类', width: 100, templet: '#cateTpl' }
         , { field: 'title', title: '标题', width: 400 }
         , { field: 'imgs', title: '图片', width: 150, templet: '#imageTpl' }
         , { field: 'sort', title: '排序', width: 120, sort: true }

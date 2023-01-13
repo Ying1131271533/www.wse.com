@@ -15,8 +15,7 @@ class News
             [],
             ['sort' => 'desc', 'id' => 'desc']
         );
-        if($newsList->isEmpty()) throw new Miss();
-        return $newsList->toArray();
+        return $newsList;
     }
 
     public static function getBasicInfoById(int $id)

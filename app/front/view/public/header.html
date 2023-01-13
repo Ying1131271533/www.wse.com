@@ -4,10 +4,10 @@
         <div class="divheaderti">欢迎来到广州威速易供应链管理有限公司！</div>
         <div class="divheali">
             <li>
-                <a href="/user/login"><img src="__FRONT__/images/wse_02.jpg" /></a>
+                <a href="/login"><img src="__FRONT__/images/wse_02.jpg" /></a>
             </li>
             <li>
-                <a href="/user/register"><img src="__FRONT__/images/wse_03.jpg" /></a>
+                <a href="/register"><img src="__FRONT__/images/wse_03.jpg" /></a>
             </li>
         </div>
     </div>
@@ -65,7 +65,7 @@
                     </div>
                 </nav>
                 <script>
-                    // 获取跨境咨询列表
+                    // 获取分类列表
                     let categoryList = ajax_list('/category/get_category_list');
                     // 递归找子级数据
                     categoryList = get_chlidren(categoryList);

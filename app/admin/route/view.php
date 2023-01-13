@@ -103,6 +103,20 @@ Route::group('view', function(){
     Route::rule('customer_service_update', 'View/customerServiceUpdate', 'GET');
 });
 
+// 公司产品
+Route::group('view', function(){
+    Route::rule('product_index', 'View/ProductIndex', 'GET');
+    Route::rule('product_save', 'View/ProductSave', 'GET');
+    Route::rule('product_update', 'View/ProductUpdate', 'GET');
+});
+
+// 平台入驻
+Route::group('view', function(){
+    Route::rule('platform_index', 'View/PlatformIndex', 'GET');
+    Route::rule('platform_save', 'View/PlatformSave', 'GET');
+    Route::rule('platform_update', 'View/PlatformUpdate', 'GET');
+});
+
 
 
 

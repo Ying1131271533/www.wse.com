@@ -58,7 +58,7 @@ a.tdu{ text-decoration:underline; }
 .form_main_box{float:right;border:solid 2px #f5f5f5;padding-bottom:50px; }
 .form_main{ font-family:Microsoft Yahei; border:solid 1px #ccc; padding:35px 45px; width:384px;}
 .f_l_title{ height:36px; line-height:36px; font-size:20px; color:#0071BC; background:no-repeat 1px top; margin-bottom:20px; }
-.f_l_cont{ width:384px;float:left;}
+.f_l_cont{ width:400px;float:left;}
 .f_l_cont li{ float:left; margin-bottom:15px;width:100%;}
 .f_l_cont li .label{
   width: 80px;

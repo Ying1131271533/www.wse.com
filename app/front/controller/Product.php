@@ -3,7 +3,7 @@ namespace app\front\controller;
 
 use think\facade\View;
 
-class Logistics
+class Product
 {
     public function index()
     {

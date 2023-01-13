@@ -77,7 +77,7 @@ function success($data = null, int $code = 200, int $HttpStatus = 200, string $m
 }
 
 /**
- * 返回成功的api接口数据
+ * 返回成功的api接口数据 - layui的动态表格使用
  *
  * @param  array|string     $data           返回的数据
  * @param  int              $code           程序状态码
@@ -93,16 +93,10 @@ function layui($data = null, int $code = 0, int $HttpStatus = 200, string $msg =
         'msg'  => $msg,
         'data' => $data,
     ];
-
-    // 如果$data是字符串
-    if (is_string($data)) {
-        $resultData['msg']  = $data;
-        $resultData['data'] = null;
-    }
     
     // 有分页
-    if (isset($data['current_page'])) {
-        $resultData['total'] = $data['total'];
+    if (isset($data['total'])) {
+        $resultData['count'] = $data['total'];
         $resultData['data']  = $data['data'];
     }
     // 返回数据

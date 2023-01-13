@@ -1,12 +1,15 @@
 {extend name="public/base" /}
-{block name="title"}关于我们{/block}
+{block name="title"}关于威速易{/block}
 {block name="load"}
 <!-- css -->
 <!-- js -->
 {/block}
 <!-- 主体内容 -->
 {block name="main"}
-
+<script>
+  // 轮播图
+  slides(2);
+</script>
 <!-- 中间内容开始 -->
 
 <div class="container">
@@ -23,11 +26,11 @@
                   <!-- 左边的导航 -->
                   {include file="public/company_left" /}
                   <script>
-                    $(".divrightLit ul")
-                      .children()
-                      .eq(0)
-                      .find("a")
-                      .addClass("hover_1");
+                    // $(".divrightLit ul")
+                    //   .children()
+                    //   .eq(0)
+                    //   .find("a")
+                    //   .addClass("hover_1");
                   </script>
 
                   <!-- 右侧 -->
@@ -35,39 +38,36 @@
                     <div id="ctl00_cphMain_TitleDiv">
                       <div class="pdivnewsheader">
                         <h5>
-                          <a href="http://www.gdwse.com/About.aspx">公司介绍</a>
+                          <a href="" id="about_title"></a>
                         </h5>
 
                         <!-- 位置 -->
                         <div class="hidden_m">
                           <img alt="" src="__FRONT__/images/wse_diz.png" />
-                          <a href="/">你当前的位置：首 页 &gt; &gt;</a>
-                          <a href="/about">关于威速易&gt; &gt;</a>
-                          <a class="hover_1" href="/about">公司介绍</a>
+                          <a href="/" id="locathost">你当前的位置：首 页 &gt; &gt;</a>
+                          <a href="/about/2" id="about_cate">关于威速易&gt; &gt;</a>
+                          <a href="" class="hover_1"></a>
                         </div>
 
                       </div>
-                      <img
-                        class="aboutimg"
-                        src="__FRONT__/images/2017110415005254246692.png"
-                      />
-                      <div style="line-height: 30px; text-indent: 30px">
-                        <span style="font-size: 16px"
-                          >广东威速易信息科技有限公司成立于2008年，致力打造一站式跨境物流平台。公司为中国电子商务卖家提供国际物流、全球仓储等电子商务综合配套服务，全程解决外贸电商供应链中卖家遇到的各种核心问题。公司通过IT技术和资源整合优化中国跨境电商供应链，结合自建物流直达专线和海外仓储等服务，构建基于互联网的全球配送体系，帮助中国卖家降低成本，提升中国制造商品的全球配送速度。公司服务的客户主要是阿里巴巴、Aliexpress、Ebay、Amazon等电子商务平台的商家以及中国独立外贸B2C企业。<br />
-                          &nbsp; &nbsp; &nbsp; &nbsp;</span
-                        >
-                        <span style="font-size: 16px"
-                          >公司与中国邮政、香港邮政、新加坡邮政、DHL等国际、国内大型物流承运商的战略合作伙伴，公司在中国核心外贸城市深圳、广州、东莞、武汉、义乌、上海等地设立了分支机构，并在广州建立有物流仓储网络。依托中国电子商务市场爆发式增长背景，公司近几年以迅猛势头强势崛起，已服务电子商务客户达数万家，成为以电子商务物流为核心，电子服务产业化为主导的综合型现代电子商务服务商。</span
-                        ><br />
-                        <br />
-                        <span style="font-size: 16px"
-                          >服务宗旨：真诚、耐心、高效、优价<br />
-                          企业口号：树立威信 追求时效</span
-                        >&nbsp;
+                      <div id="content" style="line-height: 30px; text-indent: 30px">
                       </div>
                     </div>
                     <!--内容-->
                   </div>
+                  <script>
+                    // 页面加载完毕执行
+                    $(document).ready(function () {
+                      var about = xhr_get('/about/info/' + get_url_id());
+                      // var about = ajax_read('/about/info');
+                      console.log(about);
+                      $('#about_title, .hidden_m .hover_1').text(about.title);
+                      $('#about_title, .hidden_m .hover_1').attr('href', '/about/' + about.id);
+                      $('#content').html(HtmlUtil.htmlDecode(about.desc.content));
+                      // // 左侧导航选中class
+                      $('#about_' + about.id).addClass('hover_1');
+                    });
+                  </script>
                 </div>
               </div>
             </div>

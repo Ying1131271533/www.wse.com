@@ -20,27 +20,27 @@ class IsLogin extends BaseController
             throw new Jump('非法请求~无效的token');
         }
 
-        // 使用token获取用户信息
-        $user = Token::getUser($token);
-        if (empty($user)) {
+        // 使用token获取管理员信息
+        $admin = Token::getUser($token);
+        if (empty($admin)) {
             throw new Jump('登录过期，请重新登录！~');
         }
 
-        // 找到用户
-        $user = AdminModel::cache('admin:' . $user['id'], cache_time())->find($user['id']);
-        if (empty($user)) {
+        // 找到管理员
+        $admin = AdminModel::cache('admin:' . $admin['id'], cache_time())->find($admin['id']);
+        if (empty($admin)) {
             Token::deleteToken();
-            throw new Forbidden('该用户已被删除');
-        } else if ($user['status'] == 0) {
+            throw new Forbidden('该管理员已被删除');
+        } else if ($admin['status'] == 0) {
             Token::deleteToken();
-            throw new Forbidden('该用户被禁止登录');
+            throw new Forbidden('该管理员被禁止登录');
         }
 
         // 账号异地登录
         // 异地登录会生成新的token，同时删除旧的token缓存
         // 那么当前还没重新登录的token就会直接过期，需要重新登录
-        // $user = (new Admin())->findByUserNameWithStatus($user['username']);
-        // if($user['last_login_token'] != $token){
+        // $admin = (new Admin())->findByUserNameWithStatus($admin['username']);
+        // if($admin['last_login_token'] != $token){
         //     return $this->show(
         //         config('status.goto'),
         //         config('message.goto'),

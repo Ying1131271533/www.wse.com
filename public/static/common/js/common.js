@@ -144,7 +144,7 @@ function isApiLogin() {
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: '/api/User/isLogin',
+        url: 'http://api.wse.com/user/is_login',
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getApiToken());
         },
@@ -291,16 +291,24 @@ function scrollToEnd(val) {
     $(document).scrollTop(h);
 }
 
-// 循环获取表单的值
-function get_input_value() {
+/**
+ * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
+ * @author: 神织知更
+ * @time: 2023/01/12 11:11
+ *
+ * 循环获取表单的值
+ *
+ * @param  bool     not_empty   表单数据是否不能为空
+ * @return array                返回表单数据
+ */
+function get_input_value(not_empty = false) {
     let data = {};
-    $('.input-value').each(function (index, element) {
+    $('.input-value').each(function (key, value) {
         var name = $(this).attr('name');
         var title = $(this).attr('title');
         var val = $(this).val();
-        if (!val) {
+        if (!val && not_empty == true) {
             layer.msg(title + '不能为空', { icon: 2, tiem: 500 });
-            success = false;
             return false;
         }
         data[name] = val;

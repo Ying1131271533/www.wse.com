@@ -10,12 +10,12 @@ class User
         return View::fetch();
     }
 
-    public function register()
+    public function userRegister()
     {
         return View::fetch();
     }
 
-    public function login()
+    public function userLogin()
     {
         return View::fetch();
     }

@@ -1,0 +1,117 @@
+{extend name="public/base" /}
+{block name="title"}产品详情{/block}
+{block name="load"}
+<!-- css -->
+<style>
+  .div_dtean h4 {
+    font-size: 24px;
+  }
+</style>
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+
+<script>
+  // 轮播图
+  slides(3);
+</script>
+<!-- 中间内容开始 -->
+
+<div class="">
+  <div class="row">
+    <!--内容-->
+    <div id="ctl00_cphMain_ContentDiv" class="">
+      <div class="product_3">
+        <div style="text-align: left; line-height: 2">
+          <div class="pageContent">
+            <div>
+
+              <div class="div_dcon">
+                <div class="content">
+                  <div class="dievright">
+
+                    <!--分类-->
+                    <div class="col-md-12 box-margin-top" id="ctl00_cphMain_CategoryDiv">
+                      <div class="divtitle2">
+                        <div class="divtitle2_h6">公司产品</div>
+                        <div class="divabouen">Company Product</div>
+                      </div>
+                      <div class="divrightLit" id="product_list">
+                        <ul>
+                        </ul>
+                      </div>
+                      <script>
+                        // 页面加载完毕执行
+                        $(document).ready(function () {
+                            // 获取分类列表
+                            let categoryList = xhr_get('/product/get_product_list');
+                            // console.log(categoryList);
+                            var html = '';
+                            $.each(categoryList, function (key, value) {
+                                var hover = get_url_id() == value.id ? 'hover_1' : '';
+                                html += '<li><a href="/product/'+value.id+'" id="about_'+value.id+'" class="'+hover+'">'+value.title+'</a></li>';
+                            });
+                            $('#product_list ul').append(html);
+                        });
+                    </script>
+                    </div>
+
+
+                    <!--联系我们-->
+
+                    <div class="col-md-12 box-margin-top" id="ctl00_cphMain_Contact_Contact">
+                      &nbsp;
+                    </div>
+                  </div>
+
+                  <div class="div_dtean" id="kddhl" style="color:#555;">
+                    <div id="ctl00_cphMain_TitleDiv">
+                      <div class="pdivnewsheader">
+                        <h5>
+                          <a href="" id="product_title"></a>
+                        </h5>
+
+                        <!-- 位置 -->
+                        <div class="hidden_m">
+                          <img alt="" src="__FRONT__/images/wse_diz.png" />
+                          <a href="/">你当前的位置：首 页 &gt; &gt;</a>
+                          <a href="/product/1">跨境物流&gt; &gt;</a>
+                          <a class="hover_1" href=""></a>
+                        </div>
+
+                      </div>
+                    </div>
+                    <!--内容-->
+
+                    <div id="ctl00_cphMain_ContentDiv">
+                      <div class="product_3">
+                        <div id="content" style="line-height: 30px; text-indent: 30px">
+                        </div>
+                      </div>
+                    </div>
+                    <script>
+                      // 页面加载完毕执行
+                      $(document).ready(function () {
+                        var product = xhr_get('/product/info/' + get_url_id());
+                        console.log(product);
+                        $('#product_title, .hidden_m .hover_1').text(product.title);
+                        $('#product_title, .hidden_m .hover_1').attr('href', '/product/' + product.id);
+                        $('#content').html(HtmlUtil.htmlDecode(product.desc.content));
+                      });
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--中间内容 结束-->
+{/block}

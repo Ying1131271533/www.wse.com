@@ -2,6 +2,7 @@
 
 namespace app\common\model;
 
+use app\common\lib\exception\Miss;
 use think\model;
 
 use think\model\concern\SoftDelete;
@@ -36,9 +37,11 @@ abstract class BaseModel extends model
     // 获取分页数据 - api使用
     public static function getPageList(int $page = 1, int $limit = 30, array $where = [], array $without_field = [], array $order = ['id' => 'desc'])
     {
-        return self::where($where)
+        $list = self::where($where)
         ->order($order)
         ->withoutField($without_field)
         ->paginate($limit, false, ['page' => $page]);
+        if($list->isEmpty()) throw new Miss();
+        return $list->toArray();
     }
 }

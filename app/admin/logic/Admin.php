@@ -13,13 +13,11 @@ use Exception;
 class Admin
 {
     private $adminModel = null;
-    private $str        = null;
     private $redis      = null;
 
     public function __construct()
     {
         $this->adminModel = new AdminModel();
-        $this->str        = new Str();
         $this->redis      = new Redis();
     }
 
@@ -49,7 +47,7 @@ class Admin
         // $this->redis->delete(config('redis.token_pre') . $admin['last_login_token']);
 
         // 生成token
-        $token = $this->str->createToken($admin['username']);
+        $token = Str::createToken($admin['username']);
 
         // 更新用户登录信息
         $admin->save([
@@ -97,7 +95,7 @@ class Admin
             $where,
             ['password', 'password_salt', 'last_login_token'], ['id' => 'asc']
         );
-        return $adminList->toArray();
+        return $adminList;
     }
 
     public function save($data)
@@ -109,7 +107,7 @@ class Admin
         }
 
         // 生成5个字符长度的盐
-        $salt = $this->str->salt(5);
+        $salt = Str::salt(5);
         // 数据加入密码盐
         $data['password_salt'] = $salt;
         // 明文密码前后加盐，生成密码
@@ -154,7 +152,7 @@ class Admin
 
         if (!empty($data['password'])) {
             // 生成5个字符长度的盐
-            $salt = $this->str->salt(5);
+            $salt = Str::salt(5);
             // 数据加入密码盐
             $data['password_salt'] = $salt;
             // 明文密码前后加盐，生成密码

@@ -11,209 +11,49 @@
 {/block}
 <!-- 主体内容 -->
 {block name="main"}
-
+<script>
+  // 轮播图
+  slides(4);
+</script>
 <!-- 中间内容开始 -->
 <div class="container">
   <div class="row">
-    
+
     <!-- 左边的导航 -->
     {include file="public/platform_left" /}
 
     <!--内容-->
-
     <div class="div_dtean">
       <div id="ctl00_cphMain_Album" class="">
         <div class="product_3erp">
-          <h4><strong>速卖通 AliExpress</strong></h4>
+          <h4><strong  id="assign-title"></strong></h4>
           <div class="dashed-line"></div>
           <div class="product_3erpimg">
-            <img class="img-thumbnail"
-              src="__FRONT__/images/2020041812085230374814.png"
-              alt="速卖通 AliExpress" title="速卖通 AliExpress" />
+            <img class="img-thumbnail" src="" alt="" title="" id="assign-image" />
             <div class="divmiaosu">
               <p class="first-line-indent"></p>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12">
-              <p class="first-line-indent"></p>
-              <p>
-                <br />
-                <span style="font-family: arial, helvetica, sans-serif"><span style="font-size: 18px"><strong>关于速卖通
-                      AliExpress：</strong></span></span>
-              </p>
+            <div class="col-xs-12" id="assign-content">
 
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span style="font-size: 18px">全球速卖通 AliExpress
-                    是中国最大的跨境出口B2C平台之一，同时也是在俄罗斯、西班牙排名第一的电商网站。全球速卖通是阿里巴巴集团旗下电商业务之一，致力于服务全球中小创业者出海，让天下没有难做的跨境生意，快速连接全球超过200个国家和地区的消费者，为全球消费者带去一种崭新生活方式。</span></span>
-              </p>
-
-              <p>
-                <br />
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">&nbsp;</span></span>
-                <img src="__FRONT__/images/654asd65g4654g5.png">
-                <!-- <img src="__FRONT__/images/45as3dg4854g.png"> -->
-              </p>
-
-              <p>
-                <br />
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px"><strong>速卖通怎么样：</strong></span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">中国最大出口B2C电商平台</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span style="font-size: 18px">1、2010 年平台成立至今已过
-                    9
-                    年，高速发展，日趋成熟。</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span style="font-size: 18px">2、覆盖全球 230
-                    个国家和地区，主要交易市场为俄、美、西、巴、法等国。</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span style="font-size: 18px">3、支持世界 18
-                    种语言站点。</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">4、流量瞩目，海外成交买家数量突破1.5亿。</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span style="font-size: 18px">5、22
-                    个行业囊括日常消费类目，商品备受海外消费者欢迎。</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span style="font-size: 18px">6、AliExpress App
-                    海外装机量超过 6亿，入围全球应用榜单
-                    TOP 10。</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">&nbsp;</span></span>
-              </p>
-
-              <p>
-                <strong><span style="font-family: arial, helvetica, sans-serif"><span
-                      style="font-size: 18px">入驻要求：</span></span></strong>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">1.营业执照（企业，个体户都可以）</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">2.至少有1个品牌商标（或商标所有人授权）。</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">3.特殊品类需要行业检测报告。</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">4.支付宝冻结保证金（大多类目在1万人民币）退店时退还保证金。</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">&nbsp;</span></span>
-              </p>
-
-              <p>
-                <strong><span style="font-family: arial, helvetica, sans-serif"><span
-                      style="font-size: 18px">如何入驻：</span></span></strong>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">1、开通账号：</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">2、提交入驻资料</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">3、缴纳保证金</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">4、完善店铺信息</span></span>
-              </p>
-
-              <p>
-                <span style="font-family: arial, helvetica, sans-serif"><span
-                    style="font-size: 18px">5、开店经营</span><br />
-                  <br />
-                  <strong><span style="color: rgb(255, 0, 0)"><span
-                        style="font-size: 20px">注：通过我司注册，免费</span></span></strong></span><strong><span
-                    style="color: rgb(255, 0, 0)"><span
-                      style="font-size: 20px">赠送速卖通草帽200元培训劵！</span></span></strong><br />
-                <br />
-                <br />
-                &nbsp;
-              </p>
-
-              <p style="text-align: center">
-                <span style="
-                      color: rgb(85, 85, 85);
-                      font-family: arial, helvetica, sans-serif;
-                      font-size: 18px;
-                    "><strong><span style="color: rgb(255, 0, 0)">具体入驻详情，<br />
-                      可扫描下方二维码添加小编微信</span></strong></span><br />
-                <img src="__FRONT__/images/56453132agg8ddag464531.png"
-                  style="
-                      -webkit-text-stroke-width: 0px;
-                      border-image: none;
-                      border: 0px currentColor;
-                      box-sizing: border-box;
-                      color: rgb(85, 85, 85);
-                      font-family: microsoft yahei;
-                      font-size: 12px;
-                      font-style: normal;
-                      font-variant-caps: normal;
-                      font-variant-ligatures: normal;
-                      font-weight: 400;
-                      letter-spacing: normal;
-                      orphans: 2;
-                      text-align: center;
-                      text-decoration-color: initial;
-                      text-decoration-style: initial;
-                      text-indent: 0px;
-                      text-transform: none;
-                      vertical-align: middle;
-                      white-space: normal;
-                      widows: 2;
-                      word-spacing: 0px;
-                    " />
-              </p>
-              <p></p>
             </div>
           </div>
-          
+
         </div>
+        <script>
+          let platform = ajax_read('/platform/info');
+          console.log(platform);
+          $('#assign-title').text(platform.title);
+          $('#assign-image').attr('src', platform.image);
+          $('#assign-image').attr('alt', platform.title);
+          $('#assign-image').attr('title', platform.title);
+          $('#assign-content').html(HtmlUtil.htmlDecode(platform.desc.content));
+        </script>
       </div>
     </div>
   </div>
 
 
-<!--中间内容 结束-->
-{/block}
+  <!--中间内容 结束-->
+  {/block}

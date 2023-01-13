@@ -16,19 +16,7 @@ class Index
     {
         return View::fetch();
     }
-
-    // 企业文化
-    public function culture()
-    {
-        return View::fetch();
-    }
-
-    // 人才招聘
-    public function job()
-    {
-        return View::fetch();
-    }
-
+    
     // 联系我们
     public function contact()
     {

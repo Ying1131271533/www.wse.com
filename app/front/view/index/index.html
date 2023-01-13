@@ -104,7 +104,7 @@
           
           <script>
             // 获取跨境咨询列表
-            let articleList = ajax_list('/article/list?page=1&limit=6');
+            let articleList = ajax_list('/article/get_article_list?page=1&limit=6');
             // console.log(articleList);
             var html = '';
             $.each(articleList, function (key, value) {
@@ -132,8 +132,8 @@
             <a class="showhide" href="http://www.gdwse.com/products/category-2.html">查看全部&gt;&gt;</a>
           </div>
           <script>
-            // 获取跨境咨询列表
-            let newsList = ajax_list('/news/list?page=1&limit=6');
+            // 获取公司新闻列表
+            let newsList = ajax_list('/news/get_news_list?page=1&limit=6');
             // console.log(newsList);
             var html = '';
             $.each(newsList, function (key, value) {

@@ -252,6 +252,42 @@ class View
         return FacadeView::fetch('customer_service/update');
     }
 	
+
+	/************************ 公司产品 ************************/
+	
+    public function ProductIndex()
+    {
+        return FacadeView::fetch('product/index');
+    }
+    
+    public function ProductSave()
+    {
+        return FacadeView::fetch('product/save');
+    }
+
+    public function ProductUpdate()
+    {
+        return FacadeView::fetch('product/update');
+    }
+	
+
+	/************************ 平台入驻 ************************/
+	
+    public function PlatformIndex()
+    {
+        return FacadeView::fetch('platform/index');
+    }
+    
+    public function PlatformSave()
+    {
+        return FacadeView::fetch('platform/save');
+    }
+
+    public function PlatformUpdate()
+    {
+        return FacadeView::fetch('platform/update');
+    }
+	
 }
 
 

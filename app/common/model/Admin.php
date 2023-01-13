@@ -11,9 +11,9 @@ class Admin extends BaseModel
     }
 
     // 查询用户，根据用户名和密码
-    public function findAdminByUserNameWithPassword($username, $password)
+    public static function findAdminByUserNameWithPassword($username, $password)
     {
-        return $this->where(['username' => $username, 'password' => $password])->find();
+        return self::where(['username' => $username, 'password' => $password])->find();
     }
 
     public static function findAdminById(int $id)
@@ -31,14 +31,14 @@ class Admin extends BaseModel
         ->find($id);
     }
 
-    public function findAdminByUserName($username)
+    public static function findAdminByUserName($username)
     {
-        return $this->where('username', $username)->find();
+        return self::where('username', $username)->find();
     }
 
-    public function findByUserNameWithStatus($username)
+    public static function findByUserNameWithStatus($username)
     {
-        return $this->where('username', $username)->where('status', 1)->find();
+        return self::where('username', $username)->where('status', 1)->find();
     }
 
     public static function findByIdWithStatus($id)

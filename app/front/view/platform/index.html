@@ -6,12 +6,18 @@
   .div_dtean h4 {
     font-size: 24px;
   }
+  #platform_list li:hover p{
+    color: #0f9f57;
+  }
 </style>
 <!-- js -->
 {/block}
 <!-- 主体内容 -->
 {block name="main"}
-
+<script>
+  // 轮播图
+  slides(4);
+</script>
 <!-- 中间内容开始 -->
 <div class="container">
   <div class="row">
@@ -25,82 +31,20 @@
 
       <div class="">
         <div id="ctl00_cphMain_Album" class="">
-          <div class="pdivnerp">
+          <div class="pdivnerp" id="platform_list">
             <ul>
-              <li>
-                <a href="/platform/1"><img
-                    src="__FRONT__/images/2020041812085230374814.png"
-                    alt="速卖通 AliExpress" title="速卖通 AliExpress" />
-                  <p>速卖通 AliExpress</p>
-                </a>
-              </li>
-              <li>
-                <a href="/platform/2"><img
-                    src="__FRONT__/images/2020041812032673086343.png"
-                    alt="亚马逊 Amazon" title="亚马逊 Amazon" />
-                  <p>亚马逊 Amazon</p>
-                </a>
-              </li>
-              <li>
-                <a href="/platform/3"><img
-                    src="__FRONT__/images/2020041811571883452674.png"
-                    alt="eBay" title="eBay" />
-                  <p>eBay</p>
-                </a>
-              </li>
-              <li>
-                <a href="/platform/4"><img
-                    src="__FRONT__/images/2020041811465355731367.png"
-                    alt="Wish" title="Wish" />
-                  <p>Wish</p>
-                </a>
-              </li>
-              <li>
-                <a href="/platform/5"><img
-                    src="__FRONT__/images/2020041811394990384796.png"
-                    alt="阿里巴巴国际站" title="阿里巴巴国际站" />
-                  <p>阿里巴巴国际站</p>
-                </a>
-              </li>
-              <li>
-                <a href="/platform/6"><img
-                    src="__FRONT__/images/2020041810422945313912.png"
-                    alt="敦煌网" title="敦煌网" />
-                  <p>敦煌网</p>
-                </a>
-              </li>
-              <li>
-                <a href="/platform/7"><img
-                    src="__FRONT__/images/2020041810314973145017.jpg"
-                    alt="Shopify" title="Shopify" />
-                  <p>Shopify</p>
-                </a>
-              </li>
-              <li>
-                <a href="/platform/8"><img
-                    src="__FRONT__/images/2020041810190132862602.jpg"
-                    alt="Shopee" title="Shopee" />
-                  <p>Shopee</p>
-                </a>
-              </li>
             </ul>
           </div>
         </div>
+        <script>
+            // 页面加载完毕执行
+            $(document).ready(function () {
+                // 渲染列表
+                renderPlatformList('/platform/get_platform_list', 'platform')
+            });
+        </script>
         <div class="pager text-center">
-          <!-- AspNetPager 7.3.2  Copyright:2003-2010 Webdiyer (www.webdiyer.com) -->
-          <div id="ctl00_cphMain_ListPager" class="Pager">
-            <div class="CustomInfo" style="width: 40%; float: left">
-              Page 1 of 1
-            </div>
-            <div class="Pager" style="width: 60%; float: left">
-              <a disabled="disabled" style="margin-right: 5px"><span class="btnLink" title="首页">首页</span></a><a
-                disabled="disabled" style="margin-right: 5px"><span class="btnLink" title="上一页">上一页</span></a><span
-                class="CurrentPage" style="margin-right: 5px"><span class="Pager">1</span></span><a
-                disabled="disabled" style="margin-right: 5px"><span class="btnLink" title="下一页">下一页</span></a><a
-                disabled="disabled" style="margin-right: 5px"><span class="btnLink" title="尾页">尾页</span></a>
-            </div>
-          </div>
-          <!-- AspNetPager 7.3.2  Copyright:2003-2010 Webdiyer (www.webdiyer.com) -->
+          <button type="button" class="layui-btn" onclick="renderPlatformList('/platform/get_platform_list', 'platform')">加载更多</button>
         </div>
       </div>
     </div>

@@ -219,6 +219,166 @@ create_time int 创建时间
 
 
 
+product - 公司产品
+
+id int id
+title char(50) 标题
+sort smallint 0 排序
+status tinyint(1) 状态：0 禁止 1 正常
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+
+product_desc - 公司产品内容
+
+id int id
+content mediumtext 内容
+delete_time int null 删除时间
+about_id int id 关联id
+
+
+
+platform - 跨境平台入驻
+
+id int id
+title char(50) 标题
+image char(100) 图片
+view int 浏览数
+sort smallint 0 排序
+status tinyint(1) 状态：0 禁止 1 正常
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+platform_desc - 跨境平台内容
+
+id int id
+content text 内容
+delete_time int null 删除时间
+product_id int 关联id
+
+
+
+
+user - 用户
+
+id int id
+username char(25) 用户名
+password char(32) 密码
+password_salt char(5) 密码盐
+nickname char(25) null 昵称
+phone char(25) null 手机
+email char(50) null 邮箱
+wechat char(50) null 微信
+introduction char(255) null 简介
+
+
+
+
+
+status tinyint(1) 1 登录状态：0 禁止 1 正常
+login_number int 0 登录次数
+last_login_ip char(20) null 上次登录IP
+last_login_time char(20) null 上次登录时间
+update_time int 更新时间
+create_time int 创建时间
+delete_time int null 删除时间
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

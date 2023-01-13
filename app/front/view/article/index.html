@@ -37,7 +37,7 @@
             <div class="hidden_m">
               <img alt="" src="__FRONT__/images/wse_diz.png" />
               <a href="/">你当前的位置：首 页 &gt; &gt;</a>
-              <a href="/about">关于威速易&gt; &gt;</a>
+              <a href="/about/2">关于威速易&gt; &gt;</a>
               <a class="hover_1" href="/article">跨境咨询</a>
             </div>
 
@@ -45,7 +45,7 @@
         </div>
 
         <div id="ctl00_cphMain_Product" class="row">
-          <div class="pdivnewsli" id="news_list">
+          <div class="pdivnewsli" id="article_list">
             <ul>
 
             </ul>
@@ -53,47 +53,12 @@
           <script>
             // 页面加载完毕执行
             $(document).ready(function () {
-              renderArticleList();
+                renderArticleList('/article/get_article_list', 'article');
             });
-            
-            // 页码
-            let page = 1;
-
-            // 渲染文章列表
-            function renderArticleList() {
-
-              // 获取跨境咨询列表
-              var articleList = ajax_list('/article/list?page=' + page + '&limit=2');
-              // console.log(articleList);
-
-              // 页码加1
-              page += 1;
-
-              var html = '';
-              $.each(articleList, function (key, value) {
-                html += '<li>';
-                html += '<div class="pdivnewslitb">';
-                html += '<a href="/article/' + value.id + '" target="_blank">';
-                html += '<img class="pdivnewslitbimg" src="' + value.image + '" alt="' + value.title + '" title="' + value.title + '" style="width: 170px; height: 128px" />';
-                html += '</a>';
-                html += '</div>';
-                html += '<div class="pdivnewslileft">';
-                html += '<h8><a href="/article/' + value.id + '" target="_blank">' + value.title + '</a></h8>';
-                html += '<div class="pdivtimes">' + timestampToTime(value.create_time, true) + '</div>';
-                html += '<div class="divteanbcent">';
-                html += '<a href="/article/' + value.id + '" target="_blank">';
-                html += '<p>' + value.description + '</p>';
-                html += '</div>';
-                html += '</div>';
-                html += '</li>';
-              });
-              
-              $('#news_list ul').append(html);
-            }
           </script>
         </div>
         <div class="pager text-center">
-          <button type="button" class="layui-btn" onclick="akali()">加载更多</button>
+          <button type="button" class="layui-btn" onclick="renderArticleList('/article/get_article_list', 'article')">加载更多</button>
         </div>
       </div>
     </div>

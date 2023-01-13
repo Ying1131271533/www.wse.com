@@ -18,8 +18,9 @@
 			, tree = layui.tree
 
 		// 获取所有节点数据
-		let data = ajax_list('/node');
-		console.log(data);
+		let nodeList = ajax_list('/node');
+		nodeList = get_chlidren(nodeList);
+		console.log(nodeList);
 
 		// 获取选中的节点ids
 		let checkedNode = ajax_read('/role/checked_node');
@@ -28,7 +29,7 @@
 		// 树形菜单
 		tree_demo = tree.render({
 			elem: '#test1'
-			, data: data
+			, data: nodeList
 			, showCheckbox: true  // 是否显示复选框
 			, id: 'demoId'  // 定义索引名称
 			, spread: true  // 展开节点(依赖于 key 参数)

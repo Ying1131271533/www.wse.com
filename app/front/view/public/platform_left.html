@@ -5,49 +5,33 @@
             <div class="divtitle2_h6">热门平台入驻</div>
             <span class="divabouen">Hot platform entry</span>
         </div>
-        <div class="divrightLit">
+        <div class="divrightLit" id="platform_nav">
             <ul>
-                <li>
-                    <a href="/platform/1" title="速卖通 AliExpress">
-                        <div class="nc-right">速卖通 AliExpress</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="/platform/2" title="亚马逊 Amazon">
-                        <div class="nc-right">亚马逊 Amazon</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="/platform/3" title="eBay">
-                        <div class="nc-right">eBay</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="/platform/4" title="Wish">
-                        <div class="nc-right">Wish</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="/platform/5" title="阿里巴巴国际站">
-                        <div class="nc-right">阿里巴巴国际站</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="/platform/6" title="敦煌网">
-                        <div class="nc-right">敦煌网</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="/platform/7" title="Shopify">
-                        <div class="nc-right">Shopify</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="/platform/8" title="Shopee">
-                        <div class="nc-right">Shopee</div>
-                    </a>
-                </li>
             </ul>
         </div>
+        <script>
+            // 页面加载完毕执行
+            $(document).ready(function () {
+                // 获取平台列表
+                let platformList = xhr_get('/platform/get_platform_list');
+                // console.log(platformList);
+
+                // 渲染左边的导航
+                var id = get_url_id();
+                var html = '';
+                $.each(platformList, function (key, value) {
+                    var className = '';
+                    if (!empty(id) && value.id == id) {
+                        className = 'hover_1';
+                    }
+                    html += '<li>';
+                    html += '<a href="/platform/' + value.id + '" title="' + value.title + '" id="platform_' + value.id + '" class="' + className + '">';
+                    html += '<div class="nc-right">' + value.title + '</div>';
+                    html += '</a>';
+                    html += '</li>';
+                });
+                $('#platform_nav ul').append(html);
+            });
+        </script>
     </div>
 </div>

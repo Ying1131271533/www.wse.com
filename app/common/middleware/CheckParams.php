@@ -67,8 +67,9 @@ class CheckParams
                 $request->page = $request->has('page') ? $request->param('page') : config('app.page');
                 $request->limit = $request->has('limit') ? $request->param('limit') : config('app.limit');
             }
-        } /* else{
-    $request->params = $params;
-    } */
+        } 
+        /* else{
+            $request->params = $params;
+        } */
     }
 }

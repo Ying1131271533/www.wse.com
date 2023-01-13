@@ -15,8 +15,7 @@ class Article
             [],
             ['sort' => 'desc', 'id' => 'desc']
         );
-        if($articleList->isEmpty()) throw new Miss();
-        return $articleList->toArray();
+        return $articleList;
     }
 
     public static function getBasicInfoById(int $id)

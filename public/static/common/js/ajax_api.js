@@ -176,7 +176,6 @@ function ajax_list(url, is_token = false) {
     let is_toekn = is_token;
     let data = null;
     if(is_token){
-        alert('阿卡丽');
         $.ajax({
             type: "GET",
             contentType: "application/x-www-form-urlencoded",
@@ -199,6 +198,7 @@ function ajax_list(url, is_token = false) {
             contentType: "application/x-www-form-urlencoded",
             url: 'http://api.wse.com' + url,
             async: false, // 关闭异步
+            dataType: "json",
             success: function (res) {
                 if (res.code !== config('success')) {
                     layer.msg(res.msg);
@@ -212,6 +212,50 @@ function ajax_list(url, is_token = false) {
     // 返回数据
     return data;
 }
+
+
+// 读取多条数据
+function xhr_get(url) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("get", "http://api.wse.com" + url, false);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+    xhr.send(null);
+    // xhr.send('"id=id&username=akali"');
+    // xhr.send('id:1,username:akali');
+    // console.log(xhr);
+    res = xhr.response;
+    res = JSON.parse(res);
+    // console.log(res);
+    if (res.code !== config('success')) {
+        layer.msg(res.msg);
+        return false;
+    }
+    // 返回数据
+    return res.data;
+}
+
+
+// 读取多条数据
+function xhr_post(url, data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", "http://api.wse.com" + url, false);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+    // xhr.send(null);
+    xhr.send(data);
+    // xhr.send('"id=id&username=akali"');
+    // xhr.send('id:1,username:akali');
+    // console.log(xhr);
+    res = xhr.response;
+    res = JSON.parse(res);
+    // console.log(res);
+    if (res.code !== config('success')) {
+        layer.msg(res.msg);
+        return false;
+    }
+    // 返回数据
+    return res.data;
+}
+
 
 
 /**
