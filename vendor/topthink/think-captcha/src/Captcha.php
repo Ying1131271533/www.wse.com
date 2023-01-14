@@ -96,7 +96,7 @@ class Captcha
      * @return array
      * @throws Exception
      */
-    protected function generate_original(): array
+    protected function generate(): array
     {
         $bag = '';
 
@@ -140,7 +140,7 @@ class Captcha
      * @return array
      * @throws Exception
      */
-    protected function generate(): array
+    protected function generate_original(): array
     {
         $bag = '';
 
@@ -186,8 +186,9 @@ class Captcha
      * @param string $code 用户验证码
      * @return bool 用户验证码是否正确
      */
-    public function check_original(string $code): bool
+    public function check(string $code): bool
     {
+        halt($this->session->has('captcha'));
         if (!$this->session->has('captcha')) {
             return false;
         }
@@ -211,7 +212,7 @@ class Captcha
      * @param string $code 用户验证码
      * @return bool 用户验证码是否正确
      */
-    public function check(string $code): bool
+    public function check_original(string $code): bool
     {
         if (!cache('captcha')) {
             return false;

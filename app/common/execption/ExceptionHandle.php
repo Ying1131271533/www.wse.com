@@ -63,7 +63,7 @@ class ExceptionHandle extends Handle
         if ($e instanceof \Exception) {
             if (env('APP_DEBUG')) {
                 // 这里打开后，就只显示错误信息，而没有详细的页面错误提示了
-                return show($message, $e->getCode());
+                // return show($message, $e->getCode());
             } else {
                 return show('系统内部错误', $e->getCode());
             }

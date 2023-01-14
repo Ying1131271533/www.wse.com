@@ -64,8 +64,9 @@ return [
     'redis'            => [
         'host' => '127.0.0.1', // 草啊！这里不能写 localhost 啊！！！！！
         // 'host'     => 'redis',
-        'password' => '',
-        // 'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
+        'host'     => '106.52.77.54',
+        // 'password' => '',
+        'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
         'port' => 6379,
         'select' => 0,
     ],
