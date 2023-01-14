@@ -150,14 +150,8 @@ class Admin
             throw new Miss('该用户不存在');
         }
 
-        if (!empty($data['password'])) {
-            // 生成5个字符长度的盐
-            $salt = Str::salt(5);
-            // 数据加入密码盐
-            $data['password_salt'] = $salt;
-            // 明文密码前后加盐，生成密码
-            $data['password'] = md5($salt . $data['password'] . $salt);
-        }
+        // 重新生成密码
+        $data['password'] = md5($admin['password_salt'] . $data['password'] . $admin['password_salt']);
 
         // 启动事务
         $admin->startTrans();

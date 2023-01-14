@@ -2,6 +2,7 @@
 namespace app\api\controller;
 
 use app\api\logic\About as AboutLogic;
+use app\common\lib\Hashids;
 use app\Request;
 
 class About

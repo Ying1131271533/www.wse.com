@@ -1,5 +1,7 @@
-$(document).ready(function () {
+// ajax全局设置头部信息
+/* $(document).ready(function () {
     let url = window.location.href, token = null;
+    alert(url.search("api") !== -1);
     if (url.search("api") !== -1) {
         token = getApiToken();
     } else {
@@ -11,7 +13,7 @@ $(document).ready(function () {
             request.setRequestHeader("access-token", token);
         },
     });
-});
+}); */
 
 // 获取时间
 function time() {
@@ -181,13 +183,13 @@ function isAdminLogin() {
     });
 }
 
-// 获取用户
+// 根据id获取用户
 function getUserById(uid) {
     let user = null;
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: '/api/User/getUserById',
+        url: '/api/User/get_user_by_id',
         data: { id: uid },
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getApiToken());
@@ -291,6 +293,7 @@ function scrollToEnd(val) {
     $(document).scrollTop(h);
 }
 
+
 /**
  * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
  * @author: 神织知更
@@ -299,7 +302,7 @@ function scrollToEnd(val) {
  * 循环获取表单的值
  *
  * @param  bool     not_empty   表单数据是否不能为空
- * @return array                返回表单数据
+ * @return obj                  返回表单数据
  */
 function get_input_value(not_empty = false) {
     let data = {};

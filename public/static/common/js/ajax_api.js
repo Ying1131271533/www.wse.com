@@ -214,7 +214,7 @@ function ajax_list(url, is_token = false) {
 }
 
 
-// 读取多条数据
+// 原生xhr请求
 function xhr_get(url) {
     var xhr = new XMLHttpRequest();
     xhr.open("get", "http://api.wse.com" + url, false);
@@ -233,29 +233,6 @@ function xhr_get(url) {
     // 返回数据
     return res.data;
 }
-
-
-// 读取多条数据
-function xhr_post(url, data) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("post", "http://api.wse.com" + url, false);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
-    // xhr.send(null);
-    xhr.send(data);
-    // xhr.send('"id=id&username=akali"');
-    // xhr.send('id:1,username:akali');
-    // console.log(xhr);
-    res = xhr.response;
-    res = JSON.parse(res);
-    // console.log(res);
-    if (res.code !== config('success')) {
-        layer.msg(res.msg);
-        return false;
-    }
-    // 返回数据
-    return res.data;
-}
-
 
 
 /**
@@ -278,7 +255,6 @@ function ajax_delete(url) {
             request.setRequestHeader("access-token", getApiToken());
         },
         success: function (res) {
-
             if (res.code === config('success')) {
                 layer.msg(res.msg, { icon: 1, time: 500 });
                 result = true;
@@ -325,23 +301,7 @@ function input_assign_value(data = null) {
 
 }
 
-// 获取表单值
-function get_input_value() {
-    let data = {};
-    $('.input-value').each(function (index, element) {
-        var name = $(this).attr('name');
-        var title = $(this).attr('title');
-        var val = $(this).val();
-        if (!val) {
-            layer.msg(title + '不能为空', { icon: 2, tiem: 500 });
-            success = false;
-            return false;
-        }
-        data[name] = val;
-    });
-    return data;
-}
-
+// 赋值
 function assign(data) {
     for(let key in data){
         

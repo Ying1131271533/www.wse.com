@@ -34,7 +34,7 @@ function slides(category_id) {
 // 渲染文章列表
 function renderArticleList(url, type) {
     // 获取文章列表
-    var list = xhr_get(url + '?page=' + page + '&limit=' + limit);
+    var list = ajax_list(url + '?page=' + page + '&limit=' + limit);
     // 页码加1
     page += 1;
     // html内容
@@ -63,7 +63,7 @@ function renderArticleList(url, type) {
 // 渲染跨境平台列表
 function renderPlatformList(url, type) {
     // 获取平台列表
-    var list = xhr_get(url + '?page=' + page + '&limit=' + limit);
+    var list = ajax_list(url + '?page=' + page + '&limit=' + limit);
     // 页码加1
     page += 1;
     // html内容
@@ -91,84 +91,39 @@ function renderPlatformList(url, type) {
  * @param  obj      upload      layui的上传文件对象
  * @param  string 	name        接收图片的input名称
  */
-function upload_image(upload, obj) {
-    //执行实例
-    var uploadInst = upload.render({
-        elem: '#upload-img' // 绑定元素
-        , url: 'http://api.wse.com/upload/file' // 上传接口
-        , method: 'POST'  // 可选项。HTTP类型，默认post
-        , headers: {token: 'sasasas'}
-        , data: { type: 'images' } // 可选项。额外的参数，如：{id: 123, abc: 'xxx'}
-        , field: 'images' // 上传文件的字段名
-        , before: function (obj) {
-            // 预读本地文件示例，不支持ie8
-            obj.preview(function (index, file, result) {
-                $(obj).find('#upload-preview').attr('src', result); // 图片链接（base64）
-            });
-            // layer.msg('上传中', {icon: 16, time: 0});
-        }
-        , done: function (res) {
-            // 上传完毕回调
-            if (res.code !== config('success')) {
-                layer.msg(res.msg, { icon: 2 });
-                return false;
+function upload_image(id) {
+    layui.use(['upload', 'layer'], function () {
+        var upload = layui.upload;
+        var layer = layui.layer;
+        // 上传文件
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#' + id // 绑定元素
+            , url: 'http://api.wse.com/upload/file' // 上传接口
+            , method: 'POST'  // 可选项。HTTP类型，默认post
+            , data: { type: 'images' } // 可选项。额外的参数，如：{id: 123, abc: 'xxx'}
+            , field: 'images' // 上传文件的字段名
+            , before: function (obj) {
+                // 预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#' + id).parents('.layui-upload').find('#upload-preview').attr('src', result); // 图片链接（base64）
+                });
+                // layer.msg('上传中', {icon: 16, time: 0});
             }
-            layer.msg('上传成功', { icon: 1, time: 500 });
-            $(obj).find('input').val(res.data.path);
-        }
-        , error: function () {
-            // 请求异常回调
-            layer.msg('上传失败', { icon: 2 });
-        }
+            , done: function (res) {
+                // 上传完毕回调
+                if (res.code !== config('success')) {
+                    layer.msg(res.msg, { icon: 2 });
+                    return false;
+                }
+                layer.msg('上传成功', { icon: 1, time: 500 });
+                $('#' + id).parents('.layui-upload').find('input[name="'+id+'"]').val(res.data.path);
+            }
+            , error: function () {
+                // 请求异常回调
+                layer.msg('上传失败', { icon: 2 });
+            }
+        });
     });
-}
 
-function previewImage(file, name) {
-    var MAXWIDTH = 90;
-    var MAXHEIGHT = 90;
-    var div = document.getElementById('preview');
-    if (file.files && file.files[0]) {
-        div.innerHTML = '<img id=imghead onclick=$("#previewImg").click()>';
-        var img = document.getElementById('imghead');
-        img.onload = function () {
-            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-            img.width = rect.width;
-            img.height = rect.height;
-            //                 img.style.marginLeft = rect.left+'px';
-            img.style.marginTop = rect.top + 'px';
-        }
-        var reader = new FileReader();
-        reader.onload = function (evt) { img.src = evt.target.result; }
-        reader.readAsDataURL(file.files[0]);
-    }
-    else //兼容IE
-    {
-        var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
-        file.select();
-        var src = document.selection.createRange().text;
-        div.innerHTML = '<img id=imghead>';
-        var img = document.getElementById('imghead');
-        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
-        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-        status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
-        div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px;" + sFilter + src + "\"'></div>";
-    }
-}
-function clacImgZoomParam(maxWidth, maxHeight, width, height) {
-    var param = { top: 0, left: 0, width: width, height: height };
-    if (width > maxWidth || height > maxHeight) {
-        rateWidth = width / maxWidth;
-        rateHeight = height / maxHeight;
-
-        if (rateWidth > rateHeight) {
-            param.width = maxWidth;
-            param.height = Math.round(height / rateWidth);
-        } else {
-            param.width = Math.round(width / rateHeight);
-            param.height = maxHeight;
-        }
-    }
-    param.left = Math.round((maxWidth - param.width) / 2);
-    param.top = Math.round((maxHeight - param.height) / 2);
-    return param;
 }

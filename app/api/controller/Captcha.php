@@ -7,6 +7,6 @@ class Captcha
 {
 	public function createVerify()
     {
-        return FacadeCaptcha::create();
+        return FacadeCaptcha::create('register');
     }
 }

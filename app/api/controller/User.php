@@ -1,35 +1,41 @@
 <?php
-namespace app\admin\controller;
+namespace app\api\controller;
 
-use app\admin\logic\Admin as AdminLogic;
-use app\BaseController;
-use app\common\lib\exception\Miss;
-use app\common\lib\Token;
-use app\common\model\Admin as AdminModel;
-use think\App;
+use app\api\logic\User as UserLogic;
+use app\common\lib\ApiToken;
+use app\common\lib\exception\Params;
+use app\common\model\User as UserModel;
+use app\Request;
+use think\captcha\facade\Captcha;
+use think\facade\Cache;
+use think\facade\Config;
 
-class Admin extends BaseController
+class User
 {
-    // 添加
-    public function register()
+    // 注册
+    public function register(Request $request)
     {
-        $params = $this->request->params;
-        AdminLogic::register($params);
+        $params = $request->params;
+        if(!captcha_check($params['captcha'])){
+            throw new Params('验证码错误');
+        };
+        halt($params);
+        UserLogic::register($params);
         return success('保存成功');
     }
 
     // 登录
-    public function login()
+    public function login(Request $request)
     {
-        $params = $this->request->params;
-        $token  = AdminLogic::login($params);
+        $params = $request->params;
+        $token  = UserLogic::login($params);
         return success(['token' => $token]);
     }
 
     // 退出登录
     public function logout()
     {
-        AdminLogic::logout();
+        UserLogic::logout();
         return success('退出成功');
     }
 
@@ -39,59 +45,30 @@ class Admin extends BaseController
         return success('token验证成功！');
     }
 
-    // 列表
+    // 用户中心
     public function index()
     {
-        $params          = $this->request->params;
-        $params['page']  = $this->request->page;
-        $params['limit'] = $this->request->limit;
-        $adminList       = AdminLogic::getAdminList($params);
-        return layui($adminList);
+
     }
 
-    // 单条
-    public function read(int $id)
+    // 使用token获取用户信息
+    public function getUserByToken()
     {
-        $admin = AdminModel::findAdminById($id);
-        if (!$admin) throw new Miss();
-        return success($admin);
-    }
-
-    // 添加
-    public function save()
-    {
-        $params = $this->request->params;
-        AdminLogic::save($params);
-        return success('保存成功');
-    }
-
-    // 更新
-    public function update()
-    {
-        $params = $this->request->params;
-        AdminLogic::update($params);
-        return success('更新成功');
-    }
-
-    // 更新密码
-    public function password()
-    {
-        $params = $this->request->params;
-        AdminLogic::updatePassword($params);
-        return success('更新成功');
-    }
-
-    // 删除
-    public function delete(int $id)
-    {
-        AdminLogic::delete($id);
-        return success('删除成功');
-    }
-
-    // 获取用户信息通过token
-    public function getAdminByToken()
-    {
-        $user = Token::getUser();
+        $user = ApiToken::getUser();
         return success($user);
+    }
+
+    // 使用id获取用户信息
+    public function getUserById(int $id)
+    {
+        $user = UserModel::findUserById($id);
+        return success($user);
+    }
+
+    // 获取邀请码
+    public function getInvitationCode()
+    {
+        $invitation_code = UserLogic::createInvitationCode();
+        return success(['invitation_code' => $invitation_code]);
     }
 }

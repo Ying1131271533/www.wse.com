@@ -269,23 +269,26 @@ id int id
 username char(25) 用户名
 password char(32) 密码
 password_salt char(5) 密码盐
+company_name char(50) 公司名或者个人姓名
 nickname char(25) null 昵称
-phone char(25) null 手机
+contact char(25) 联系方式
+contact_type char(25) 联系方式类型 qq、淘宝、Facebook、line、微信
 email char(50) null 邮箱
-wechat char(50) null 微信
-introduction char(255) null 简介
-
-
-
-
-
+telephone char(25) 联系电话
+invitation_user_id int null 邀请用户id
+license char(100) null 营业执照
+idcard_front char(100) null 身份证正面照
+idcard_back char(100) null 身份证反面照
 status tinyint(1) 1 登录状态：0 禁止 1 正常
 login_number int 0 登录次数
 last_login_ip char(20) null 上次登录IP
 last_login_time char(20) null 上次登录时间
+last_login_token char(20) null 上次登录时间
 update_time int 更新时间
 create_time int 创建时间
 delete_time int null 删除时间
+
+
 
 
 

@@ -70,7 +70,7 @@ function success($data = null, int $code = 200, int $HttpStatus = 200, string $m
         $resultData['total'] = $data['total'];
         $resultData['data']  = $data['data'];
     }
-    
+
     // 返回数据
     // echo json($resultData, $code);exit;
     return json($resultData, $HttpStatus);
@@ -93,7 +93,7 @@ function layui($data = null, int $code = 0, int $HttpStatus = 200, string $msg =
         'msg'  => $msg,
         'data' => $data,
     ];
-    
+
     // 有分页
     if (isset($data['total'])) {
         $resultData['count'] = $data['total'];
@@ -517,7 +517,6 @@ function get_key_cloumn($key, $array)
     });
     return $data;
 }
-
 
 /**
  * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝

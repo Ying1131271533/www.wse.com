@@ -17,6 +17,10 @@ Route::group('user', function(){
     Route::rule('logout', 'User/logout', 'POST');
     // 获取用户
     Route::rule('get_user_by_token', 'User/getUserByToken', 'POST');
+    // 根据id获取用户
+    Route::rule('get_user_by_id', 'User/getUserById', 'POST');
     // 用户主页
     Route::rule('index', 'User/index', 'GET');
+    // 获取邀请码
+    Route::rule('get_invitation_code', 'User/getInvitationCode', 'GET');
 })->middleware(app\user\middleware\IsLogin::class);

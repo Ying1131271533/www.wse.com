@@ -22,11 +22,6 @@
     width: 100%;
   }
 
-  .imgItem button {}
-
-  #upload-img img {
-    width: 100px;
-  }
 </style>
 <!-- js -->
 <script src="__FRONT__/js/nav.js"></script>
@@ -57,7 +52,7 @@
     <!-- banner 开始 -->
 
     <!-- 注册内容 开始 -->
-    <form id="formpersonal" action="">
+    <form action="" method="post" name="example">
       <div class="form_main_box" id="login-register">
         <div class="form_main">
           <div class="f_l_title">帐户信息</div>
@@ -72,37 +67,36 @@
             <li>
               <span class="label"><span class="red">*</span>设置密码：</span>
               <div class="inputBox">
-                <input type="password" id="password" name="password" class="text input-value" tabindex="2"
-                  placeholder="6~20位">
+                <input title="密码" type="password" id="password" name="password" class="text input-value" tabindex="2" placeholder="6~20位" maxlength="50" minlength="6">
               </div>
             </li>
             <li>
               <span class="label"><span class="red">*</span>公司名：</span>
               <div class="inputBox">
-                <input type="text" id="company" name="company" class="text input-value" tabindex="3"
+                <input title="公司名" type="text" id="company_name" name="company_name" class="text input-value" tabindex="3"
                   placeholder="个人填姓名即可">
               </div>
             </li>
             <li style="margin-bottom: 5px;">
               <span class="label"><span class="red">*</span>联系方式：</span>
               <div class="inputBox">
-                <input type="text" id="contact" name="contact" class="text input-value" tabindex="4"
+                <input title="联系方式" type="text" id="contact" name="contact" class="text input-value" tabindex="4"
                   placeholder="务必填写联系方式,以便我司和您联系">
               </div>
               <div style="width: 330px;height: 22px; padding-left: 80px;padding-top: 5px;padding-right: 5px;">
-                <input type="radio" name="contact_type" class="input-value"
+                <input title="联系方式类型" type="radio" name="contact_type" class="input-value"
                   style="width: 15px;height: 15px;vertical-align:middle;" id="qq" value="qq" checked="checked">
                 <label for="qq"><span style="margin-right:10px;margin-left:2px;">QQ</span></label>
-                <input type="radio" name="contact_type" class="input-value"
+                <input title="联系方式类型" type="radio" name="contact_type" class="input-value"
                   style="width: 15px;height: 15px;vertical-align:middle;" id="taobao" value="taobao">
                 <label for="taobao"><span style="margin-right:10px;margin-left:2px;">淘宝</span></label>
-                <input type="radio" name="contact_type" class="input-value"
+                <input title="联系方式类型" type="radio" name="contact_type" class="input-value"
                   style="width: 15px;height: 15px;vertical-align:middle;" id="facebook" value="facebook">
                 <label for="facebook"><span style="margin-right:10px;margin-left:2px;">FaceBook</span></label>
-                <input type="radio" name="contact_type" class="input-value"
+                <input title="联系方式类型" type="radio" name="contact_type" class="input-value"
                   style="width: 15px;height: 15px;vertical-align:middle;" id="line" value="line">
                 <label for="line"><span style="margin-left:2px;">LINE</span></label>
-                <input type="radio" name="contact_type" class="input-value"
+                <input title="联系方式类型" type="radio" name="contact_type" class="input-value"
                   style="width: 15px;height: 15px;vertical-align:middle;" id="wechat" value="wechat">
                 <label for="wechat"><span style="margin-left:2px;">微信</span></label>
               </div>
@@ -110,34 +104,32 @@
             <li>
               <span class="label">邮箱：</span>
               <div class="inputBox">
-                <input type="text" id="email" name="email" class="text input-value" tabindex="4"
+                <input title="邮箱" type="text" id="email" name="email" class="text input-value" tabindex="4"
                   placeholder="请填写正确的邮箱地址">
               </div>
             </li>
             <li>
               <span class="label"><span class="red">*</span>联系电话：</span>
               <div class="inputBox">
-                <input type="text" id="tel" name="tel" class="text input-value" tabindex="5" placeholder="手机号或固话均可">
+                <input title="联系电话" type="text" id="telephone" name="telephone" class="text input-value" tabindex="5" placeholder="手机号或固话均可">
               </div>
             </li>
             <li class="line">
-              <span class="label">推荐码：</span>
-              <input type="text" id="recommen_dcode" name="recommen_dcode" class="text input-value" value=""
-                placeholder="选填，推荐人信息" maxlength="12" tabindex="6">
+              <span class="label">邀请码：</span>
+              <input title="邀请码" type="text" id="invitation_code" name="invitation_code" class="text input-value" value=""
+                placeholder="选填，邀请人信息" maxlength="12" tabindex="6">
             </li>
 
             <li class="line">
               <span class="label"><span class="red">*</span>验证码：</span>
-              <input type="text" id="captcha" name="captcha" class="text input-value text-1 min-input" maxlength="4"
-                tabindex="4">
-              <img id="JD_Verification1" src="http://api.wse.com/captcha/create_verify" onclick="this.src += '?1'"
-                alt="看不清？点击更换" title="看不清？点击更换">
+              <input title="验证码" type="text" id="captcha" name="captcha" class="text input-value text-1  min-input" maxlength="4" tabindex="4">
+              <img id="JD_Verification1" src="http://api.wse.com/captcha/create_verify" onclick="this.src += '?1'" alt="看不清？点击更换" title="看不清？点击更换">
 
             </li>
 
-            <!-- <li class="line">
+            <li class="line">
               <a id="toUploadFile">上传证件</a>
-            </li> -->
+            </li>
 
             <!-- 文件div -->
             <div class="ui-dialog-cntainer hide" id="uploadDiv">
@@ -153,86 +145,35 @@
                   <div class="panel panel-nobottom clearfix" style="padding-bottom: 10px;">
                     <div class="panel-body clearfix">
 
-                      <!-- <div class="layui-upload">
-                          <button type="button" class="layui-btn" id="upload-img" onclick="upload_image(this)">营业执照</button>
-                          <div class="layui-upload-list">
-                              <img class="layui-upload-img" id="upload-preview">
-                              <input type="hidden" name="license">
-                          </div>
-                      </div>
-                      <div class="layui-upload">
-                          <button type="button" class="layui-btn" id="upload-img" onclick="upload_image(this)">身份证正面照(国徽面)</button>
-                          <div class="layui-upload-list">
-                              <img class="layui-upload-img" id="upload-preview">
-                              <input type="hidden" name="idcard_front">
-                          </div>
-                      </div>
-                      <div class="layui-upload">
-                          <button type="button" class="layui-btn" id="upload-img" onclick="upload_image(this)">身份证反面照(人物面)</button>
-                          <div class="layui-upload-list">
-                              <img class="layui-upload-img" id="upload-preview">
-                              <input type="hidden" name="idcard_back">
-                          </div>
-                      </div> -->
-
-
-                      <!-- <div class="imgItem">
-                        <label>营业执照</label>
-                        <input id="file1" type="file" style="display: none;" name="file">
-                        <input type="hidden" name="license" value="N" class="input-value">
-                        <div id="preview">
-                          <img id="imghead" border="0" src="__FRONT__/images/shangchuan2.png" width="90" height="90"
-                            onclick="$('#previewImg').click();">
-                        </div>
-                        <input type="file" onchange="previewImage(this, 'license')" style="display: none;" id="previewImg">
-                      </div>
                       <div class="imgItem">
-                        <label>身份证正面照(国徽面)</label>
-                        <input id="file2" type="file" style="display: none;" name="file">
-                        <input type="hidden" name="idcard_front" value="N" class="input-value">
-                        <div class="img-container">
-                          <img src="__FRONT__/images/shangchuan2.png" alt="上传图片">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="license">上传营业执照</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="upload-preview">
+                                <input title="营业执照" type="hidden" name="license" class="input-value">
+                            </div>
                         </div>
                       </div>
                       <div class="imgItem">
-                        <label>身份证反面照(人物面)</label>
-                        <input id="file3" type="file" style="display: none;" name="file">
-                        <input type="hidden" name="idcard_back" value="N" class="input-value">
-                        <div class="img-container">
-                          <img src="__FRONT__/images/shangchuan2.png" alt="上传图片">
-                        </div>
-                      </div> -->
-
-                      <!-- <div class="imgItem">
-                        <label>营业执照</label>
-                        <input id="file1" type="file" style="display: none;" name="file">
-                        <input type="hidden" name="license" value="N" class="input-value">
-                        <div class="img-container">
-                          <img src="__FRONT__/images/shangchuan2.png" alt="上传图片">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="idcard_front">上传身份证正面照(国徽面)</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="upload-preview">
+                                <input title="身份证正面照" type="hidden" name="idcard_front" class="input-value">
+                            </div>
                         </div>
                       </div>
                       <div class="imgItem">
-                        <label>身份证正面照(国徽面)</label>
-                        <input id="file2" type="file" style="display: none;" name="file">
-                        <input type="hidden" name="idcard_front" value="N" class="input-value">
-                        <div class="img-container">
-                          <img src="__FRONT__/images/shangchuan2.png" alt="上传图片">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="idcard_back">上传身份证反面照(人物面)</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="upload-preview">
+                                <input title="身份证反面照" type="hidden" name="idcard_back" class="input-value">
+                            </div>
                         </div>
                       </div>
-                      <div class="imgItem">
-                        <label>身份证反面照(人物面)</label>
-                        <input id="file3" type="file" style="display: none;" name="file">
-                        <input type="hidden" name="idcard_back" value="N" class="input-value">
-                        <div class="img-container">
-                          <img src="__FRONT__/images/shangchuan2.png" alt="上传图片">
-                        </div>
-                      </div> -->
-
-                      <div class="col-md-12 form-group">
-                        <div class="col-md-12">
-                          <button type="button" style="margin-left: 646px;" class="btn btn-primary btn-w-xs"
-                            id="close">确认</button>
-                        </div>
+                      <div class="col-md-12">
+                        <button type="button" style="margin-left: 646px;margin-top: 25px;" class="btn btn-primary btn-w-xs" id="close">确认</button>
                       </div>
                     </div>
                   </div>
@@ -250,7 +191,8 @@
           </ul>
 
           <div class="l_f_reg">
-            已有帐号？<a href="/login">立即登录</a></div>
+            已有帐号？<a href="/login">立即登录</a>
+          </div>
         </div>
       </div>
     </form>
@@ -258,6 +200,18 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+
+  // 是否已登录过
+  if (!empty(getApiToken())) {
+    layer.msg('已登录，无需重复登录', { time: 700 }, function () {
+      $(window).attr('location', '/');
+    });
+  }
+
+  // 上传图片
+  upload_image('license');
+  upload_image('idcard_front');
+  upload_image('idcard_back');
 
   // 显示上传文件
   $('#toUploadFile').click(function () {
@@ -268,56 +222,27 @@
     $('#uploadDiv').addClass('hide');
   });
 
-  // 上传文件
-  $('.img-container').click(function () {
-    $(this).parents('.imgItem').find('input[name="file"]').trigger('click');
-  });
-
-  // 获取token
-  let token = getApiToken();
-
-  // 是否已登录过
-  if (!empty(token)) {
-    layer.msg('已登录，无需重复登录', { time: 700 }, function () {
-      $(window).attr('location', '/');
-    });
-  }
-
-  layui.use(['upload', 'layer'], function () {
-    var upload = layui.upload;
-    var layer = layui.layer;
-    // 上传文件
-    upload_image(upload);
-  });
 
   $("form").submit(function (e) {
-    let data = get_input_value(false);
+    let data = get_input_value();
     console.log(data);
-    return false;
     $.ajax({
       type: "POST",
       contentType: "application/x-www-form-urlencoded",
-      url: 'http://api.wse.com/user/login',
-      data: {
-        username: data.field.username,
-        password: data.field.password
-      },
+      url: 'http://api.wse.com/user/register',
+      data: data,
       success: function (res) {
         console.log(res);
-        if (res.code === config('failed')) {
-          layer.msg(res.msg);
-        } else if (res.code === config('success')) {
-          $.cookie('admin_login_token', res.data.token, { expires: 100 * 365, path: '/' });
-          $(window).attr('location', '/view/index');
-
-          // 下面这提示有点烦~~~
-          // layer.msg('登录成功！', {time: 500}, function () {
-          //   $.cookie('admin_login_token', res.data.token, { expires: 100 * 365, path: '/' });
-          //   $(window).attr('location', '/view/index');
-          // });
+        if (res.code !== config('success')) {
+          layer.msg(res.msg, {icon: 2});
+          $('#JD_Verification1').trigger('click');
+          return false;
         }
+        $.cookie('admin_login_token', res.data.token, { expires: 100 * 365, path: '/' });
+        $(window).attr('location', '/');
       }
     });
+    return false;
   });
 
 

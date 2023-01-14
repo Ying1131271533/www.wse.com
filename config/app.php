@@ -38,6 +38,11 @@ return [
     
     /************** 自定义配置 **************/
 
+    // 加密解密函数key
+    'encrypt' => 'Akali-Ying',
+
+    // Hashids生成邀请长度
+    'invitation_code_length' => 6,
 
     // 可以上传的文件类型和上传规则
     'upload_file_type' => [

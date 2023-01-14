@@ -8,13 +8,19 @@ class User extends BaseValidate
 {
     // 验证规则
     protected $rule = [
-        'id|用户id'                    => 'require|number|gt:0',
-        'username|用户名'               => 'require|max:20|min:2|alphaNum',
-        'password|密码'                => 'require|max:50|min:6',
-        'password_salt|密码盐'          => 'require',
-        'status|状态'                  => 'number',
-
-        'captcha|验证码'=>'require|captcha',
+        'id|用户id'             => 'require|number|gt:0',
+        'username|用户名'        => 'require|max:25|min:4|alphaNum',
+        'password|密码'         => 'require|max:50|min:6',
+        'company_name|公司名'    => 'require|max:50',
+        'contact|联系方式'        => 'require|max:25',
+        'contact_type|联系方式类型' => 'require',
+        'email|邮箱'            => 'email',
+        'telephone|联系电话'      => 'require|max:25',
+        'invitation_code|邀请码' => 'length:6',
+        'captcha|验证码'         => 'require|length:4',
+        'license|营业执照'        => 'max:100',
+        'idcard_front|身份证正面照' => 'max:100',
+        'idcard_back|身份证反面照'  => 'max:100',
     ];
 
     // 验证消息
@@ -24,17 +30,42 @@ class User extends BaseValidate
 
     // 验证场景
     protected $scene = [
-        'register'  => ['username', 'password'],
-        'login'     => ['username', 'password'],
-        'addFriend' => ['username', 'message'],
-        'handleFriend' => ['decision', 'target'],
-        'getUserById' => ['id'],
+        'register'          => [
+            'username',
+            'password',
+            'company_name',
+            'contact',
+            'contact_type',
+            'email',
+            'telephone',
+            'invitation_code',
+            'captcha',
+            'license',
+            'idcard_front',
+            'idcard_back',
+        ],
+        'login'             => ['username', 'password'],
+        'getUserById'       => ['id'],
+        'getInvitationCode' => ['invitation_code'],
     ];
 
-    // edit 验证场景定义
+    // 用户注册 验证场景定义
     public function sceneRegister()
     {
         // 注册时添加username的唯一性
-        return $this->only(['username', 'password'])->append('username', 'unique:api_user');
+        return $this->only([
+            'username',
+            'password',
+            'company_name',
+            'contact',
+            'contact_type',
+            'email',
+            'telephone',
+            'invitation_code',
+            'captcha',
+            'license',
+            'idcard_front',
+            'idcard_back',
+        ])->append('username', 'unique:user');
     }
 }

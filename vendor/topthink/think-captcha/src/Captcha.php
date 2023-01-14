@@ -96,7 +96,7 @@ class Captcha
      * @return array
      * @throws Exception
      */
-    protected function generate(): array
+    protected function generate_original(): array
     {
         $bag = '';
 
@@ -136,12 +136,57 @@ class Captcha
     }
 
     /**
+     * 创建验证码
+     * @return array
+     * @throws Exception
+     */
+    protected function generate(): array
+    {
+        $bag = '';
+
+        if ($this->math) {
+            $this->useZh  = false;
+            $this->length = 5;
+
+            $x   = random_int(10, 30);
+            $y   = random_int(1, 9);
+            $bag = "{$x} + {$y} = ";
+            $key = $x + $y;
+            $key .= '';
+        } else {
+            if ($this->useZh) {
+                $characters = preg_split('/(?<!^)(?!$)/u', $this->zhSet);
+            } else {
+                $characters = str_split($this->codeSet);
+            }
+
+            for ($i = 0; $i < $this->length; $i++) {
+                $bag .= $characters[rand(0, count($characters) - 1)];
+            }
+
+            $key = mb_strtolower($bag, 'UTF-8');
+        }
+
+        $hash = password_hash($key, PASSWORD_BCRYPT, ['cost' => 10]);
+
+        // 使用cache获取的
+        cache('captcha', [
+            'key' => $hash,
+        ]);
+
+        return [
+            'value' => $bag,
+            'key'   => $hash,
+        ];
+    }
+
+    /**
      * 验证验证码是否正确
      * @access public
      * @param string $code 用户验证码
      * @return bool 用户验证码是否正确
      */
-    public function check(string $code): bool
+    public function check_original(string $code): bool
     {
         if (!$this->session->has('captcha')) {
             return false;
@@ -157,6 +202,31 @@ class Captcha
             $this->session->delete('captcha');
         }
 
+        return $res;
+    }
+
+     /**
+     * 验证验证码是否正确
+     * @access public
+     * @param string $code 用户验证码
+     * @return bool 用户验证码是否正确
+     */
+    public function check(string $code): bool
+    {
+        if (!cache('captcha')) {
+            return false;
+        }
+ 
+        $key = cache('captcha')['key'];
+ 
+        $code = mb_strtolower($code, 'UTF-8');
+ 
+        $res = password_verify($code, $key);
+ 
+        if ($res) {
+            cache('captcha');
+        }
+ 
         return $res;
     }
 

@@ -110,23 +110,6 @@ function input_assign_value(data = null) {
 
 }
 
-// 获取表单值
-function get_input_value() {
-    let data = {};
-    $('.input-value').each(function (index, element) {
-        var name = $(this).attr('name');
-        var title = $(this).attr('title');
-        var val = $(this).val();
-        if (!val) {
-            layer.msg(title + '不能为空', { icon: 2, tiem: 500 });
-            success = false;
-            return false;
-        }
-        data[name] = val;
-    });
-    return data;
-}
-
 
 
 // 读取单条数据

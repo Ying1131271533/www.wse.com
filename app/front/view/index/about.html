@@ -24,7 +24,7 @@
                 <div class="content">
 
                   <!-- 左边的导航 -->
-                  {include file="public/company_left" /}
+                  <!-- {include file="public/company_left" /} -->
                   <script>
                     // $(".divrightLit ul")
                     //   .children()
@@ -58,8 +58,7 @@
                   <script>
                     // 页面加载完毕执行
                     $(document).ready(function () {
-                      var about = xhr_get('/about/info/' + get_url_id());
-                      // var about = ajax_read('/about/info');
+                      var about = ajax_read('/about/info');
                       console.log(about);
                       $('#about_title, .hidden_m .hover_1').text(about.title);
                       $('#about_title, .hidden_m .hover_1').attr('href', '/about/' + about.id);
