@@ -632,3 +632,45 @@ function msectime()
     // var_dump("string类型:".$msectime2); // string(26) "string类型:1609816674622"
     return $msectime;
 }
+
+/*
+
+函数名称：create_sess_id()
+
+函数作用：产生以个随机的会话ID
+
+参 数：$len: 需要会话字符串的长度，默认为32位，不要低于16位
+
+返 回 值：返回会话ID
+
+函数作者：heiyeluren
+
+ */
+
+function create_session_id($len = 32)
+{
+    // 校验提交的长度是否合法
+    if (!is_numeric($len) || ($len > 32) || ($len < 16)) {return;}
+
+    // 获取当前时间的微秒
+    list($u, $s) = explode(' ', microtime());
+
+    $time = (float) $u + (float) $s;
+
+    // 产生一个随机数
+    $rand_num = rand(100000, 999999);
+
+    $rand_num = rand($rand_num, $time);
+
+    mt_srand($rand_num);
+
+    $rand_num = mt_rand();
+
+    // 产生SessionID
+    $session_id = md5(md5($time) . md5($rand_num));
+
+    // 截取指定需要长度的SessionID
+    $session_id = substr($session_id, 0, $len);
+
+    return $session_id;
+}

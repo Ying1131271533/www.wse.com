@@ -188,7 +188,6 @@ class Captcha
      */
     public function check(string $code): bool
     {
-        halt($this->session->has('captcha'));
         if (!$this->session->has('captcha')) {
             return false;
         }

@@ -406,3 +406,10 @@ function get_chlidren(data = [], parent_id = 0) {
     }
     return tmp;
 }
+
+// 获取验证码
+function get_captcha()
+{
+    var url = 'http://api.wse.com/captcha/create_verify';
+    
+}
