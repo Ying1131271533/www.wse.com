@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>{block name="title"}广东威速易信息科技有限公司，跨境电商综合平台，俄罗斯海外仓、邮政小包、俄罗斯专线、速卖通无忧线上仓{/block} - 威速易一站式跨境供应链服务平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{block name=" description"}
-    俄罗斯海外仓、邮政小包、俄罗斯专线、海外仓、速卖通无忧线上仓、亚马逊FBA头程 、速卖通无忧物流、国际eub, 英国专线、海外仓、广州小包、佛山小包、东莞小包、wish邮、荷兰邮政小包、广州eub、带电邮政小包、欧洲专线、俄罗斯cdek专线、美国专线、国际快递、中东专线、东南亚专线、ups快递、dhl快递、美国海加派、欧洲空加派、欧洲海加派、美国空加派 {/block}">
-    <meta name="keywords" content="{block name=" keywords"}俄罗斯海外仓、邮政小包、俄罗斯专线、海外仓、速卖通无忧线上仓、亚马逊FBA头程 、速卖通无忧物流、国际eub, 英国专线、海外仓、广州小包、佛山小包、东莞小包、wish邮、荷兰邮政小包、广州eub、带电邮政小包、欧洲专线、俄罗斯cdek专线、美国专线、国际快递、中东专线、东南亚专线、ups快递、dhl快递、美国海加派、欧洲空加派、欧洲海加派、美国空加派{/block}">
+    <meta name="description" content="{block name=" description"} 俄罗斯海外仓、邮政小包、俄罗斯专线、海外仓、速卖通无忧线上仓、亚马逊FBA头程
+        、速卖通无忧物流、国际eub,
+        英国专线、海外仓、广州小包、佛山小包、东莞小包、wish邮、荷兰邮政小包、广州eub、带电邮政小包、欧洲专线、俄罗斯cdek专线、美国专线、国际快递、中东专线、东南亚专线、ups快递、dhl快递、美国海加派、欧洲空加派、欧洲海加派、美国空加派
+        {/block}">
+    <meta name="keywords" content="{block name=" keywords"}俄罗斯海外仓、邮政小包、俄罗斯专线、海外仓、速卖通无忧线上仓、亚马逊FBA头程 、速卖通无忧物流、国际eub,
+        英国专线、海外仓、广州小包、佛山小包、东莞小包、wish邮、荷兰邮政小包、广州eub、带电邮政小包、欧洲专线、俄罗斯cdek专线、美国专线、国际快递、中东专线、东南亚专线、ups快递、dhl快递、美国海加派、欧洲空加派、欧洲海加派、美国空加派{/block}">
 
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="canonical" href="{:url()}">
@@ -18,11 +22,21 @@
     <script src="__FRONT__/js/jquery.min.js" type="text/javascript"></script>
     <script src="__COMMON__/lib/layer/layer.js" type="text/javascript" charset="utf-8"></script>
     <script src="__COMMON__/lib/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="__COMMON__/js/jquery.cookie.js" charset="utf-8"></script>
-	<script src="__COMMON__/js/common.js" charset="utf-8"></script>
-	<script src="__COMMON__/js/ajax_layui.js" charset="utf-8"></script>
-	<script src="__FRONT__/js/common.js" charset="utf-8"></script>
-	<script src="__COMMON__/js/ajax_api.js" charset="utf-8"></script>
+    <script src="__COMMON__/js/jquery.cookie.js" charset="utf-8"></script>
+    <script src="__COMMON__/js/common.js" charset="utf-8"></script>
+    <script src="__COMMON__/js/ajax_layui.js" charset="utf-8"></script>
+    <script src="__FRONT__/js/common.js" charset="utf-8"></script>
+    <script src="__COMMON__/js/ajax_api.js" charset="utf-8"></script>
+    <script>
+        // 获取token
+        var token = getApiToken();
+        // 是否已登录过
+        if (!empty(token)) {
+            layer.msg('已登录！', { time: 1000, icon: 2}, function () {
+                $(window).attr('location', '/');
+            });
+        }
+    </script>
     {block name="load"}{/block}
 </head>
 

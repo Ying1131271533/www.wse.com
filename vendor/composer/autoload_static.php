@@ -34,6 +34,10 @@ class ComposerStaticInitccb8a819e28356e3688f606613457217
         array (
             'phpseclib3\\' => 11,
         ),
+        'i' => 
+        array (
+            'imyfone\\' => 8,
+        ),
         'a' => 
         array (
             'app\\' => 4,
@@ -104,10 +108,15 @@ class ComposerStaticInitccb8a819e28356e3688f606613457217
             1 => __DIR__ . '/..' . '/topthink/think-helper/src',
             2 => __DIR__ . '/..' . '/topthink/think-orm/src',
             3 => __DIR__ . '/..' . '/topthink/think-template/src',
+            4 => __DIR__ . '/..' . '/topthink/think-cache/src',
         ),
         'phpseclib3\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+        ),
+        'imyfone\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/imyfone-tp/captcha/src',
         ),
         'app\\' => 
         array (

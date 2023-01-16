@@ -3,12 +3,8 @@ namespace app\api\controller;
 
 use app\api\logic\User as UserLogic;
 use app\common\lib\ApiToken;
-use app\common\lib\exception\Params;
 use app\common\model\User as UserModel;
 use app\Request;
-use think\captcha\facade\Captcha;
-use think\facade\Cache;
-use think\facade\Config;
 
 class User
 {
@@ -16,12 +12,8 @@ class User
     public function register(Request $request)
     {
         $params = $request->params;
-        if(!captcha_check($params['captcha'])){
-            throw new Params('验证码错误');
-        };
-        halt($params);
-        UserLogic::register($params);
-        return success('保存成功');
+        $token = UserLogic::register($params);
+        return success(['token' => $token]);
     }
 
     // 登录

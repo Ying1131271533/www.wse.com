@@ -1,5 +1,3 @@
-
-
 /**
  * 改变数据状态，只能是0和1
  *
@@ -87,12 +85,11 @@ function ajax_read(url, is_token = false) {
     var id = get_url_id();
     let is_toekn = is_token;
     let data = null;
-
-    if(is_token){
+    if (is_token) {
         $.ajax({
             type: "GET",
             contentType: "application/x-www-form-urlencoded",
-            url: 'http://api.wse.com' + url + '/' + id,
+            url: api_domain + url + '/' + id,
             async: false, // 关闭异步
             beforeSend: function (request) {
                 request.setRequestHeader("access-token", getApiToken());
@@ -105,11 +102,11 @@ function ajax_read(url, is_token = false) {
                 data = res.data;
             }
         });
-    }else{
+    } else {
         $.ajax({
             type: "GET",
             contentType: "application/x-www-form-urlencoded",
-            url: 'http://api.wse.com' + url + '/' + id,
+            url: api_domain + url + '/' + id,
             async: false, // 关闭异步
             success: function (res) {
                 if (res.code !== config('success')) {
@@ -145,7 +142,7 @@ function ajax_save(url, data, back_url = null, is_token = false) {
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: 'http://api.wse.com' + url,
+        url: api_domain + url,
         data: data,
         beforeSend: function (request) {
             if (is_toekn) {
@@ -175,13 +172,14 @@ function ajax_save(url, data, back_url = null, is_token = false) {
 function ajax_list(url, is_token = false) {
     let is_toekn = is_token;
     let data = null;
-    if(is_token){
+    if (is_token) {
         $.ajax({
             type: "GET",
             contentType: "application/x-www-form-urlencoded",
-            url: 'http://api.wse.com' + url,
+            url: api_domain + url,
             async: false, // 关闭异步
-            beforeSend: function (request) {;
+            beforeSend: function (request) {
+                ;
                 request.setRequestHeader("access-token", getApiToken());
             },
             success: function (res) {
@@ -192,11 +190,11 @@ function ajax_list(url, is_token = false) {
                 data = res.data;
             }
         });
-    }else{
+    } else {
         $.ajax({
             type: "GET",
             contentType: "application/x-www-form-urlencoded",
-            url: 'http://api.wse.com' + url,
+            url: api_domain + url,
             async: false, // 关闭异步
             dataType: "json",
             success: function (res) {
@@ -249,7 +247,7 @@ function ajax_delete(url) {
     $.ajax({
         type: "DELETE",
         contentType: "application/x-www-form-urlencoded",
-        url: 'http://api.wse.com' + url,
+        url: api_domain + url,
         async: false,
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getApiToken());
@@ -303,12 +301,12 @@ function input_assign_value(data = null) {
 
 // 赋值
 function assign(data) {
-    for(let key in data){
-        
+    for (let key in data) {
+
     }
     $.each(data, function (key, value) {
         console.log('#assign-'.key);
-        if($('#assign-'.key).length > 0){
+        if ($('#assign-'.key).length > 0) {
             $('#assign-'.key).text(value);
         }
     });

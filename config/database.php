@@ -27,7 +27,7 @@ return [
             // 服务器地址
             'hostname'        => env('database.hostname', '106.52.77.54'),
             // 数据库名
-            'database'        => env('database.database', 'www_gdwse_com'),
+            'database'        => env('database.database', 'www_twe56_com'),
             // 用户名
             'username'        => env('database.username', 'root'),
             // 密码
@@ -58,25 +58,7 @@ return [
             // 开启字段缓存
             'fields_cache'    => false,
         ],
-        'mongo'    =>    [
-            // 数据库类型
-            'type'        => 'mongo',
-            // 服务器地址
-            'hostname'    => 'mongo',
-            // 数据库名
-            'database'    => 'www_wse_com',
-            // 数据库用户名
-            'username'    => 'wse',
-            // 数据库密码
-            'password'    => '2S-ka]aAw^H?MdL/k@.n-dwXR',
-            // 数据库连接端口
-            'hostport'    => '27017',
-            // 数据库连接参数
-            'params'      => [],
-            // 数据库编码默认采用utf8
-            'charset'     => 'utf8',
-        ],
-
+        
         // 更多的数据库配置信息
     ],
 ];

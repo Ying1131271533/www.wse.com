@@ -17,7 +17,8 @@ class User extends BaseValidate
         'email|邮箱'            => 'email',
         'telephone|联系电话'      => 'require|max:25',
         'invitation_code|邀请码' => 'length:6',
-        'captcha|验证码'         => 'require|length:4',
+        'captcha|验证码'         => 'require|length:4|checkCaptcha',
+        'uniqid|验证码的唯一标识'         => 'require',
         'license|营业执照'        => 'max:100',
         'idcard_front|身份证正面照' => 'max:100',
         'idcard_back|身份证反面照'  => 'max:100',
@@ -40,6 +41,7 @@ class User extends BaseValidate
             'telephone',
             'invitation_code',
             'captcha',
+            'uniqid',
             'license',
             'idcard_front',
             'idcard_back',
@@ -49,7 +51,7 @@ class User extends BaseValidate
         'getInvitationCode' => ['invitation_code'],
     ];
 
-    // 用户注册 验证场景定义
+    /* // 用户注册 验证场景定义
     public function sceneRegister()
     {
         // 注册时添加username的唯一性
@@ -63,9 +65,10 @@ class User extends BaseValidate
             'telephone',
             'invitation_code',
             'captcha',
+            'uniqid',
             'license',
             'idcard_front',
             'idcard_back',
         ])->append('username', 'unique:user');
-    }
+    } */
 }

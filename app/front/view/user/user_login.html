@@ -4,59 +4,59 @@
 <!-- css -->
 <link rel="stylesheet" href="__FRONT__/css/style4.css">
 <style>
-    @-moz-keyframes nodeInserted {
-        from {
-            opacity: 0.99;
-        }
-
-        to {
-            opacity: 1;
-        }
+  @-moz-keyframes nodeInserted {
+    from {
+      opacity: 0.99;
     }
 
-    @-webkit-keyframes nodeInserted {
-        from {
-            opacity: 0.99;
-        }
+    to {
+      opacity: 1;
+    }
+  }
 
-        to {
-            opacity: 1;
-        }
+  @-webkit-keyframes nodeInserted {
+    from {
+      opacity: 0.99;
     }
 
-    @-o-keyframes nodeInserted {
-        from {
-            opacity: 0.99;
-        }
+    to {
+      opacity: 1;
+    }
+  }
 
-        to {
-            opacity: 1;
-        }
+  @-o-keyframes nodeInserted {
+    from {
+      opacity: 0.99;
     }
 
-    @keyframes nodeInserted {
-        from {
-            opacity: 0.99;
-        }
+    to {
+      opacity: 1;
+    }
+  }
 
-        to {
-            opacity: 1;
-        }
+  @keyframes nodeInserted {
+    from {
+      opacity: 0.99;
     }
 
-    embed,
-    object {
-        animation-duration: .001s;
-        -ms-animation-duration: .001s;
-        -moz-animation-duration: .001s;
-        -webkit-animation-duration: .001s;
-        -o-animation-duration: .001s;
-        animation-name: nodeInserted;
-        -ms-animation-name: nodeInserted;
-        -moz-animation-name: nodeInserted;
-        -webkit-animation-name: nodeInserted;
-        -o-animation-name: nodeInserted;
+    to {
+      opacity: 1;
     }
+  }
+
+  embed,
+  object {
+    animation-duration: .001s;
+    -ms-animation-duration: .001s;
+    -moz-animation-duration: .001s;
+    -webkit-animation-duration: .001s;
+    -o-animation-duration: .001s;
+    animation-name: nodeInserted;
+    -ms-animation-name: nodeInserted;
+    -moz-animation-name: nodeInserted;
+    -webkit-animation-name: nodeInserted;
+    -o-animation-name: nodeInserted;
+  }
 </style>
 <!-- js -->
 {/block}
@@ -71,7 +71,7 @@
     <div style="float:left;">
       <a href="/">
         <img src="__FRONT__/images/hl.png" style="width:auto;max-width:90px;height:55px;"
-        onerror="this.src='newpage/images/hl.png'">
+          onerror="this.src='newpage/images/hl.png'">
       </a>
     </div>
     <div class="l_t">
@@ -99,12 +99,12 @@
           <ul class="f_l_cont">
             <li>
               <div class="int_ui">
-                <input class="int-user" id="username" type="text" name="username" value="" placeholder="请输入用户名">
+                <input class="int-user input-value" id="username" type="text" name="username" value="" placeholder="请输入用户名" title="用户名">
               </div>
             </li>
             <li>
               <div class="int_ui">
-                <input class="int-pwd" id="password" type="password" name="password" placeholder="请输入密码">
+                <input class="int-pwd input-value" id="password" type="password" name="password" placeholder="请输入密码" title="密码">
               </div>
             </li>
             <li>
@@ -123,67 +123,31 @@
 </div>
 <script type="text/javascript" charset="utf-8">
 
-  // 获取token
-  let token = getToken();
-
-  layui.config({
-    base: '/static/common/lib/dist/sliderVerify/'
-  }).use(['sliderVerify', 'jquery', 'form'], function () {
-
-    // 滑块验证
-    var sliderVerify = layui.sliderVerify,
-      $ = layui.jquery,
-      form = layui.form;
-    var slider = sliderVerify.render({
-      elem: '#slider',
-      onOk: function () { // 当验证通过回调
-        // layer.msg("滑块验证通过");
-      }
-    })
-
-    // 是否已登录过
-    if (!empty(token)) {
-        layer.msg('已登录，无需重复登录', { time: 700 }, function () {
-            $(window).attr('location', '/view/index');
+  $("form").submit(function (e) {
+    // 获取数据
+    let data = get_input_value(true);
+    if(!data) return false;
+    console.log(data);
+    // 发送
+    $.ajax({
+      type: "POST",
+      contentType: "application/x-www-form-urlencoded",
+      url: api_domain + '/user/login',
+      data: data,
+      success: function (res) {
+        console.log(res);
+        if (res.code !== config('success')) {
+          layer.msg(res.msg, { icon: 2 });
+          return false;
+        }
+        $.cookie('api_login_token', res.data.token, { expires: 100 * 365, path: '/' });
+        layer.msg('登录成功！', { icon: 1, time: 500 }, function () {
+          $(window).attr('location', '/');
         });
-    }
-    
-    //监听提交
-    form.on('submit(login)', function (data) {
-      if (slider.isOk()) {
-        // 发异步，把数据提交给php
-        $.ajax({
-          type: "POST",
-          contentType: "application/x-www-form-urlencoded",
-          url: '/login',
-          data: {
-            username: data.field.username,
-            password: data.field.password
-          },
-          success: function (res) {
-            console.log(res);
-            if (res.code === config('failed')) {
-              layer.msg(res.msg);
-            } else if (res.code === config('success')) {
-              $.cookie('admin_login_token', res.data.token, { expires: 100 * 365, path: '/' });
-              $(window).attr('location', '/view/index');
-
-              // 下面这提示有点烦~~~
-              // layer.msg('登录成功！', {time: 500}, function () {
-              //   $.cookie('admin_login_token', res.data.token, { expires: 100 * 365, path: '/' });
-              //   $(window).attr('location', '/view/index');
-              // });
-            }
-          }
-        });
-
-      } else {
-        layer.msg("请先通过滑块验证");
       }
-      return false;
     });
-
-  })
+    return false;
+  });
 </script>
 
 <!--中间内容 结束-->

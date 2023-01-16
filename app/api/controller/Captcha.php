@@ -1,17 +1,16 @@
 <?php
 namespace app\api\controller;
 
+use imyfone\TheCaptcha;
 use think\captcha\facade\Captcha as FacadeCaptcha;
 
-class Captcha 
+class Captcha
 {
-	public function createVerify()
+    public function createVerify()
     {
-        return FacadeCaptcha::create('register');
-        $captcha = FacadeCaptcha::create('register');
-        return success([
-            'captcha' => $captcha,
-            'session_id' => create_session_id()
-        ]);
+        $captcha = new TheCaptcha(config('captcha.register'));
+        $obj  = $captcha->getEntry();
+        $data = $obj->getData(); // 得到的结果是数组
+        return success($data);
     }
 }

@@ -480,6 +480,56 @@
             "install-path": "../guzzlehttp/psr7"
         },
         {
+            "name": "imyfone-tp/captcha",
+            "version": "v1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/febhz/captcha.git",
+                "reference": "cff0892f613e1f43e96065af8bd0fbb761f4c9a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/febhz/captcha/zipball/cff0892f613e1f43e96065af8bd0fbb761f4c9a8",
+                "reference": "cff0892f613e1f43e96065af8bd0fbb761f4c9a8",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.6",
+                "topthink/think-cache": "1.0"
+            },
+            "time": "2021-03-22T11:06:01+00:00",
+            "type": "think-cache",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "imyfone\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "hz",
+                    "email": "hz@qq.com"
+                }
+            ],
+            "description": "A class of JWT captcha based on thinkphp5",
+            "support": {
+                "issues": "https://github.com/febhz/captcha/issues",
+                "source": "https://github.com/febhz/captcha/tree/v1.0.0"
+            },
+            "install-path": "../imyfone-tp/captcha"
+        },
+        {
             "name": "league/flysystem",
             "version": "1.1.9",
             "version_normalized": "1.1.9.0",
@@ -2256,6 +2306,56 @@
                 "source": "https://github.com/top-think/framework/tree/v6.0.12"
             },
             "install-path": "../topthink/framework"
+        },
+        {
+            "name": "topthink/think-cache",
+            "version": "v1.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/top-think/think-cache.git",
+                "reference": "7a675a5f19aeb8ab98bdbf2c1a7220a623c9ec52"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/top-think/think-cache/zipball/7a675a5f19aeb8ab98bdbf2c1a7220a623c9ec52",
+                "reference": "7a675a5f19aeb8ab98bdbf2c1a7220a623c9ec52",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "time": "2018-01-25T06:19:18+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [],
+                "psr-4": {
+                    "think\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "liu21st",
+                    "email": "liu21st@gmail.com"
+                }
+            ],
+            "description": "Cache Manager",
+            "support": {
+                "issues": "https://github.com/top-think/think-cache/issues",
+                "source": "https://github.com/top-think/think-cache/tree/master"
+            },
+            "install-path": "../topthink/think-cache"
         },
         {
             "name": "topthink/think-captcha",

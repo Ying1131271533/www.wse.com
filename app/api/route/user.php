@@ -23,4 +23,4 @@ Route::group('user', function(){
     Route::rule('index', 'User/index', 'GET');
     // 获取邀请码
     Route::rule('get_invitation_code', 'User/getInvitationCode', 'GET');
-})->middleware(app\user\middleware\IsLogin::class);
+})->middleware(app\api\middleware\IsLogin::class);

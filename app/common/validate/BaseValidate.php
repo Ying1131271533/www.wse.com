@@ -2,6 +2,7 @@
 
 namespace app\common\validate;
 
+use imyfone\TheCaptcha;
 use think\facade\Db;
 use think\Validate;
 
@@ -72,4 +73,14 @@ class BaseValidate extends Validate
         return true;
     }
 
+    // imyfone\TheCaptcha 的验证码
+    protected function checkCaptcha($value, $rule = '', $data = '', $field = '')
+    {
+        $captcha = new TheCaptcha();
+        if(empty('uniqid')) return '验证码的唯一标识不能为空';
+        if(!$captcha->checkCaptcha($data['uniqid'], $value)){
+            return '验证码错误！';
+        }
+        return true;
+    }
 }

@@ -1,3 +1,5 @@
+// api域名
+let api_domain = 'http://api.wse.com'
 // ajax全局设置头部信息
 /* $(document).ready(function () {
     let url = window.location.href, token = null;
@@ -146,7 +148,8 @@ function isApiLogin() {
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: 'http://api.wse.com/user/is_login',
+        url: api_domain + '/user/is_login',
+        async: true,
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getApiToken());
         },
@@ -154,8 +157,8 @@ function isApiLogin() {
             if (res.code === config('goto')) {
                 layer.msg('登录凭证失效！', { time: 500 }, function () {
                     $.removeCookie('api_login_token', { path: '/' });
-                    // $.removeCookie('api_login_token', {domain: document.domain, path: '/'});
-                    $(window).attr('location', '/api/View/user/login');
+                    // $.removeCookie('api_login_token', {api_domain: document.api_domain, path: '/'});
+                    $(window).attr('location', '/login');
                 });
             }
         }
@@ -175,7 +178,7 @@ function isAdminLogin() {
             if (res.code === config('goto')) {
                 layer.msg(res.msg, { time: 500 }, function () {
                     $.removeCookie('admin_login_token', { path: '/' });
-                    // $.removeCookie('api_login_token', {domain: document.domain, path: '/'});
+                    // $.removeCookie('api_login_token', {api_domain: document.api_domain, path: '/'});
                     $(window).attr('location', '/view/login');
                 });
             }
@@ -189,7 +192,7 @@ function getUserById(uid) {
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: '/api/User/get_user_by_id',
+        url: api_domain+'/user/get_user_by_id',
         data: { id: uid },
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getApiToken());
@@ -220,7 +223,7 @@ function getUser() {
     $.ajax({
         type: "POST",
         contentType: "application/x-www-form-urlencoded",
-        url: '/api/User/getUserByToken',
+        url: api_domain+'/user/getUserByToken',
         async: false,
         beforeSend: function (request) {
             request.setRequestHeader("access-token", getApiToken());
@@ -310,8 +313,9 @@ function get_input_value(not_empty = false) {
         var name = $(this).attr('name');
         var title = $(this).attr('title');
         var val = $(this).val();
-        if (!val && not_empty == true) {
+        if (!val && not_empty === true) {
             layer.msg(title + '不能为空', { icon: 2, tiem: 500 });
+            data = false;
             return false;
         }
         data[name] = val;
@@ -408,8 +412,21 @@ function get_chlidren(data = [], parent_id = 0) {
 }
 
 // 获取验证码
-function get_captcha()
-{
+function get_captcha(id = 'captcha_img', uniqid = 'uniqid') {
+    let data;
     var url = 'http://api.wse.com/captcha/create_verify';
-    
+    $.ajax({
+        type: "GET",
+        contentType: "application/x-www-form-urlencoded",
+        url: url,
+        async: false,
+        success: function (res) {
+            if (res.code !== config('success')) {
+                layer.msg(res.msg, { icon: 2, time: 500 });
+            }
+            $('#' + id).attr('src', res.data.content);
+            $('input[name="'+uniqid+'"]').val(res.data.uniqid);
+        }
+    });
+
 }

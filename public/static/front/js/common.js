@@ -1,3 +1,4 @@
+
 // 页码
 var page = 1;
 // 条数
@@ -99,7 +100,7 @@ function upload_image(id) {
         //执行实例
         var uploadInst = upload.render({
             elem: '#' + id // 绑定元素
-            , url: 'http://api.wse.com/upload/file' // 上传接口
+            , url: api_domain + '/upload/file' // 上传接口
             , method: 'POST'  // 可选项。HTTP类型，默认post
             , data: { type: 'images' } // 可选项。额外的参数，如：{id: 123, abc: 'xxx'}
             , field: 'images' // 上传文件的字段名
@@ -117,7 +118,7 @@ function upload_image(id) {
                     return false;
                 }
                 layer.msg('上传成功', { icon: 1, time: 500 });
-                $('#' + id).parents('.layui-upload').find('input[name="'+id+'"]').val(res.data.path);
+                $('#' + id).parents('.layui-upload').find('input[name="' + id + '"]').val(res.data.path);
             }
             , error: function () {
                 // 请求异常回调

@@ -4,8 +4,8 @@ namespace app\api\logic;
 use app\common\lib\exception\Fail;
 use app\common\lib\ApiToken;
 use app\common\lib\exception\Miss;
+use app\common\lib\facade\Redis;
 use app\common\lib\Hashids;
-use app\common\logic\lib\Redis;
 use app\common\logic\lib\Str;
 use app\common\model\User as UserModel;
 use Exception;
@@ -42,19 +42,49 @@ class User
             $data['invitation_user_id'] = $invitation_user_id;
         }
 
+
         // 启动事务
-        $user->startTrans();
+        UserModel::startTrans();
 
         try {
+
+            // redis开启事务
+            Redis::multi();
+
             // 保存用户
-            $userResult = $user->save($data);
-            if (!$userResult) throw new Exception('用户注册失败');
+            $user = UserModel::create($data);
+            if (!$user) throw new Exception('用户注册失败');
+
+
+            // 生成token
+            $token = Str::createToken($data['username']);
+
+            // 更新用户登录信息
+            $user->save([
+                'last_login_token' => $token,
+                'login_number'     => 1,
+                'last_login_ip'    => get_client_ip(),
+                'last_login_time'  => time(),
+            ]);
+
+            // 缓存token
+            $cache_token = [
+                'id'       => $user['id'],
+                'username' => $user['username'],
+            ];
+            
+            // 保存token，设置过期时间：一个月
+            Redis::drset(config('redis.token_api') . $token, $cache_token, cache_time('one_month'));
 
             // 提交事务
-            $user->commit();
-            return $user;
+            UserModel::commit();
+            Redis::exec();
+            // 返回token
+            return $token;
         } catch (Exception $e) {
-            $user->rollback();
+            // 回滚事务
+            UserModel::rollback();
+            Redis::discard();
             throw new Fail($e->getMessage());
         }
     }
@@ -80,10 +110,9 @@ class User
             throw new Fail('密码不正确！');
         }
 
-        $redis = new Redis();
         // 如果IsLogin中间件那里使用了账号异地登录的话，就删除redis的token
         // 删除上次的token
-        // $redis->delete(config('redis.token_pre') . $user['last_login_token']);
+        // Redis::delete(config('redis.token_api') . $user['last_login_token']);
 
         // 生成token
         $token = Str::createToken($user['username']);
@@ -102,7 +131,7 @@ class User
         ];
         
         // 保存token，设置过期时间：一个月
-        $redis->set(config('redis.token_pre') . $token, $data, cache_time('one_month'));
+        Redis::set(config('redis.token_api') . $token, $data, cache_time('one_month'));
 
         // 返回token
         return $token;
