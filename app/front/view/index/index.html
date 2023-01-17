@@ -99,7 +99,7 @@
             <div class="newstielte">跨境咨询 </div>
             <ul>
             </ul>
-            <a class="showhide" href="http://www.gdwse.com/products/category-1.html">查看全部&gt;&gt;</a>
+            <a class="showhide" href="/article">查看全部&gt;&gt;</a>
           </div>
           
           <script>
@@ -109,7 +109,7 @@
             var html = '';
             $.each(articleList, function (key, value) {
                 html += '<li>';
-                html += '<a href="http://www.wse.com/article/'+value['id']+'" title="'+value['title']+'" target="_blank">';
+                html += '<a href="/article/'+value['id']+'" title="'+value['title']+'" target="_blank">';
                 html += '<div class="nc-right">'+value['title']+'</div>';
                 html += '<div class="nc-left">';
                 html += '<p>'+timestampToTime(value['create_time'], true)+'</p>';
@@ -129,7 +129,7 @@
             <div class="newstielte">公司新闻 </div>
             <ul>
             </ul>
-            <a class="showhide" href="http://www.gdwse.com/products/category-2.html">查看全部&gt;&gt;</a>
+            <a class="showhide" href="/news">查看全部&gt;&gt;</a>
           </div>
           <script>
             // 获取公司新闻列表
@@ -138,7 +138,7 @@
             var html = '';
             $.each(newsList, function (key, value) {
                 html += '<li>';
-                html += '<a href="http://www.wse.com/news/'+value['id']+'" title="'+value['title']+'" target="_blank">';
+                html += '<a href="/news/'+value['id']+'" title="'+value['title']+'" target="_blank">';
                 html += '<div class="nc-right">'+value['title']+'</div>';
                 html += '<div class="nc-left">';
                 html += '<p>'+timestampToTime(value['create_time'], true)+'</p>';
