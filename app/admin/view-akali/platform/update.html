@@ -1,5 +1,5 @@
 {extend name="public/base_layui" /}
-{block name="title"}文章保存{/block}
+{block name="title"}平台保存{/block}
 {block name="load"}
 <!-- css -->
 <!-- js -->
@@ -12,53 +12,22 @@
             <table class="layui-table" lay-size="lg" lay-skin="line">
                 <thead>
                     <tr>
-                        <th colspan="2">文章添加</th>
+                        <th colspan="2">平台添加</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
-                        <td align="right"><strong>文章分类：</strong></td>
+                        <td width="150" align="right"><strong>平台标题：</strong></td>
                         <td>
-                            <div style="margin-bottom:10px;">
-                                <div class="layui-input-inline">
-                                    <select id="layui-select" name="article_cate_id">
-                                        <option value="">请选择</option>
-                                    </select>
-                                </div>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="title" placeholder="平台名称" style="width: 400px;">
+                            </div>
+                            <div class="layui-input-inline">
+                                <span style="color: red;">*</span> 将会成为平台唯一标题
                             </div>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td width="150" align="right"><strong>文章标题：</strong></td>
-                        <td>
-                            <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="title" placeholder="文章标题" style="width: 400px;">
-                            </div>
-                            <div class="layui-input-inline">
-                                <span style="color: red;">*</span> 将会成为文章唯一标题
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="150" align="right"><strong>简介：</strong></td>
-                        <td>
-                            <div class="layui-form-item layui-form-text">
-                                <div class="layui-input-inline">
-                                    <textarea name="description" placeholder="请输入内容，不能超过255个字符" class="layui-textarea" rows="5" cols="60"></textarea>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- <tr>
-                        <td width="150" align="right"><strong>作者：</strong></td>
-                        <td>
-                            <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="author" placeholder="作者">
-                            </div>
-                        </td>
-                    </tr> -->
                     <tr>
                         <td width="150" align="right"><strong>封面：</strong></td>
                         <td>
@@ -69,7 +38,14 @@
                                     <input type="hidden" name="image">
                                 </div>
                             </div>
-                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>排序：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="sort" placeholder="排序">
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -86,7 +62,7 @@
                         <td>    
                             <div class="layui-input-inline">
                                 <!-- 加载编辑器的容器 -->
-                                <script id="container" name="content" type="text/plain" style="height:150px;width:1000px;"></script>
+                                <script id="container" name="content" type="text/plain" style="height:300px;width:1000px;"></script>
                                 <!-- 配置文件 -->
                                 <script src="__COMMON__/lib/ueditor/ueditor.config.js" charset="utf-8"></script>
                                 <!-- 编辑器源码文件 -->
@@ -98,22 +74,6 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- <tr>
-                        <td width="150" align="right"><strong>链接：</strong></td>
-                        <td>
-                            <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="url" placeholder="链接">
-                            </div>
-                        </td>
-                    </tr> -->
-                    <!-- <tr>
-                        <td width="150" align="right"><strong>排序：</strong></td>
-                        <td>
-                            <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="sort" placeholder="排序">
-                            </div>
-                        </td>
-                    </tr> -->
                     
                     <tr>
                         <td align="right"></td>
@@ -131,38 +91,28 @@
 </div>
 
 <script>
-    
-    // 获取文章分类数据
-    var role = ajax_list('/article_cate');
-    console.log(role);
-    for (let value of role) {
-        $('#layui-select').append('<option value="' + value['id'] + '">' + value['cate_name'] + '</option>');
-    }
 
     // 获取文章数据
-    let data = ajax_read('/article');
+    let platform = ajax_read('/platform');
     
     layui.use(['form', 'layer', 'upload', 'jquery'], function () {
         $ = layui.jquery;
         var form = layui.form,
-            upload = layui.upload,
-            layer = layui.layer;
+            upload = layui.upload;
 
         // 赋值
-        form.val("form", data);
+        form.val("form", platform);
         form.val("form", {
-            'article_cate_id': data.cate.id,
+            'content': HtmlUtil.htmlDecode(platform.desc.content)
         });
         // 图片赋值
-        $('#upload-preview').attr('src', data.image);
+        $('#upload-preview').attr('src', platform.image);
         // 上传图片
         layui_upload_image(upload);
         // 更新数据
-        layui_ajax_update(form, '/article');
+        layui_ajax_update(form, '/platform');
 
     });
-
-    $('#container').html(HtmlUtil.htmlDecode(data.desc.content));
 
 </script>
 {/block}

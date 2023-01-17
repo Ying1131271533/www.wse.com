@@ -12,7 +12,7 @@
             <table class="layui-table" lay-size="lg" lay-skin="line">
                 <thead>
                     <tr>
-                        <th colspan="2">产品更新</th>
+                        <th colspan="2">产品添加</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,7 +72,6 @@
                         <td>
                             <div class="layui-input-inline">
                                 <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
-                                <input type="hidden" name="id">
                             </div>
                         </td>
                     </tr>
@@ -84,28 +83,20 @@
 
 <script>
 
-    // 获取文章数据
-    let product = ajax_read('/product');
-    
     layui.use(['form', 'layer', 'upload', 'jquery'], function () {
         $ = layui.jquery;
         var form = layui.form,
-            upload = layui.upload;
+            upload = layui.upload,
+            layer = layui.layer;
 
-        // 赋值
-        form.val("form", product);
-        form.val("form", {
-            'content': HtmlUtil.htmlDecode(product.desc.content)
-        });
-        // 图片赋值
-        $('#upload-preview').attr('src', product.image);
-        // 上传图片
+        // 建立编辑器
+        // layedit.build('layedit');
+        // 封面
         layui_upload_image(upload);
-        // 更新数据
-        layui_ajax_update(form, '/product');
+        // 保存
+        layui_ajax_save(form, '/product');
 
     });
 
-    $('#container').html(HtmlUtil.htmlDecode(product.desc.content));
 </script>
 {/block}

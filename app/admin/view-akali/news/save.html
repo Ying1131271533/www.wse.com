@@ -1,5 +1,5 @@
 {extend name="public/base_layui" /}
-{block name="title"}文章保存{/block}
+{block name="title"}新闻保存{/block}
 {block name="load"}
 <!-- css -->
 <!-- js -->
@@ -12,17 +12,17 @@
             <table class="layui-table" lay-size="lg" lay-skin="line">
                 <thead>
                     <tr>
-                        <th colspan="2">文章添加</th>
+                        <th colspan="2">新闻添加</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
-                        <td align="right"><strong>文章分类：</strong></td>
+                        <td align="right"><strong>新闻分类：</strong></td>
                         <td>
                             <div style="margin-bottom:10px;">
                                 <div class="layui-input-inline">
-                                    <select id="layui-select" name="article_cate_id">
+                                    <select id="layui-select" name="news_cate_id">
                                         <option value="">请选择</option>
                                     </select>
                                 </div>
@@ -31,13 +31,13 @@
                     </tr>
 
                     <tr>
-                        <td width="150" align="right"><strong>文章标题：</strong></td>
+                        <td width="150" align="right"><strong>新闻标题：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="title" placeholder="文章标题" style="width: 400px;">
+                                <input class="layui-input" type="text" name="title" placeholder="新闻名称" style="width: 400px;">
                             </div>
                             <div class="layui-input-inline">
-                                <span style="color: red;">*</span> 将会成为文章唯一标题
+                                <span style="color: red;">*</span> 将会成为新闻唯一标题
                             </div>
                         </td>
                     </tr>
@@ -69,7 +69,6 @@
                                     <input type="hidden" name="image">
                                 </div>
                             </div>
-                            
                         </td>
                     </tr>
                     <tr>
@@ -86,7 +85,7 @@
                         <td>    
                             <div class="layui-input-inline">
                                 <!-- 加载编辑器的容器 -->
-                                <script id="container" name="content" type="text/plain" style="height:150px;width:1000px;"></script>
+                                <script id="container" name="content" type="text/plain" style="height:300px;width:1000px;"></script>
                                 <!-- 配置文件 -->
                                 <script src="__COMMON__/lib/ueditor/ueditor.config.js" charset="utf-8"></script>
                                 <!-- 编辑器源码文件 -->
@@ -120,7 +119,6 @@
                         <td>
                             <div class="layui-input-inline">
                                 <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
-                                <input type="hidden" name="id">
                             </div>
                         </td>
                     </tr>
@@ -131,16 +129,13 @@
 </div>
 
 <script>
-    
-    // 获取文章分类数据
-    var role = ajax_list('/article_cate');
+        
+    // 获取新闻分类数据
+    var role = ajax_list('/news_cate');
     console.log(role);
     for (let value of role) {
         $('#layui-select').append('<option value="' + value['id'] + '">' + value['cate_name'] + '</option>');
     }
-
-    // 获取文章数据
-    let data = ajax_read('/article');
     
     layui.use(['form', 'layer', 'upload', 'jquery'], function () {
         $ = layui.jquery;
@@ -148,21 +143,14 @@
             upload = layui.upload,
             layer = layui.layer;
 
-        // 赋值
-        form.val("form", data);
-        form.val("form", {
-            'article_cate_id': data.cate.id,
-        });
-        // 图片赋值
-        $('#upload-preview').attr('src', data.image);
-        // 上传图片
+        // 建立编辑器
+        // layedit.build('layedit');
+        // 封面
         layui_upload_image(upload);
-        // 更新数据
-        layui_ajax_update(form, '/article');
+        // 保存
+        layui_ajax_save(form, '/news');
 
     });
-
-    $('#container').html(HtmlUtil.htmlDecode(data.desc.content));
 
 </script>
 {/block}

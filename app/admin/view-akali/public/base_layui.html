@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>{block name="title"}威速易{/block}</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+	<!-- <link href="__COMMON__/lib/layui/css/layui.css" rel="stylesheet"> -->
+	<link href="__LAYUIADMIN__/layui/css/layui.css" rel="stylesheet">
+	<link href="__LAYUIADMIN__/style/admin.css" rel="stylesheet">
+
+	<!-- 加载layuijs -->
+	<!-- <script src="__COMMON__/lib/layui/layui.js" charset="utf-8"></script> -->
+	<script src="__LAYUIADMIN__/layui/layui.js" charset="utf-8"></script>
+
+	<script src="__COMMON__/js/jquery.min.js" charset="utf-8"></script>
+	<script src="__COMMON__/js/jquery.cookie.js" charset="utf-8"></script>
+	<script src="__COMMON__/js/common.js" charset="utf-8"></script>
+	<script src="__COMMON__/js/ajax_admin.js" charset="utf-8"></script>
+	<script src="__COMMON__/js/ajax_layui.js" charset="utf-8"></script>
+	<script>
+		// 验证登录
+		isAdminLogin();
+	</script>
+	{block name="load"}{/block}
+</head>
+
+<body>
+	{block name="main"}主内容{/block}
+<body>
+
+</html>

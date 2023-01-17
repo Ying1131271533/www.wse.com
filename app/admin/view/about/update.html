@@ -152,7 +152,6 @@
         form.val("form", data);
         form.val("form", {
             'about_cate_id': data.cate.id,
-            'content': HtmlUtil.htmlDecode(data.desc.content)
         });
         // 图片赋值
         $('#upload-preview').attr('src', data.image);
@@ -162,6 +161,9 @@
         layui_ajax_update(form, '/about');
 
     });
+
+    
+    $('#container').html(HtmlUtil.htmlDecode(data.desc.content));
 
 </script>
 {/block}

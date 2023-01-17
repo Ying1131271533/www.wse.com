@@ -151,7 +151,7 @@ class Admin
         }
 
         // 重新生成密码
-        $data['password'] = md5($admin['password_salt'] . $data['password'] . $admin['password_salt']);
+        // $data['password'] = md5($admin['password_salt'] . $data['password'] . $admin['password_salt']);
 
         // 启动事务
         $admin->startTrans();

@@ -93,7 +93,7 @@
 <script>
 
     // 获取文章数据
-    let platform = ajax_read('/platform');
+    let data = ajax_read('/platform');
     
     layui.use(['form', 'layer', 'upload', 'jquery'], function () {
         $ = layui.jquery;
@@ -101,18 +101,18 @@
             upload = layui.upload;
 
         // 赋值
-        form.val("form", platform);
-        form.val("form", {
-            'content': HtmlUtil.htmlDecode(platform.desc.content)
-        });
+        form.val("form", data);
         // 图片赋值
-        $('#upload-preview').attr('src', platform.image);
+        $('#upload-preview').attr('src', data.image);
         // 上传图片
         layui_upload_image(upload);
         // 更新数据
         layui_ajax_update(form, '/platform');
 
     });
+
+    
+    $('#container').html(HtmlUtil.htmlDecode(data.desc.content));
 
 </script>
 {/block}

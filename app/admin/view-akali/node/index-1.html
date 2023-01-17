@@ -1,0 +1,381 @@
+{extend name="public/base_layui" /}
+{block name="title"}节点列表{/block}
+{block name="load"}
+<!-- css -->
+<link rel="stylesheet" href="__COMMON__/lib/eleTree/eleTree/eleTree.css" media="all">
+<link rel="stylesheet" href="__COMMON__/lib/eleTree/layui/css/layui.css" media="all">
+<style>
+    html,
+    body {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 15px 0px 30px 0px;
+        scroll-behavior: smooth;
+    }
+
+    .eleTree {
+        width: 350px;
+        height: 300px;
+        border: 1px solid #ccc;
+        overflow: hidden;
+    }
+
+    .red {
+        color: #ff4200;
+    }
+
+    .blue {
+        color: #01AAED;
+    }
+
+    a:hover {
+        color: #01AAED;
+    }
+
+    .nav {
+        position: fixed;
+        right: 25px;
+        top: calc(50% - 120px);
+        border: 1px solid #d2d2d2;
+        background-color: #fff;
+        z-index: 100000;
+    }
+
+    .nav-title {
+        background-color: #F8F8F8;
+        padding: 0 80px 0 20px;
+        margin: 0px;
+        height: 42px;
+        line-height: 42px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .nav ul {
+        padding: 10px 0px 10px 35px;
+    }
+
+    .nav ul li {
+        padding: 5px 0px;
+        list-style-type: decimal;
+    }
+
+    .nav ul a {
+        color: #333;
+        font-size: 14px;
+        text-decoration: none;
+    }
+</style>
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-md-offset0" style="margin-bottom:20px;">
+        <div class="layui-col-md9">
+            <a href="/view/node_save/0" class="layui-btn layui-btn-danger">添加节点</a>
+        </div>
+    </div>
+
+    <div class="layui-col-sm10 layui-col-md-offset1">
+        <div class="eleTree ele1" lay-filter="data1"></div>
+        <!-- <div class="eleTree ele2" lay-filter="data2"></div>
+        <div class="eleTree ele3" lay-filter="data3"></div>
+        <div class="eleTree ele4" lay-filter="data4"></div>
+        <div class="eleTree ele5" lay-filter="data5"></div>
+        <div class="eleTree ele6" lay-filter="data6"></div> -->
+    </div>
+</div>
+
+<div class="layui-fluid" id="node_save" style="display: none;">
+    <div class="layui-form" lay-filter="form">
+        <form action="" method="post" name="example">
+            <table class="layui-table" lay-size="lg" lay-skin="line">
+                <thead>
+                    <tr>
+                        <th colspan="2">节点添加</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="150" align="right"><strong>节点名称：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="name" placeholder="节点名称">
+                            </div>
+                            <div class="layui-input-inline">
+                                <span style="color: red;">*</span>  例如：admin/index
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>节点标题：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="title" placeholder="节点标题">
+                            </div>
+                            <div class="layui-input-inline">
+                                <span style="color: red;">*</span> 例如：管理员列表
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>视图节点：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="view" placeholder="视图标题">
+                            </div>
+                            <div class="layui-input-inline">
+                                例如：view/admin_index
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>层级：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="level" placeholder="层级">
+                            </div>
+                            <div class="layui-input-inline">
+                                层级 从0开始
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>图标：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="icon" placeholder="节点图标">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>排序：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="sort" placeholder="排序">
+                            </div>
+                            <div class="layui-input-inline">
+                                排序：数值越小位置越前，最大65535
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>显示：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" name="show" lay-skin="switch">
+                            </div>
+                            <div class="layui-input-inline">
+                                是否显示在左侧导航
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>刷新页面：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" name="refresh" lay-skin="switch">
+                            </div>
+                            <div class="layui-input-inline">
+                                左侧导航栏点击时，是否刷新页面
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right"><strong>状态：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="status" value="1" title="正常" checked>
+                                <input type="radio" name="status" value="0" title="禁止">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+                                <input type="hidden" name="parent_id" value="0">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    function update(id) {
+        //修改信息
+        layer.open({
+            id: '1',
+            type: 2,
+            title: '节点ID:' + id,
+            shadeClose: true,
+            shade: [0.8, '#000000'],
+            area: ['700px', '500px'],
+            content: "/view/node_update/" + id,
+        });
+    }
+
+    function del(obj, id) {
+        layui_form_delete(obj, '/node/' + id);
+    }
+</script>
+
+<script>
+
+    let nodeList = ajax_list('/node');
+    // console.log(nodeList);
+    
+    layui.config({
+        base: "__COMMON__/lib/eleTree/layui/lay/mymodules/"
+    }).use(['jquery', 'table', 'eleTree', 'code', 'form', 'slider'], function () {
+
+        var $ = layui.jquery;
+        var eleTree = layui.eleTree;
+        var table = layui.table;
+        var code = layui.code;
+
+        eleTree.render({
+            elem: '.ele1',
+            url: '/node',
+            method: 'get',
+            // where: { status: 1, show: 1 }, // 条件
+            contentType: "application/x-www-form-urlencoded",
+            headers: getToken(),
+            request: {
+                name: "title",
+                key: "id",
+                children: "child",
+                // checked: "checked",
+                // disabled: "disabled",
+                isLeaf: "isLeaf"
+            },
+            response: {
+                statusName: "code",
+                statusCode: 200,
+                dataName: "data"
+            },
+            done: function (res) {
+                // res即为你接口返回的信息。
+                console.log(res);
+            },
+            contextmenuList: ["add", "edit", "remove"],
+            // showLine: true, // 连接线
+            showCheckbox: true, // 选中框
+            expandOnClickNode: true
+        });
+
+
+        // 节点点击事件
+        eleTree.on("nodeClick(data1)", function (d) {
+            console.log(d.data);    // 点击节点对应的数据
+            console.log(d.event);   // event对象
+            console.log(d.node);    // 点击的dom节点
+            console.log(this);      // 与d.node相同
+        })
+        // input被选中事件
+        // eleTree.on("nodeChecked(data1)", function (d) {
+        //     console.log(d.data);    // 点击节点对应的数据
+        //     console.log(d.isChecked);   // input是否被选中
+        //     console.log(d.node);    // 点击的dom节点
+        //     console.log(this);      // input对应的dom
+        // })
+        // 鼠标右键事件
+        // eleTree.on("nodeContextmenu(data1)", function (d) {
+        //     console.log(d.data);    // 点击节点对应的数据
+        //     console.log(d.event);   // event对象
+        //     console.log(d.node);    // 点击的dom节点
+        //     console.log(this);      // 与d.node相同
+        // })
+        // 节点被拖拽事件
+        // eleTree.on("nodeDrag(data1)", function (d) {
+        //     console.log(d);
+        //     d.stop();           // 取消拖拽
+        //     console.log(d.current);    // 起始节点对应的dom和数据
+        //     console.log(d.target);   // 鼠标落点对应的dom和数据
+        //     console.log(this);      // 鼠标落点对应的dom
+        // })
+        // 添加子节点事件
+        eleTree.on("nodeAppend(data1)", function (d) {
+            console.log(d.data);    // 点击节点对应的数据
+            console.log(d.node);    // 点击的dom节点
+            console.log(this);      // 与d.node相同
+
+            layer.open({
+                type: 2,
+                title: '添加节点:',
+                shadeClose: true,
+                shade: [0.8, '#000000'],
+                area: ['700px', '500px'],
+                content: '/view/node_save?id=1&name=阿卡丽',
+            });
+            
+            layer.msg($('input[name="name"]').val());
+            // 自定义数据（异步操作必须调用之后才会添加数据，如果不需要修改值，可以不传参数）
+            d.setData({
+                key: 666,
+                label: "aaa"
+            })
+            console.log(d.newData); // 新增加的节点数据
+            
+            // d.stop();               // 取消添加
+        })
+        // 添加节点之前事件
+        eleTree.on("nodeInsertBefore(data1)", function (d) {
+            console.log(d.data);    // 点击节点对应的数据
+            console.log(d.node);    // 点击的dom节点
+            console.log(this);      // 与d.node相同
+            alert('之前');
+            d.stop();               // 取消添加
+            d.setData({             // 自定义数据（异步操作必须调用之后才会添加数据，如果不需要修改值，可以不传参数）
+                key: 666,
+                label: "aaa"
+            })
+            console.log(d.newData); // 新增加的节点数据
+        })
+        // 添加节点之后事件
+        eleTree.on("nodeInsertAfter(data1)", function (d) {
+            console.log(d.data);    // 点击节点对应的数据
+            console.log(d.node);    // 点击的dom节点
+            console.log(this);      // 与d.node相同
+            alert('之后');
+            d.stop();               // 取消添加
+            d.setData({             // 自定义数据（异步操作必须调用之后才会添加数据，如果不需要修改值，可以不传参数）
+                key: 666,
+                label: "aaa"
+            })
+            console.log(d.newData); // 新增加的节点数据
+        })
+        // 节点被编辑事件
+        eleTree.on("nodeEdit(data1)", function (d) {
+            console.log(d.data);        // 点击节点对应的数据
+            console.log(d.node);        // 点击的dom节点
+            console.log(d.value);       // 新输入的值
+            console.log(this);          // 与d.node相同
+            d.async();                  // 异步操作必须调用之后才会修改
+            d.stop();                   // 取消编辑
+        })
+        // 节点被删除事件
+        eleTree.on("nodeRemove(data1)", function (d) {
+            console.log(d.data);        // 点击节点对应的数据
+            console.log(d.node);        // 点击的dom节点
+            d.async();                  // 异步操作必须调用之后才会删除
+            d.stop();                   // 取消删除
+        })
+        // 自定义右键菜单回调
+        eleTree.on("nodeTest(data3)", function (d) {
+            console.group("自定义右键菜单回调nodeTest:")
+            console.log(d.data);    // 点击节点对于的数据
+            console.log(d.node);    // 点击的dom节点
+            console.log(this);      // 与d.node相同
+            console.groupEnd();
+        })
+    });
+</script>
+{/block}

@@ -23,7 +23,8 @@ return [
             'tag_prefix' => 'tag:',
             // 序列化机制 例如 ['serialize', 'unserialize']
             'serialize'  => [],
-        ],// redis缓存
+        ],
+        // redis缓存
         'redis'    => [
             // 驱动方式
             'type'     => 'redis',

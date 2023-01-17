@@ -1,0 +1,81 @@
+{extend name="public/base_layui" /}
+{block name="title"}角色更新{/block}
+{block name="load"}
+<!-- css -->
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+<div class="layui-fluid">
+    <div class="layui-form" lay-filter="form">
+        <form action="" method="post" name="example">
+            <table class="layui-table" lay-size="lg" lay-skin="line">
+                <thead>
+                    <tr>
+                        <th colspan="2">角色更新</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="150" align="right"><strong>角色名称：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="name" placeholder="角色名称">
+                            </div>
+                            <div class="layui-input-inline">
+                                <span style="color: red;">*</span> 例如：用户管理员
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>角色说明：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="explain" placeholder="角色说明">
+                            </div>
+                            <div class="layui-input-inline">
+                                <span style="color: red;">*</span> 例如：拥有管理用户权限
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right"><strong>状态：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="status" value="1" title="正常">
+                                <input type="radio" name="status" value="0" title="禁止">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+                                <input type="hidden" name="id">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script>
+    layui.use(['form', 'layer'], function () {
+
+        var form = layui.form;
+
+        // 表单赋值
+        var data = ajax_read('/role');
+        form.val("form", data);
+        // 取值
+        // data = form.val("form");
+
+        // 更新数据
+        layui_ajax_update(form, '/role');
+    });
+</script>
+{/block}

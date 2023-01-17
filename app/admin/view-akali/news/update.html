@@ -1,5 +1,5 @@
 {extend name="public/base_layui" /}
-{block name="title"}文章保存{/block}
+{block name="title"}保存{/block}
 {block name="load"}
 <!-- css -->
 <!-- js -->
@@ -12,17 +12,17 @@
             <table class="layui-table" lay-size="lg" lay-skin="line">
                 <thead>
                     <tr>
-                        <th colspan="2">文章添加</th>
+                        <th colspan="2">添加</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
-                        <td align="right"><strong>文章分类：</strong></td>
+                        <td align="right"><strong>分类：</strong></td>
                         <td>
                             <div style="margin-bottom:10px;">
                                 <div class="layui-input-inline">
-                                    <select id="layui-select" name="article_cate_id">
+                                    <select id="layui-select" name="news_cate_id">
                                         <option value="">请选择</option>
                                     </select>
                                 </div>
@@ -31,13 +31,13 @@
                     </tr>
 
                     <tr>
-                        <td width="150" align="right"><strong>文章标题：</strong></td>
+                        <td width="150" align="right"><strong>标题：</strong></td>
                         <td>
                             <div class="layui-input-inline">
-                                <input class="layui-input" type="text" name="title" placeholder="文章标题" style="width: 400px;">
+                                <input class="layui-input" type="text" name="title" placeholder="标题" style="width: 400px;">
                             </div>
                             <div class="layui-input-inline">
-                                <span style="color: red;">*</span> 将会成为文章唯一标题
+                                <span style="color: red;">*</span> 将会成为唯一标题
                             </div>
                         </td>
                     </tr>
@@ -132,15 +132,15 @@
 
 <script>
     
-    // 获取文章分类数据
-    var role = ajax_list('/article_cate');
+    // 获取分类数据
+    var role = ajax_list('/news_cate');
     console.log(role);
     for (let value of role) {
         $('#layui-select').append('<option value="' + value['id'] + '">' + value['cate_name'] + '</option>');
     }
 
-    // 获取文章数据
-    let data = ajax_read('/article');
+    // 获取数据
+    let data = ajax_read('/news');
     
     layui.use(['form', 'layer', 'upload', 'jquery'], function () {
         $ = layui.jquery;
@@ -151,18 +151,17 @@
         // 赋值
         form.val("form", data);
         form.val("form", {
-            'article_cate_id': data.cate.id,
+            'news_cate_id': data.cate.id,
+            'content': HtmlUtil.htmlDecode(data.desc.content)
         });
         // 图片赋值
         $('#upload-preview').attr('src', data.image);
         // 上传图片
         layui_upload_image(upload);
         // 更新数据
-        layui_ajax_update(form, '/article');
+        layui_ajax_update(form, '/news');
 
     });
-
-    $('#container').html(HtmlUtil.htmlDecode(data.desc.content));
 
 </script>
 {/block}

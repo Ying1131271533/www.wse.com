@@ -22,7 +22,7 @@
                         <td>
                             <div style="margin-bottom:10px;">
                                 <div class="layui-input-inline">
-                                    <select id="layui-select" name="article_cate_id">
+                                    <select id="layui-select" name="about_cate_id">
                                         <option value="">请选择</option>
                                     </select>
                                 </div>
@@ -133,14 +133,14 @@
 <script>
     
     // 获取文章分类数据
-    var role = ajax_list('/article_cate');
+    var role = ajax_list('/about_cate');
     console.log(role);
     for (let value of role) {
         $('#layui-select').append('<option value="' + value['id'] + '">' + value['cate_name'] + '</option>');
     }
 
     // 获取文章数据
-    let data = ajax_read('/article');
+    let data = ajax_read('/about');
     
     layui.use(['form', 'layer', 'upload', 'jquery'], function () {
         $ = layui.jquery;
@@ -151,18 +151,17 @@
         // 赋值
         form.val("form", data);
         form.val("form", {
-            'article_cate_id': data.cate.id,
+            'about_cate_id': data.cate.id,
+            'content': HtmlUtil.htmlDecode(data.desc.content)
         });
         // 图片赋值
         $('#upload-preview').attr('src', data.image);
         // 上传图片
         layui_upload_image(upload);
         // 更新数据
-        layui_ajax_update(form, '/article');
+        layui_ajax_update(form, '/about');
 
     });
-
-    $('#container').html(HtmlUtil.htmlDecode(data.desc.content));
 
 </script>
 {/block}
