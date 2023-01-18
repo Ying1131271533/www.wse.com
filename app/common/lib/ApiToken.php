@@ -2,27 +2,27 @@
 
 namespace app\common\lib;
 
-use app\common\logic\lib\Redis;
+use app\common\lib\facade\Redis;
 
 class ApiToken
 {
-    public static function getToken()
+    public function getToken()
     {
         return request()->header('access-token');
     }
 
-    public static function getUser()
+    public function getUser()
     {
-        return (new Redis)->get(config('redis.token_api') . self::getToken());
+        return Redis::get(config('redis.token_api') . $this->getToken());
     }
 
-    public static function getUid()
+    public function getUid()
     {
-        return self::getUser()['id'];
+        return $this->getUser()['id'];
     }
 
-    public static function deleteToken()
+    public function deleteToken()
     {
-        return (new Redis())->delete(config('redis.token_api') . self::getToken());
+        return Redis::delete(config('redis.token_api') . $this->getToken());
     }
 }

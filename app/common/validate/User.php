@@ -31,6 +31,25 @@ class User extends BaseValidate
 
     // 验证场景
     protected $scene = [
+        'read'        => ['id'],
+        'update'      => [
+            'id',
+            'username',
+            'password',
+            'company_name',
+            'contact',
+            'contact_type',
+            'email',
+            'telephone',
+            'invitation_code',
+            'license',
+            'idcard_front',
+            'idcard_back',
+        ],
+        'delete'      => [
+            'id',
+        ],
+        'index'       => ['page', 'limit', 'idReload', 'usernameReload'],
         'register'          => [
             'username',
             'password',

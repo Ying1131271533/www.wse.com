@@ -2,11 +2,11 @@
 namespace app\api\logic;
 
 use app\common\lib\exception\Fail;
-use app\common\lib\ApiToken;
 use app\common\lib\exception\Miss;
+use app\common\lib\facade\ApiToken;
 use app\common\lib\facade\Redis;
 use app\common\lib\Hashids;
-use app\common\logic\lib\Str;
+use app\common\lib\facade\Str;
 use app\common\model\User as UserModel;
 use Exception;
 
@@ -140,6 +140,9 @@ class User
     // 退出登录
     public static function logout()
     {
+        $id = ApiToken::getUid();
+        // 删除用户缓存
+        Redis::delete('user:' . $id);
         // 删除token
         ApiToken::deleteToken();
     }

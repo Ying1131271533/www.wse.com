@@ -62,11 +62,11 @@ return [
 
     // redis连接配置
     'redis'            => [
-        // 'host' => '127.0.0.1', // 草啊！这里不能写 localhost 啊！！！！！
+        'host' => '127.0.0.1', // 草啊！这里不能写 localhost 啊！！！！！
         // 'host'     => 'redis',
-        'host'     => '106.52.77.54',
+        // 'host'     => '106.52.77.54',
         // 'password' => '',
-        'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
+        // 'password' => 'Ym-12]i4!gDal^Jc/3@n.c^Mh',
         'port' => 6379,
         'select' => 0,
     ],

@@ -3,7 +3,7 @@ namespace app\admin\controller;
 
 use think\facade\View as FacadeView;
 use app\admin\logic\Auth;
-use app\common\lib\Token;
+use app\common\lib\facade\Token;
 
 class View
 {
@@ -237,17 +237,17 @@ class View
 
 	/************************ 客服 ************************/
 	
-    public function CustomerServiceIndex()
+    public function customerServiceIndex()
     {
         return FacadeView::fetch('customer_service/index');
     }
     
-    public function CustomerServiceSave()
+    public function customerServiceSave()
     {
         return FacadeView::fetch('customer_service/save');
     }
 
-    public function CustomerServiceUpdate()
+    public function customerServiceUpdate()
     {
         return FacadeView::fetch('customer_service/update');
     }
@@ -255,17 +255,17 @@ class View
 
 	/************************ 公司产品 ************************/
 	
-    public function ProductIndex()
+    public function productIndex()
     {
         return FacadeView::fetch('product/index');
     }
     
-    public function ProductSave()
+    public function productSave()
     {
         return FacadeView::fetch('product/save');
     }
 
-    public function ProductUpdate()
+    public function productUpdate()
     {
         return FacadeView::fetch('product/update');
     }
@@ -273,19 +273,38 @@ class View
 
 	/************************ 平台入驻 ************************/
 	
-    public function PlatformIndex()
+    public function platformIndex()
     {
         return FacadeView::fetch('platform/index');
     }
     
-    public function PlatformSave()
+    public function platformSave()
     {
         return FacadeView::fetch('platform/save');
     }
 
-    public function PlatformUpdate()
+    public function platformUpdate()
     {
         return FacadeView::fetch('platform/update');
+    }
+	
+	
+
+	/************************ 用户管理 ************************/
+	
+    public function userIndex()
+    {
+        return FacadeView::fetch('user/index');
+    }
+    
+    public function userSave()
+    {
+        return FacadeView::fetch('user/save');
+    }
+
+    public function userUpdate()
+    {
+        return FacadeView::fetch('user/update');
     }
 	
 }

@@ -1,22 +1,17 @@
 {extend name="public/base_layui" /}
-{block name="title"}新闻列表{/block}
+{block name="title"}用户列表{/block}
 {block name="load"}
 <!-- css -->
 <!-- js -->
 {/block}
 {block name="main"}
 <div class="layui-fluid">
-  <div class="layui-row layui-col-md-offset0" style="margin-bottom:20px;">
-    <div class="layui-col-md9">
-      <a href="/view/news_save" class="layui-btn layui-btn-danger">添加新闻</a>
-    </div>
-  </div>
   <div class="layui-form">
     <div class="layui-input-inline">
       <input class="layui-input" type="text" name="id" value="" placeholder="ID" id="idReload">
     </div>
     <div class="layui-input-inline">
-      <input class="layui-input" type="text" name="title" value="" placeholder="新闻标题" id="titleReload">
+      <input class="layui-input" type="text" name="username" value="" placeholder="用户名" id="usernameReload">
     </div>
     <div class="layui-input-inline">
       <button class="layui-btn" id="search" data-type="reload">搜索<button>
@@ -27,12 +22,13 @@
   <table id="table_akali" lay-filter="table_akali"></table>
 </div>
 
-<script type="text/html" id="cateTpl">
-  <p>{{ d.cate.cate_name }}</p>
+
+<script type="text/html" id="contactIpTpl">
+    <p>{{ d.contact_type}}：{{ d.contact }}</p>
 </script>
 
-<script type="text/html" id="imageTpl">
-  <img src="{{ d.image }}" width="70" style="cursor:pointer;" onclick="open_img(this)" />
+<script type="text/html" id="lastLoginTimeTpl">
+    <p>{{ d.last_login_time ? timestampToTime(d.last_login_time) : '--' }}</p>
 </script>
 
 <script type="text/html" id="createTimeTpl">
@@ -44,7 +40,7 @@
     data-id="{{ d.id }}"
     data-value="{{ d.status }}"
     data-field="status"
-    data-db="news"
+    data-db="user"
       class="layui-btn layui-btn-sm {{ d.status == 1 ? '' : 'layui-btn-danger' }}">
       {{ d.status == 1 ? '开启' : '关闭' }}
     </a>
@@ -54,6 +50,10 @@
     <button class="layui-btn layui-btn-sm" lay-event="update">
 			<i class="layui-icon">&#xe642;</i>
 			修改
+		</button>
+    <button class="layui-btn layui-btn-sm" lay-event="password">
+			<i class="layui-icon">&#xe683;</i>
+			修改密码
 		</button>
     <button class="layui-btn layui-btn-sm layui-bg-black" lay-event="delete">
 			<i class="layui-icon">&#xe640;</i>
@@ -72,20 +72,22 @@
     // 第一个实例
     var ins1 = table.render({
       elem: '#table_akali'
-      , url: '/news' // 数据接口
+      , url: '/user' //数据接口
       , method: 'GET'  // 可选项。HTTP类型
       , headers: { 'access-token': getToken() }
-      , page: true // 开启分页
+      , page: true //开启分页
       , id: 'table_akali'
       , limit: 20
       , limits: [20, 100, 200, 500]
       , size: 'lg'
       , cols: [[ //表头
         { field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left' }
-        , { field: 'cate.cate_name', title: '新闻分类', width: 100, templet: '#cateTpl' }
-        , { field: 'title', title: '新闻标题', width: 400 }
-        , { field: 'image', title: '封面', width: 150, templet: '#imageTpl' }
-        , { field: 'view', title: '浏览次数', width: 120, sort: true }
+        , { field: 'username', title: '用户名称', width: 120 }
+        , { field: 'contact', title: '联系方式', width: 200 , templet: '#contactIpTpl' }
+        , { field: 'telephone', title: '联系电话', width: 150 }
+        , { field: 'login_number', title: '登录次数', width: 110, sort: true, templet: '#loginNumberTpl' }
+        , { field: 'last_login_ip', title: '上次登录ip', width: 150, templet: '#lastLoginIpTpl' }
+        , { field: 'last_login_time', title: '上次登录时间', width: 180, sort: true, templet: '#lastLoginTimeTpl' }
         , { field: 'create_time', title: '创建时间', width: 180, sort: true, templet: '#createTimeTpl' }
         , { field: 'status', title: '状态', width: 90, templet: '#statusTpl', fixed: 'right' }
         , { field: 'edit', title: '操作', minwidth: 160, templet: '#operationTpl', fixed: 'right' }
@@ -97,13 +99,13 @@
     var $ = layui.$, active = {
       reload: function () {
         var idReload = $('#idReload');
-        var titleReload = $('#titleReload');
+        var usernameReload = $('#usernameReload');
 
         //执行重载
         table.reload('table_akali', {
           where: {
             idReload: idReload.val(),
-            titleReload: titleReload.val(),
+            usernameReload: usernameReload.val(),
           }
         });
       }
@@ -140,16 +142,27 @@
       if (layEvent === 'update') {
         layer.open({
           type: 2,
-          title: '新闻更新',
-          content: '/view/news_update?id=' + data.id,
+          title: '用户更新',
+          content: '/view/user_update?id=' + data.id,
           shadeClose: true,
           shade: [0.8, '#000000'],
-          area: ['1280px', '600px'],
+          area: ['1000px', '600px'],
+        });
+
+        // 修改密码
+      } else if (layEvent === 'password') {
+        layer.open({
+          type: 2,
+          title: '修改密码',
+          content: '/view/user_password?id=' + data.id,
+          shadeClose: true,
+          shade: [0.8, '#000000'],
+          area: ['500px', '300px'],
         });
 
         // 删除
-      }else if (layEvent === 'delete') {
-        layui_form_delete(this, '/news/' + data.id);
+      } else if (layEvent === 'delete') {
+        layui_form_delete(this, '/user/' + data.id);
       }
     });
   });

@@ -12,8 +12,7 @@ class User extends BaseModel
 
     public static function findUserById(int $id)
     {
-        return self::with('roles')
-        ->withoutField([
+        return self::withoutField([
             'password',
             'password_salt',
             'last_login_token',

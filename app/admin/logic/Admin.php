@@ -4,9 +4,10 @@ namespace app\admin\logic;
 use app\common\lib\exception\Fail;
 use app\common\lib\exception\Forbidden;
 use app\common\lib\exception\Miss;
-use app\common\lib\Token;
+use app\common\lib\facade\Redis as FacadeRedis;
+use app\common\lib\facade\Str;
+use app\common\lib\facade\Token;
 use app\common\logic\lib\Redis;
-use app\common\logic\lib\Str;
 use app\common\model\Admin as AdminModel;
 use Exception;
 
@@ -64,13 +65,15 @@ class Admin
 
         // 获取权限
         if (config('auth.type') == 2 && !in_array($admin['username'], config('auth.super'))) {
-            $auth   = new Auth;
-            $access = $auth->getAccess($admin['id']);
+            $auth           = new Auth;
+            $access         = $auth->getAccess($admin['id']);
             $data['access'] = $access;
         }
-        
+
         // 保存token，设置过期时间：一个月
         $this->redis->set(config('redis.token_pre') . $token, $data, cache_time('one_month'));
+        // 下次要升级缓存方式
+        // $this->redis->set('admin:' . $admin['id'] . config('redis.access_token') . $token, $data, cache_time('one_month'));
 
         // 返回token
         return $token;
@@ -79,6 +82,9 @@ class Admin
     // 退出登录
     public function logout()
     {
+        $id = Token::getUid();
+        // 删除管理员缓存
+        $this->redis->drdelete('admin:' . $id);
         // 删除token
         Token::deleteToken();
     }
@@ -89,7 +95,7 @@ class Admin
         $where                                       = [];
         !empty($data['idReload']) and $where[]       = ['id', '=', $data['idReload']];
         !empty($data['usernameReload']) and $where[] = ['username', 'like', "%{$data['usernameReload']}%"];
-        $adminList = AdminModel::getPageList(
+        $adminList                                   = AdminModel::getPageList(
             $data['page'],
             $data['limit'],
             $where,
@@ -103,7 +109,7 @@ class Admin
         // 用户是否已经存在
         $admin = AdminModel::find($data['username']);
         if (!empty($admin)) {
-            throw new Exception('用户名已被注册！');
+            throw new Exception('用户名已存在！');
         }
 
         // 生成5个字符长度的盐
@@ -157,6 +163,8 @@ class Admin
         $admin->startTrans();
 
         try {
+            // redis开启事务
+            $this->redis->multi();
 
             // 删除原来的角色数据
             if (!$admin['roles']->isEmpty()) {
@@ -184,11 +192,16 @@ class Admin
 
             }
 
+            // 删除管理员信息的缓存
+            $this->redis->drdelete('admin:' . $admin['id']);
+
             // 提交事务
             $admin->commit();
+            $this->redis->exec();
             return $admin;
         } catch (Exception $e) {
             $admin->rollback();
+            $this->redis->discard();
             throw new Fail($e->getMessage());
         }
     }
@@ -208,29 +221,30 @@ class Admin
         // 明文密码前后加盐，生成密码
         $data['password'] = md5($salt . $data['password'] . $salt);
 
-        // 保存
-        $result = $admin->save($data);
-        if (empty($result)) {
-            throw new Fail('更新失败');
-        }
-    }
+        // 启动事务
+        $admin->startTrans();
 
-    public function changeStatus($id, $value)
-    {
-        $admin = AdminModel::find($id);
-        if (empty($admin)) {
-            throw new Miss('管理员不存在');
-        }
+        try {
+            // redis开启事务
+            $this->redis->multi();
 
-        $result = $admin->save(['status' => $value]);
-        if (empty($result)) {
-            throw new Fail('更新失败');
-        }
+            // 保存
+            $result = $admin->save($data);
+            if (empty($result)) {
+                throw new Fail('更新失败');
+            }
 
-        return [
-            'id'    => $admin['id'],
-            'value' => $admin['status'],
-        ];
+            // 删除管理员信息的缓存
+            $this->redis->drdelete('admin:' . $admin['id']);
+
+            // 提交事务
+            $admin->commit();
+            $this->redis->exec();
+        } catch (Exception $e) {
+            $admin->rollback();
+            $this->redis->discard();
+            throw new Fail($e->getMessage());
+        }
     }
 
     public function delete($id)
@@ -241,9 +255,13 @@ class Admin
             throw new Miss('该用户不存在');
         }
 
-        // 开启事务
+        // 启动事务
         $admin->startTrans();
+
         try {
+            // redis开启事务
+            $this->redis->multi();
+
             // 删除角色数据
             if (!$admin['roles']->isEmpty()) {
                 $rolesResult = $admin->roles()->detach();
@@ -258,17 +276,16 @@ class Admin
                 throw new Exception('管理员删除失败');
             }
 
+            // 删除管理员信息的缓存
+            $this->redis->drdelete('admin:' . $admin['id']);
+
+            // 提交事务
             $admin->commit();
+            $this->redis->exec();
         } catch (Exception $e) {
             $admin->rollback();
+            $this->redis->discard();
             throw new Fail($e->getMessage());
         }
-
-        // 删除用户，没想到不用cache(true)都能删除缓存
-        // $result = $admin->delete();
-        // if (!$result) {
-        //     throw new Fail('删除失败！');
-        // }
-
     }
 }

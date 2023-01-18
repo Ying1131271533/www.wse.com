@@ -2,7 +2,7 @@
 namespace app\admin\controller;
 
 use app\admin\logic\Auth;
-use app\common\lib\Token;
+use app\common\lib\facade\Token;
 
 class Home
 {

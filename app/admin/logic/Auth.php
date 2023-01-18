@@ -1,7 +1,7 @@
 <?php
 namespace app\admin\logic;
 
-use app\common\lib\Token;
+use app\common\lib\facade\Token;
 use think\facade\Db;
 
 class Auth

@@ -117,6 +117,16 @@ Route::group('view', function(){
     Route::rule('platform_update', 'View/PlatformUpdate', 'GET');
 });
 
+// 用户
+Route::group('view', function(){
+    // 列表
+    Route::rule('user_index', 'View/userIndex', 'GET');
+    // 更新
+    Route::rule('user_update', 'View/userUpdate', 'GET');
+    // 更改密码
+    Route::rule('user_password', 'View/userPassword', 'GET');
+});
+
 
 
 

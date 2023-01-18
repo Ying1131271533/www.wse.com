@@ -7,7 +7,7 @@ use app\common\lib\exception\Fail;
 use app\common\lib\exception\Forbidden;
 use app\common\lib\exception\Jump;
 use app\common\lib\exception\Miss;
-use app\common\lib\Token;
+use app\common\lib\facade\Token;
 use app\common\model\Admin as AdminModel;
 
 class IsLogin extends BaseController
@@ -28,6 +28,8 @@ class IsLogin extends BaseController
 
         // 找到管理员
         $admin = AdminModel::cache('admin:' . $admin['id'], cache_time())->find($admin['id']);
+        // 下次要升级缓存方式
+        // $admin = AdminModel::cache('admin:' . $admin['id'] . config('redis.info'), cache_time())->find($admin['id']);
         if (empty($admin)) {
             Token::deleteToken();
             throw new Forbidden('该管理员已被删除');

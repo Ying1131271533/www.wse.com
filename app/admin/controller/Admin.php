@@ -2,27 +2,26 @@
 namespace app\admin\controller;
 
 use app\admin\logic\Admin as AdminLogic;
-use app\BaseController;
 use app\common\lib\exception\Miss;
-use app\common\lib\Token;
+use app\common\lib\facade\Token;
 use app\common\model\Admin as AdminModel;
+use app\Request;
 use think\App;
 
-class Admin extends BaseController
+class Admin
 {
     protected $logic = null;
 
-    public function __construct(App $app)
+    public function __construct()
     {
         // 控制器初始化
-        parent::__construct($app);
         $this->logic = new AdminLogic();
     }
 
     // 登录
-    public function login()
+    public function login(Request $request)
     {
-        $params = $this->request->params;
+        $params = $request->params;
         $token  = $this->logic->login($params);
         return success(['token' => $token]);
     }
@@ -41,11 +40,11 @@ class Admin extends BaseController
     }
 
     // 列表
-    public function index()
+    public function index(Request $request)
     {
-        $params          = $this->request->params;
-        $params['page']  = $this->request->page;
-        $params['limit'] = $this->request->limit;
+        $params          = $request->params;
+        $params['page']  = $request->page;
+        $params['limit'] = $request->limit;
         $adminList       = $this->logic->getAdminList($params);
         return layui($adminList);
     }
@@ -59,25 +58,25 @@ class Admin extends BaseController
     }
 
     // 添加
-    public function save()
+    public function save(Request $request)
     {
-        $params = $this->request->params;
+        $params = $request->params;
         $this->logic->save($params);
         return success('保存成功');
     }
 
     // 更新
-    public function update()
+    public function update(Request $request)
     {
-        $params = $this->request->params;
+        $params = $request->params;
         $this->logic->update($params);
         return success('更新成功');
     }
 
     // 更新密码
-    public function password()
+    public function password(Request $request)
     {
-        $params = $this->request->params;
+        $params = $request->params;
         $this->logic->updatePassword($params);
         return success('更新成功');
     }

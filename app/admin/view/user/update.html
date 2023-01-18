@@ -1,0 +1,201 @@
+{extend name="public/base_layui" /}
+{block name="title"}用户修改{/block}
+{block name="load"}
+<!-- css -->
+<!-- js -->
+{/block}
+<!-- 主体内容 -->
+{block name="main"}
+<div class="layui-fluid">
+    <div class="layui-form" lay-filter="form">
+        <form action="" method="post" name="example">
+            <table class="layui-table" lay-size="lg" lay-skin="line">
+                <thead>
+                    <tr>
+                        <th colspan="2">用户修改</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="150" align="right"><strong>用户名称：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="username" placeholder="用户名"
+                                    lay-filter="username">
+                            </div>
+                            <div class="layui-input-inline">
+                                <span style="color: red;">*</span> 将会成为用户唯一的登入名
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>公司名或者个人姓名：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="company_name" placeholder="公司名或者个人姓名">
+                            </div>
+                            <div class="layui-input-inline">
+                                公司名或者个人姓名
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>联系方式类型：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="contact_type" value="qq" title="QQ">
+                                <input type="radio" name="contact_type" value="taobao" title="淘宝">
+                                <input type="radio" name="contact_type" value="facebook" title="FaceBook">
+                                <input type="radio" name="contact_type" value="line" title="LINE">
+                                <input type="radio" name="contact_type" value="wechat" title="微信">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>联系方式：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="contact" placeholder="联系方式">
+                            </div>
+                            <div class="layui-input-inline">
+                                联系方式
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>联系电话：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="telephone" placeholder="联系电话">
+                            </div>
+                            <div class="layui-input-inline">
+                                联系电话
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="150" align="right"><strong>邀请用户id：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" type="text" name="invitation_user_id" placeholder="邀请用户id">
+                            </div>
+                            <div class="layui-input-inline">
+                                邀请用户id
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width="150" align="right"><strong>营业执照：</strong></td>
+                        <td>
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="license-img">上传图片</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" id="license-preview">
+                                    <input type="hidden" name="license">
+                                </div>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width="150" align="right"><strong>身份证正面照：</strong></td>
+                        <td>
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="idcard_front-img">上传图片</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" id="idcard_front-preview">
+                                    <input type="hidden" name="idcard_front">
+                                </div>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width="150" align="right"><strong>身份证反面照：</strong></td>
+                        <td>
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="idcard_back-img">上传图片</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" id="idcard_back-preview">
+                                    <input type="hidden" name="idcard_back">
+                                </div>
+                            </div>
+                            
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right"><strong>登录状态：</strong></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="status" value="1" title="正常">
+                                <input type="radio" name="status" value="0" title="禁止">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"></td>
+                        <td>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+                                <input type="hidden" name="id">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+
+    // 获取用户数据
+    let data = ajax_read('/user');
+
+    // layui
+    layui.use(['form', 'layer', 'upload'], function () {
+
+        $ = layui.jquery;
+        var form = layui.form,
+            upload = layui.upload,
+            layer = layui.layer;
+
+        // 赋值
+        form.val("form", data);
+        // 图片赋值
+        $('#license-preview').attr('src', data.license);
+        $('#idcard_front-preview').attr('src', data.idcard_front);
+        $('#idcard_back-preview').attr('src', data.idcard_back);
+
+        layui_upload_image(upload, 'license', 'license');
+        layui_upload_image(upload, 'license', 'idcard_front');
+        layui_upload_image(upload, 'license', 'idcard_back');
+        
+        // 取值
+        // data = form.val("form");
+
+        // 自定义验证规则
+        form.verify({
+            username: function (value) {
+                if (empty(value)) {
+                    return '用户不能为空！';
+                }
+                if (value.length < 2 || value.length > 25) {
+                    return '用户为2到25个字符！';
+                }
+            }
+        });
+
+        // 更新数据
+        layui_ajax_update(form, '/user');
+
+    });
+
+</script>
+{/block}

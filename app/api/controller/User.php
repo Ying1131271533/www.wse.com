@@ -2,7 +2,8 @@
 namespace app\api\controller;
 
 use app\api\logic\User as UserLogic;
-use app\common\lib\ApiToken;
+use app\common\lib\facade\ApiToken;
+use app\common\lib\facade\Redis;
 use app\common\model\User as UserModel;
 use app\Request;
 
@@ -40,7 +41,7 @@ class User
     // 用户中心
     public function index()
     {
-
+        
     }
 
     // 使用token获取用户信息

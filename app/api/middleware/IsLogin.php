@@ -4,8 +4,8 @@ namespace app\api\middleware;
 
 use app\common\lib\exception\Forbidden;
 use app\common\lib\exception\Jump;
-use app\common\lib\ApiToken;
-use app\common\model\Admin as AdminModel;
+use app\common\lib\facade\ApiToken;
+use app\common\model\User as UserModel;
 
 class IsLogin
 {
@@ -24,7 +24,7 @@ class IsLogin
         }
 
         // 找到用户
-        $user = AdminModel::cache('user:' . $user['id'], cache_time())->find($user['id']);
+        $user = UserModel::cache('user:' . $user['id'], cache_time())->find($user['id']);
         if (empty($user)) {
             ApiToken::deleteToken();
             throw new Forbidden('该用户已被删除');
@@ -36,7 +36,7 @@ class IsLogin
         // 账号异地登录
         // 异地登录会生成新的token，同时删除旧的token缓存
         // 那么当前上次登录的token就会直接过期，需要重新登录
-        // $user = (new Admin())->findByUserNameWithStatus($user['username']);
+        // $user = (new User())->findByUserNameWithStatus($user['username']);
         // if($user['last_login_token'] != $token){
         //     return $this->show(
         //         config('status.goto'),
