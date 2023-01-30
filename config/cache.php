@@ -35,7 +35,7 @@ return [
             // 端口
             'port'     => config('app.redis.port'),
             // 库
-            'select'   => 0,
+            'select'   => 1,
             // 过期时间
             // 'expire'   => null,
             'expire'   => cache_time('one_month'),
