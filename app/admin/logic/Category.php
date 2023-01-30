@@ -92,7 +92,7 @@ class Category
                 throw new Fail('删除失败');
             }
 
-            // 删除图片，删个毛线 软删除就别删除图片了S
+            // 删除图片，删个毛线 软删除就别删除图片了
             // del_img($category['image']);
 
             // 删除api那边的缓存
