@@ -17,6 +17,8 @@ Route::group('admin', function(){
     Route::rule('logout', 'Admin/logout', 'POST');
     // 获取用户
     Route::rule('get_admin_by_token', 'Admin/getAdminByToken', 'POST');
+    // 获取用户拥有的显示节点
+    Route::rule('get_show_node', 'Admin/getShowNode', 'GET');
 })->middleware(app\admin\middleware\IsLogin::class);
 
 // 管理员

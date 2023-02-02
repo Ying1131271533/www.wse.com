@@ -430,3 +430,46 @@ function get_captcha(id = 'captcha_img', uniqid = 'uniqid') {
     });
 
 }
+
+
+
+/**
+ * @description:  オラ!オラ!オラ!オラ!⎛⎝≥⏝⏝≤⎛⎝
+ * @author: 神织知更
+ * @time: 2022/04/06 15:57
+ *
+ * 表单的input分配值 未完成
+ *
+ * @param  obj      data    数据
+ */
+function input_assign_value(data = null) {
+    for (let key in data) {
+        var length = $('#' + key).length;
+        if (length > 0) {
+            if ($('#' + key).is("input")) {
+                $('#' + key).val(data[key]);
+                var type = $('#' + key).attr('type');
+                if (type == 'radio' && key == 'status') {
+                    $('input[name="status"][value="' + data[key] + '"]').attr('checked', true);
+                }
+            }
+            if ($('#' + key).is("select")) {
+
+            }
+            if ($('#' + key).is("textarea")) {
+
+            }
+        };
+    }
+
+}
+
+// 赋值
+function assign(data) {
+    $.each(data, function (key, value) {
+        console.log('#assign-' + key);
+        if ($('#assign-' + key).length > 0) {
+            $('#assign-' + key).text(value);
+        }
+    });
+}

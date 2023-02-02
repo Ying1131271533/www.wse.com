@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 
 use app\admin\logic\Admin as AdminLogic;
+use app\admin\logic\Auth;
 use app\common\lib\exception\Miss;
 use app\common\lib\facade\Token;
 use app\common\model\Admin as AdminModel;
@@ -93,5 +94,15 @@ class Admin
     {
         $user = Token::getUser();
         return success($user);
+    }
+
+    // 获取用户拥有的显示节点
+    public function getShowNode()
+    {
+        $admin = Token::getUser();
+        $auth = new Auth();
+        $showNode = $auth->getShowNode($admin);
+        $showNode = get_child($showNode->toArray());
+        return success($showNode);
     }
 }
