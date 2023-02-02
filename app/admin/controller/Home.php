@@ -52,6 +52,8 @@ class Home
                 ['磁盘总容量', get_disk_total(disk_total_space('.'))],
             ],
         ];
+        
+        // 返回数据
         return success($data);
     }
 }
