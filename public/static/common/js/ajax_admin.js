@@ -14,7 +14,7 @@ function ajax_change_status(obj) {
     var db = $(obj).attr("data-db"); // 表名
 
     $.ajax({
-        type: "PUT",
+        type: "PATCH",
         contentType: "application/x-www-form-urlencoded",
         url: '/ajax/update_field_value',
         data: {
@@ -54,7 +54,7 @@ function ajax_change_status(obj) {
 function ajax_field_value(id, field, value, db) {
 
     $.ajax({
-        type: "PUT",
+        type: "PATCH",
         contentType: "application/x-www-form-urlencoded",
         url: '/ajax/update_field_value',
         data: {
