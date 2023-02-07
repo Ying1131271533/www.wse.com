@@ -35,4 +35,10 @@ Route::group('admin', function(){
     Route::rule(':id', 'Admin/delete', 'DELETE');
     // 更新密码
     Route::rule('password', 'Admin/password', 'PUT');
+
+
+    // 管理员信息 这种路由命名挺有意思
+    Route::rule(':id/info', 'Admin/info', 'GET');
+    // 管理员状态
+    Route::rule(':id/status', 'Admin/status', 'GET');
 })->middleware([app\admin\middleware\IsLogin::class, app\admin\middleware\CheckAuth::class]);
