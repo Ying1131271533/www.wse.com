@@ -83,6 +83,7 @@
         , { field: 'sort', title: '排序', width: 120, sort: true }
         , { field: 'create_time', title: '创建时间', width: 180, sort: true, templet: '#createTimeTpl' }
         // 下面这里的ajax修改状态，在changeFieldValue那边的redis匹配不到key，删除不了缓存
+        // 因为轮播图那边用的id是分类的id，而不是自己的id
         // , { field: 'status', title: '状态', width: 90, templet: '#statusTpl', fixed: 'right' }
         , { field: 'edit', title: '操作', minwidth: 160, templet: '#operationTpl', fixed: 'right' }
       ]]
